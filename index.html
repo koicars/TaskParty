@@ -1,0 +1,4088 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Projects</title>
+
+<!-- Home screen / "Add to Home Screen" support -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Projects">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#f5f5f7">
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
+<link rel="icon" href="data:image/png;base64,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">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   PROJECTS — a clean, Apple-inspired productivity dashboard.
+   Soft neutral surfaces, restrained accent colors, generous
+   whitespace, activity-ring progress, glass modal.
+   ========================================================= */
+
+:root{
+  --bg:            #f5f5f7;
+  --surface:       #ffffff;
+  --surface-2:     #fbfbfd;
+  --ink:           #1d1d1f;
+  --ink-soft:      #6e6e73;
+  --ink-faint:     #a1a1a6;
+  --hairline:      rgba(0,0,0,.07);
+  --hairline-soft: rgba(0,0,0,.045);
+
+  --blue:    #0a84ff;
+  --green:   #30d158;
+  --pink:    #ff375f;
+  --gray:    #8e8e93;
+  --orange:  #ff9f0a;
+  --purple:  #bf5af2;
+
+  --radius-xl: 26px;
+  --radius-lg: 20px;
+  --radius-md: 14px;
+  --radius-sm: 10px;
+
+  --ease: cubic-bezier(.28,.11,.32,1);
+  --dur: 260ms;
+
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+body{
+  margin:0;
+  font-family: var(--font);
+  color: var(--ink);
+  background: var(--bg);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+/* ---------- ambient background blobs ---------- */
+.bg-blobs{ position:fixed; inset:0; z-index:0; overflow:hidden; pointer-events:none; }
+.blob{
+  position:absolute;
+  border-radius:50%;
+  filter: blur(90px);
+  opacity:.35;
+  animation: drift 22s ease-in-out infinite;
+}
+.blob.b1{ width:520px; height:520px; background: radial-gradient(circle, #7dc4ff, transparent 70%); top:-160px; left:-120px; animation-duration: 26s; }
+.blob.b2{ width:460px; height:460px; background: radial-gradient(circle, #ffb0c9, transparent 70%); top:120px; right:-140px; animation-duration: 30s; animation-delay: -6s; }
+.blob.b3{ width:420px; height:420px; background: radial-gradient(circle, #d0b3ff, transparent 70%); bottom:-160px; left:30%; animation-duration: 24s; animation-delay: -12s; }
+@keyframes drift{
+  0%,100%{ transform: translate(0,0) scale(1); }
+  50%{ transform: translate(30px,-24px) scale(1.06); }
+}
+@media (prefers-reduced-motion: reduce){ .blob{ animation:none; } }
+
+/* ---------- layout shell ---------- */
+.app{
+  position:relative; z-index:1;
+  max-width:1180px;
+  margin:0 auto;
+  padding: 48px 28px 90px;
+}
+
+.title-plate{
+  display:flex; align-items:flex-end; justify-content:space-between;
+  gap:20px; flex-wrap:wrap;
+  margin-bottom:34px;
+  animation: fadeUp 520ms var(--ease) both;
+}
+@keyframes fadeUp{ from{ opacity:0; transform:translateY(10px);} to{ opacity:1; transform:translateY(0);} }
+.title-block h1{
+  font-size: 34px;
+  font-weight:800;
+  letter-spacing:-0.02em;
+  margin:0 0 6px;
+  color: var(--ink);
+}
+.title-block p{ margin:0; font-size:15px; color: var(--ink-soft); font-weight:500; }
+
+.header-actions{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+
+.save-indicator{
+  display:flex; align-items:center; gap:8px;
+  font-size:13px; font-weight:600;
+  color: var(--ink-soft);
+  background: rgba(255,255,255,.7);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  padding: 9px 16px;
+}
+.save-dot{ width:7px; height:7px; border-radius:50%; background: var(--green); box-shadow: 0 0 0 3px rgba(48,209,88,.18); animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse{ 0%,100%{ opacity:1; } 50%{ opacity:.35; } }
+
+/* ---------- cloud sync (Firebase) ---------- */
+.sync-btn{
+  display:flex; align-items:center; gap:7px;
+  font-family: var(--font); font-size:13px; font-weight:600;
+  color: var(--ink-soft);
+  background: rgba(255,255,255,.7);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  padding: 9px 14px;
+  cursor:pointer;
+  transition: background 140ms var(--ease), color 140ms var(--ease);
+}
+.sync-btn:hover{ background: rgba(255,255,255,.95); }
+.sync-btn.connected{ color: var(--blue); }
+.sync-dot{ width:7px; height:7px; border-radius:50%; background: var(--ink-faint); }
+.sync-btn.connected .sync-dot{ background: var(--blue); box-shadow: 0 0 0 3px rgba(10,132,255,.18); }
+
+.sync-popover{
+  position:fixed; z-index:120;
+  width:min(300px, calc(100vw - 24px));
+  background: rgba(255,255,255,.96);
+  backdrop-filter: blur(24px) saturate(1.4);
+  border: 1px solid var(--hairline);
+  border-radius: 18px;
+  box-shadow: 0 20px 50px rgba(0,0,0,.22);
+  padding:16px;
+  display:none;
+  opacity:0; transform: scale(.94) translateY(-4px);
+  transition: opacity 160ms var(--ease), transform 160ms var(--ease);
+}
+.sync-popover.open{ display:block; opacity:1; transform: scale(1) translateY(0); }
+.sync-desc{ font-size:12.5px; line-height:1.6; color: var(--ink-soft); margin:0 0 10px; }
+.sync-input{
+  width:100%; border:1px solid var(--hairline); outline:none; background: var(--surface-2);
+  font-family: var(--font); font-size:13.5px; color: var(--ink); border-radius:10px; padding:10px 12px;
+  margin-bottom:10px;
+  transition: border-color 140ms var(--ease);
+}
+.sync-input:focus{ border-color: var(--blue); }
+.sync-actions{ display:flex; justify-content:flex-end; gap:8px; }
+.sync-action-btn{
+  border:none; cursor:pointer; font-family: var(--font); font-size:13px; font-weight:600;
+  padding:9px 15px; border-radius:10px;
+  transition: background 140ms var(--ease), transform 140ms var(--ease);
+}
+.sync-disconnect{ background: rgba(0,0,0,.06); color: var(--ink-soft); }
+.sync-disconnect:hover{ background: rgba(0,0,0,.1); }
+.sync-connect{ background: var(--blue); color:#fff; }
+.sync-connect:hover{ transform: translateY(-1px); background:#0670e0; }
+.sync-status{ font-size:11.5px; color: var(--ink-faint); margin-top:10px; min-height:14px; }
+
+.sync-loading-overlay{
+  position:fixed; inset:0; z-index:130;
+  display:none; align-items:center; justify-content:center;
+  background: rgba(245,245,247,.88);
+  backdrop-filter: blur(6px);
+}
+.sync-loading-overlay.show{ display:flex; }
+.sync-loading-box{ display:flex; flex-direction:column; align-items:center; gap:12px; font-size:13.5px; font-weight:600; color: var(--ink-soft); }
+.sync-spinner{
+  width:26px; height:26px; border-radius:50%;
+  border:3px solid rgba(10,132,255,.18); border-top-color: var(--blue);
+  animation: spin 800ms linear infinite;
+}
+@keyframes spin{ to{ transform: rotate(360deg); } }
+
+/* ---------- project grid ---------- */
+.grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap:12px; }
+@media (max-width: 980px){ .grid{ grid-template-columns: repeat(2,1fr); } }
+@media (max-width: 640px){ .grid{ grid-template-columns: 1fr; } }
+
+/* ---------- Projects / All To-Dos: title itself is the switcher ---------- */
+.page-title-btn{
+  display:flex; align-items:center; gap:8px;
+  border:none; background:transparent; cursor:pointer;
+  padding:0; margin:0 0 6px;
+}
+.page-title-btn h1{ margin:0 0 0; transition: color 200ms var(--ease); }
+.page-title-swap-icon{
+  width:20px; height:20px; margin-top:6px;
+  color: var(--ink-faint);
+  opacity:.35;
+  transform: translateY(-2px);
+  transition: opacity 200ms var(--ease), transform 200ms var(--ease), color 200ms var(--ease);
+}
+.page-title-btn:hover h1{ color: var(--blue); }
+.page-title-btn:hover .page-title-swap-icon{ opacity:1; color: var(--blue); transform: translateY(1px); }
+.page-title-btn:active .page-title-swap-icon{ transform: translateY(3px) scale(.9); }
+
+/* ---------- All To-Dos view ---------- */
+.all-todos-view{ padding: 0 28px 28px; }
+.alltodos-selector{
+  display:flex; gap:2px; flex-wrap:wrap;
+  padding:4px; margin-bottom:16px;
+  background: rgba(118,118,128,.12);
+  border-radius: 16px;
+}
+.alltodos-tab{
+  flex:1 1 auto;
+  font-size:12.5px; font-weight:700;
+  padding:9px 10px;
+  cursor:pointer;
+  border-radius: 12px;
+  border:none;
+  background: transparent;
+  color: var(--ink-soft);
+  white-space:nowrap;
+  transition: background 180ms var(--ease), color 180ms var(--ease), box-shadow 180ms var(--ease);
+}
+.alltodos-tab.active{ background:#fff; color: var(--ink); box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+
+.alltodos-big-list{ display:flex; flex-direction:column; gap:6px; }
+.alltodos-empty{ font-size:13px; color: var(--ink-faint); font-style:italic; padding:24px 6px; text-align:center; }
+
+.alltodos-item{
+  display:flex; align-items:center; gap:10px;
+  background: var(--surface); border:1px solid var(--hairline-soft); border-radius:11px;
+  padding:10px 12px; cursor:pointer;
+  transition: background 140ms var(--ease), border-color 140ms var(--ease);
+}
+.alltodos-item:hover{ background: rgba(10,132,255,.04); border-color: rgba(10,132,255,.25); }
+.alltodos-item .ck{
+  flex:0 0 auto; width:19px; height:19px; border-radius:50%;
+  border:2px solid var(--hairline);
+  display:flex; align-items:center; justify-content:center;
+  font-size:11px; font-weight:800; color:#fff;
+}
+.alltodos-item.done .ck{ background: var(--blue); border-color: var(--blue); }
+.alltodos-item .txt{ flex:1; min-width:0; font-size:13.5px; font-weight:500; color: var(--ink); }
+.alltodos-item.done .txt{ color: var(--ink-faint); text-decoration:line-through; }
+.alltodos-item .proj-tag{
+  flex:0 0 auto; display:flex; align-items:center; gap:5px;
+  font-size:11px; font-weight:700; color: var(--ink-soft);
+  padding:4px 9px; border-radius:999px; background: rgba(0,0,0,.045);
+  max-width:130px;
+}
+.alltodos-item .proj-dot{ flex:0 0 auto; width:7px; height:7px; border-radius:50%; }
+.alltodos-item .proj-name{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+
+.alltodos-grid4{ display:grid; grid-template-columns: 1fr 1fr; gap:12px; }
+@media (max-width:640px){ .alltodos-grid4{ grid-template-columns:1fr; } }
+.alltodos-quad-panel{
+  background: var(--surface); border:1px solid var(--hairline-soft); border-radius: var(--radius-lg);
+  padding:14px;
+}
+.alltodos-quad-title{ font-size:12.5px; font-weight:800; margin-bottom:10px; color: var(--ink); }
+.alltodos-quad-panel .alltodos-item{ padding:8px 10px; border-radius:9px; }
+.alltodos-quad-panel .alltodos-big-list{ gap:5px; }
+
+.card{
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--hairline-soft);
+  box-shadow: 0 1px 2px rgba(0,0,0,.04), 0 6px 16px rgba(0,0,0,.045);
+  padding: 12px 14px;
+  cursor:pointer;
+  display:flex; flex-direction:row; align-items:center; gap:12px;
+  min-height: 0;
+  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+  animation: cardIn 460ms var(--ease) both;
+  touch-action:none; user-select:none; -webkit-user-select:none;
+}
+.grid .card:nth-child(1){ animation-delay: 30ms; }
+.grid .card:nth-child(2){ animation-delay: 80ms; }
+.grid .card:nth-child(3){ animation-delay: 130ms; }
+.grid .card:nth-child(4){ animation-delay: 180ms; }
+.grid .card:nth-child(5){ animation-delay: 230ms; }
+.grid .card:nth-child(6){ animation-delay: 280ms; }
+@keyframes cardIn{ from{ opacity:0; transform: translateY(10px) scale(.985); } to{ opacity:1; transform: translateY(0) scale(1);} }
+.card:hover{ transform: translateY(-3px); box-shadow: 0 3px 8px rgba(0,0,0,.05), 0 12px 24px rgba(0,0,0,.07); }
+.card.sort-active{
+  position:relative; z-index:70;
+  box-shadow: 0 24px 46px rgba(0,0,0,.22), 0 4px 10px rgba(0,0,0,.1);
+  transform: scale(1.045);
+  cursor:grabbing;
+  transition: box-shadow 150ms var(--ease);
+}
+.card.sort-target{ box-shadow: inset 0 0 0 3px var(--blue), 0 4px 10px rgba(0,0,0,.06); }
+.card:active{ transform: translateY(-1px) scale(.994); }
+
+.completed-row.sort-active{
+  position:relative; z-index:70; background: var(--surface);
+  box-shadow: 0 16px 32px rgba(0,0,0,.16), 0 2px 6px rgba(0,0,0,.08);
+  border-radius:10px; cursor:grabbing;
+}
+.completed-row.sort-target{ box-shadow: inset 0 0 0 2px var(--blue); border-radius:10px; }
+
+.completed-section.drop-zone-active{
+  min-height:64px; border-radius: var(--radius-lg);
+  transition: background 140ms var(--ease), box-shadow 140ms var(--ease);
+}
+.completed-section.drop-zone-active:not(.drop-hover){
+  background: rgba(0,0,0,.015);
+  box-shadow: inset 0 0 0 1.5px dashed var(--hairline);
+}
+.completed-section.drop-zone-active.drop-hover{
+  background: rgba(48,209,88,.08);
+  box-shadow: inset 0 0 0 2px var(--green);
+}
+.completed-section.drop-zone-active:empty::before{
+  content:'ここにドラッグして完了にする';
+  display:flex; align-items:center; justify-content:center;
+  height:64px; font-size:12.5px; font-weight:600; color: var(--ink-faint);
+}
+
+.grid.drop-zone-active{ position:relative; }
+.grid.drop-zone-active::after{
+  content:''; grid-column:1/-1; grid-row:1/-1;
+  position:absolute; inset:-8px; border-radius: var(--radius-lg);
+  pointer-events:none; transition: background 140ms var(--ease), box-shadow 140ms var(--ease);
+  box-shadow: inset 0 0 0 1.5px dashed var(--hairline);
+}
+.grid.drop-zone-active.drop-hover::after{
+  background: rgba(10,132,255,.05);
+  box-shadow: inset 0 0 0 2px var(--blue);
+}
+
+/* ---------- status-based card tint (3 rule-based statuses) ---------- */
+.card.st-delayed{ background: rgba(255,55,95,.12); }
+.card.st-delayed:hover{ box-shadow: 0 3px 8px rgba(255,55,95,.08), 0 12px 26px rgba(255,55,95,.14); }
+
+.card-icon{
+  width:36px; height:36px; border-radius:10px;
+  display:flex; align-items:center; justify-content:center;
+  flex:0 0 auto;
+  border:none; cursor:pointer; padding:0;
+  position:relative;
+  color:#fff;
+  transition: transform 140ms var(--ease), filter 140ms var(--ease);
+}
+.card-icon:hover{ transform: scale(1.06); filter: brightness(1.06); }
+.card-icon svg{ width:19px; height:19px; pointer-events:none; }
+.card-icon::after{
+  content:"";
+  position:absolute; inset:-3px;
+  border-radius:12px;
+  box-shadow: 0 0 0 2px rgba(0,0,0,0);
+  transition: box-shadow 140ms var(--ease);
+}
+.card-icon:hover::after{ box-shadow: 0 0 0 2px rgba(0,0,0,.08); }
+
+/* ---------- Pokémon-style HP bar (percentage indicator) ---------- */
+.hp-track{
+  position:relative; width:100%; background: rgba(0,0,0,.09);
+  border-radius:999px; overflow:hidden;
+}
+.hp-fill{
+  height:100%; width:0%; border-radius:999px;
+  transition: width 900ms var(--ease), background 300ms var(--ease);
+  position:relative;
+}
+.hp-fill::after{
+  content:""; position:absolute; inset:0 0 55% 0;
+  background: rgba(255,255,255,.32);
+  border-radius:999px 999px 0 0;
+}
+.hp-green{ background:#42c766; }
+.hp-yellow{ background:#f0b429; }
+.hp-blue{ background:#4f9dff; }
+.hp-red{ background:#ff5a5f; }
+.hp-darkred{ background:#8a1f2b; }
+.hp-empty{ background:transparent; }
+.hp-track-empty{
+  background-color: rgba(0,0,0,.06);
+  background-image: none;
+}
+
+.hp-mini{ display:flex; flex-direction:column; align-items:flex-end; gap:3px; flex:0 0 auto; width:58px; margin-top:-5px; }
+.hp-mini .hp-pct{
+  font-size:12.5px; font-weight:800; letter-spacing:-0.02em; color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.hp-mini .hp-track{ width:100%; height:7px; box-shadow: inset 0 0 0 1.5px rgba(0,0,0,.07); }
+.xp-track{
+  width:100%; height:4px; background: rgba(0,0,0,.09);
+  border-radius:999px; overflow:hidden; box-shadow: inset 0 0 0 1px rgba(0,0,0,.06);
+}
+.xp-track.xp-track-empty{
+  background-color: rgba(0,0,0,.06);
+  background-image: none;
+}
+.xp-fill{
+  height:100%; width:0%; border-radius:999px; background:#4f9dff;
+  transition: width 900ms var(--ease);
+}
+
+.card-body{ flex:1; min-width:0; align-self:flex-start; display:flex; flex-direction:column; justify-content:flex-start; gap:0; margin-top:-12px; }
+
+.card-title-row{ display:flex; align-items:center; gap:5px; line-height:1; }
+.card-title{
+  font-size:14px; font-weight:700; letter-spacing:-0.01em; color: var(--ink); cursor:text;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100%;
+}
+.card-title-input{
+  font-family: var(--font); font-size:14px; font-weight:700; letter-spacing:-0.01em; color: var(--ink);
+  border:none; outline:none; background: rgba(0,0,0,.045); border-radius:6px; padding:1px 5px; width:100%;
+}
+.title-edit-btn{
+  flex:0 0 auto; width:14px; height:14px; border:none; background:transparent; cursor:pointer;
+  color: var(--ink-faint); opacity:0; transition: opacity 140ms var(--ease), color 140ms var(--ease);
+  display:flex; align-items:center; justify-content:center; padding:0;
+}
+.card:hover .title-edit-btn{ opacity:1; }
+.title-edit-btn:hover{ color: var(--blue); }
+.title-edit-btn svg{ width:11px; height:11px; }
+
+.status-pill{
+  flex:0 0 auto;
+  align-self:flex-start;
+  font-size:9.5px; font-weight:600;
+  padding:1.5px 8px;
+  border-radius:999px;
+  white-space:nowrap;
+  line-height:1.1;
+  margin-top:-8px;
+}
+
+/* ---------- accent color utilities ---------- */
+.acc-blue    .card-icon{ background: var(--blue); }
+.acc-green   .card-icon{ background: var(--green); }
+.acc-pink    .card-icon{ background: var(--pink); }
+.acc-gray    .card-icon{ background: var(--gray); }
+.acc-orange  .card-icon{ background: var(--orange); }
+.acc-purple  .card-icon{ background: var(--purple); }
+
+/* ---------- status-based pill colors (3 rule-based statuses) ---------- */
+.status-pill.st-ontrack{ background: rgba(48,209,88,.14);  color: #1f8a43; }
+.status-pill.st-ahead{   background: rgba(10,132,255,.13); color: #0864c9; }
+.status-pill.st-delayed{ background: rgba(255,55,95,.14);  color: #d02348; }
+
+.pulse-update{ animation: pulseUpdate 420ms var(--ease); }
+@keyframes pulseUpdate{ 0%{ transform:scale(1);} 40%{ transform:scale(1.015);} 100%{ transform:scale(1);} }
+
+/* ---------- icon picker popover ---------- */
+.icon-popover{
+  position:fixed; z-index:90;
+  background: rgba(255,255,255,.92);
+  backdrop-filter: blur(20px) saturate(1.4);
+  border: 1px solid var(--hairline);
+  border-radius: 16px;
+  box-shadow: 0 16px 40px rgba(0,0,0,.18);
+  padding:10px;
+  display:none;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  opacity:0; transform: scale(.94) translateY(-4px);
+  transition: opacity 160ms var(--ease), transform 160ms var(--ease);
+}
+.icon-popover.open{ display:block; opacity:1; transform: scale(1) translateY(0); }
+.icon-popover-grid{ display:grid; grid-template-columns: repeat(6, 34px); gap:6px; }
+.icon-swatch{
+  width:34px; height:34px; border-radius:10px; border:none; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  background: rgba(0,0,0,.05);
+  color: var(--ink-soft);
+  transition: transform 120ms var(--ease), background 120ms var(--ease), color 120ms var(--ease);
+}
+.icon-swatch:hover{ transform: scale(1.08); background: rgba(0,0,0,.09); }
+.icon-swatch.selected{ background: var(--swatch-accent, var(--blue)); color:#fff; }
+.icon-swatch svg{ width:17px; height:17px; }
+
+/* ---------- freely-selectable icon color ---------- */
+.color-swatch-row{ display:grid; grid-template-columns: repeat(6, 34px); gap:6px; justify-items:center; align-items:center; }
+.color-swatch{
+  width:26px; height:26px; border-radius:50%; border:2px solid rgba(0,0,0,.06); cursor:pointer; padding:0;
+  transition: transform 120ms var(--ease), box-shadow 120ms var(--ease);
+}
+.color-swatch:hover{ transform: scale(1.14); }
+.color-swatch.selected{ box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--ink); }
+.color-swatch-custom{
+  position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center;
+  background: conic-gradient(from 0deg, #ff3b30, #ff9500, #ffcc00, #34c759, #00c7be, #30b0ff, #5856d6, #af52de, #ff2d55, #ff3b30);
+}
+.color-native-input{ position:absolute; inset:-6px; width:calc(100% + 12px); height:calc(100% + 12px); opacity:0; cursor:pointer; border:none; padding:0; }
+.color-swatch-empty{
+  width:26px; height:26px; border-radius:50%;
+  border:1.5px dashed var(--hairline); box-sizing:border-box;
+}
+
+/* ---------- click-to-edit item popover (milestones / timeline / to-do items) ---------- */
+.item-popover{
+  position:fixed; z-index:95;
+  width:min(280px, calc(100vw - 24px));
+  background: rgba(255,255,255,.94);
+  backdrop-filter: blur(20px) saturate(1.4);
+  border: 1px solid var(--hairline);
+  border-radius: 16px;
+  box-shadow: 0 18px 44px rgba(0,0,0,.2);
+  padding:14px;
+  display:none;
+  opacity:0; transform: scale(.94) translateY(-4px);
+  transition: opacity 160ms var(--ease), transform 160ms var(--ease);
+}
+.item-popover.open{ display:block; opacity:1; transform: scale(1) translateY(0); }
+.pop-label{ font-size:10.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color: var(--ink-faint); margin:0 0 5px; }
+.pop-label:not(:first-child){ margin-top:12px; }
+.pop-input{
+  width:100%; border:1px solid var(--hairline); outline:none; background: var(--surface-2);
+  font-family: var(--font); font-size:14px; color: var(--ink); border-radius:9px; padding:9px 11px;
+  transition: border-color 140ms var(--ease);
+}
+.pop-input:focus{ border-color: var(--blue); }
+.pop-tabbar{ display:flex; gap:4px; padding:3px; margin-bottom:10px; background: rgba(118,118,128,.12); border-radius:9px; }
+.pop-tab-btn{
+  flex:1; font-family: var(--font); font-size:11.5px; font-weight:600;
+  padding:6px 8px; border:none; cursor:pointer; border-radius:7px;
+  background:transparent; color: var(--ink-soft);
+  transition: background 140ms var(--ease), color 140ms var(--ease), box-shadow 140ms var(--ease);
+}
+.pop-tab-btn.active{ background:#fff; color: var(--ink); box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+.pop-tab-panel{ display:none; }
+.pop-tab-panel.active{ display:block; }
+.pop-textarea{ resize:vertical; min-height:80px; line-height:1.5; }
+.pop-actions{ display:flex; justify-content:space-between; align-items:center; margin-top:14px; }
+.pop-btn{ border:none; cursor:pointer; font-family: var(--font); font-size:13px; font-weight:600; padding:8px 14px; border-radius:9px; transition: background 140ms var(--ease), transform 140ms var(--ease); }
+.pop-btn-del{ background: rgba(255,55,95,.1); color: var(--pink); }
+.pop-btn-del:hover{ background: rgba(255,55,95,.18); }
+.pop-btn-done{ background: var(--ink); color:#fff; }
+.pop-btn-done:hover{ transform: translateY(-1px); background: var(--blue); }
+
+/* ---------- display-mode rows (tap to edit, long-press to reorder) ---------- */
+.edit-row{
+  cursor:pointer; transition: background 140ms var(--ease);
+  touch-action:none; user-select:none; -webkit-user-select:none;
+}
+.edit-row:hover{ background: rgba(10,132,255,.05); }
+.edit-row-main{ flex:1; min-width:0; display:flex; align-items:baseline; gap:8px; flex-wrap:wrap; }
+.edit-row-title{ font-size:13.5px; font-weight:500; color: var(--ink); }
+.edit-row-title.done{ color: var(--ink-faint); text-decoration: line-through; }
+.edit-row-date{
+  font-size:11.5px; font-weight:600; color: var(--ink-faint); flex:0 0 auto;
+  padding:2px 7px; border-radius:7px; border:1.5px solid transparent;
+  transition: border-color 140ms var(--ease), color 140ms var(--ease), background 140ms var(--ease);
+}
+.edit-row-date:hover{ border-color: var(--blue); color: var(--blue); background: rgba(10,132,255,.06); }
+.quad-text{ cursor:text; }
+.quad-item:hover{ background: rgba(255,255,255,.95); }
+.quad-item{ touch-action:none; user-select:none; -webkit-user-select:none; }
+
+/* ---------- long-press pop-out + drag-to-reorder ---------- */
+.edit-row.sort-active, .quad-item.sort-active, .ms-item-wrap.sort-active{
+  position:relative; z-index:70;
+  background:#fff;
+  box-shadow: 0 16px 32px rgba(0,0,0,.2), 0 2px 6px rgba(0,0,0,.1);
+  transform: scale(1.035);
+  transition: box-shadow 150ms var(--ease), transform 150ms var(--ease);
+  cursor:grabbing;
+}
+.edit-row.sort-shift, .quad-item.sort-shift, .ms-item-wrap.sort-shift{ transition: transform 180ms var(--ease); }
+.reorder-hint{
+  position:fixed; z-index:96;
+  background: var(--ink); color:#fff;
+  font-size:12px; font-weight:600;
+  padding:8px 14px; border-radius:999px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.25);
+  opacity:0; pointer-events:none;
+  transition: opacity 160ms var(--ease);
+}
+.reorder-hint.show{ opacity:1; }
+
+/* ---------- custom confirm dialog (native confirm() is blocked in sandboxed previews) ---------- */
+.confirm-overlay{
+  position:fixed; inset:0; z-index:110;
+  display:flex; align-items:center; justify-content:center;
+  padding:24px;
+  opacity:0; pointer-events:none;
+  transition: opacity 180ms var(--ease);
+}
+.confirm-overlay.open{ opacity:1; pointer-events:auto; }
+.confirm-scrim{ position:absolute; inset:0; background: rgba(20,20,22,.42); backdrop-filter: blur(4px); }
+.confirm-box{
+  position:relative;
+  width:min(340px, 100%);
+  background: rgba(255,255,255,.94);
+  backdrop-filter: blur(24px) saturate(1.4);
+  border-radius:20px;
+  border:1px solid rgba(255,255,255,.6);
+  box-shadow: 0 24px 60px rgba(0,0,0,.28);
+  padding:22px 20px 18px;
+  transform: scale(.94) translateY(10px);
+  transition: transform 220ms var(--ease);
+}
+.confirm-overlay.open .confirm-box{ transform: scale(1) translateY(0); }
+.confirm-msg{ font-size:14px; line-height:1.7; color: var(--ink); white-space:pre-line; margin-bottom:18px; }
+.confirm-actions{ display:flex; justify-content:flex-end; gap:8px; }
+.confirm-btn{
+  border:none; cursor:pointer; font-family: var(--font); font-size:13.5px; font-weight:600;
+  padding:9px 16px; border-radius:10px;
+  transition: background 140ms var(--ease), transform 140ms var(--ease);
+}
+.confirm-cancel{ background: rgba(0,0,0,.06); color: var(--ink-soft); }
+.confirm-cancel:hover{ background: rgba(0,0,0,.1); }
+.confirm-ok{ background: var(--pink); color:#fff; }
+.confirm-ok:hover{ transform: translateY(-1px); background:#e0244a; }
+
+@media (max-width:480px){
+  .edit-add-row, .quad-add-row{ flex-wrap:wrap; }
+  .edit-add-input.date{ flex:1 1 90px; }
+  .edit-add-input.grow{ flex:1 1 100%; order:-1; }
+}
+
+/* =========================================================
+   DETAIL OVERLAY
+   ========================================================= */
+.overlay{
+  position:fixed; inset:0; z-index:50;
+  display:flex; align-items:center; justify-content:center;
+  padding:24px;
+  opacity:0; pointer-events:none;
+  transition: opacity var(--dur) var(--ease);
+}
+.overlay.open{ opacity:1; pointer-events:auto; }
+.overlay-scrim{ position:absolute; inset:0; background: rgba(20,20,22,.42); backdrop-filter: blur(6px); }
+
+.dialog{
+  position:relative;
+  width:min(880px, 100%);
+  max-height:88vh;
+  background: rgba(255,255,255,.86);
+  backdrop-filter: blur(28px) saturate(1.4);
+  border-radius: 28px;
+  border: 1px solid rgba(255,255,255,.6);
+  box-shadow: 0 30px 80px rgba(0,0,0,.28);
+  display:flex; flex-direction:column;
+  transform: scale(.94) translateY(16px);
+  opacity:0;
+  transition: transform 320ms var(--ease), opacity 320ms var(--ease);
+  overflow:hidden;
+}
+.overlay.open .dialog{ transform: scale(1) translateY(0); opacity:1; }
+
+.dialog-head{ display:flex; align-items:center; gap:14px; padding:24px 28px 16px; }
+.dialog-icon{
+  width:46px; height:46px; border-radius:14px; display:flex; align-items:center; justify-content:center; flex:0 0 auto;
+  border:none; cursor:pointer; padding:0; position:relative;
+  color:#fff;
+  transition: transform 140ms var(--ease), filter 140ms var(--ease);
+}
+.dialog-icon:hover{ transform: scale(1.05); filter: brightness(1.06); }
+.dialog-icon svg{ width:24px; height:24px; pointer-events:none; }
+.dialog-title-row{ display:flex; align-items:center; gap:8px; margin:0 0 4px; }
+.dialog-titles h2{ font-size:20px; font-weight:800; letter-spacing:-0.01em; margin:0; cursor:text; }
+.dialog-title-input{
+  font-family: var(--font); font-size:20px; font-weight:800; letter-spacing:-0.01em; color: var(--ink);
+  border:none; outline:none; background: rgba(0,0,0,.045); border-radius:8px; padding:3px 8px;
+}
+.dialog-title-edit-btn{
+  flex:0 0 auto; width:22px; height:22px; border:none; background:transparent; cursor:pointer;
+  color: var(--ink-faint); transition: color 140ms var(--ease);
+  display:flex; align-items:center; justify-content:center; padding:0;
+}
+.dialog-title-edit-btn:hover{ color: var(--blue); }
+.dialog-title-edit-btn svg{ width:14px; height:14px; }
+.dialog-titles p{ margin:0; font-size:13px; color: var(--ink-soft); font-weight:500; }
+.dialog-head-actions{ margin-left:auto; display:flex; align-items:center; gap:6px; }
+.complete-project-btn{
+  width:30px; height:30px; border-radius:50%;
+  border:none; cursor:pointer;
+  background: rgba(0,0,0,.06);
+  color: var(--ink-soft);
+  display:flex; align-items:center; justify-content:center;
+  transition: background 160ms var(--ease), color 160ms var(--ease);
+}
+.complete-project-btn:hover{ background: rgba(48,209,88,.15); color: var(--green); }
+.complete-project-btn.is-completed{ background: rgba(48,209,88,.15); color: var(--green); }
+.complete-project-btn svg{ width:15px; height:15px; }
+.delete-project-btn{
+  width:30px; height:30px; border-radius:50%;
+  border:none; cursor:pointer;
+  background: rgba(0,0,0,.06);
+  color: var(--ink-soft);
+  display:flex; align-items:center; justify-content:center;
+  transition: background 160ms var(--ease), color 160ms var(--ease);
+}
+.delete-project-btn:hover{ background: rgba(255,55,95,.13); color: var(--pink); }
+.delete-project-btn svg{ width:15px; height:15px; }
+.close-btn{
+  width:30px; height:30px; border-radius:50%;
+  border:none; cursor:pointer;
+  background: rgba(0,0,0,.06);
+  color: var(--ink-soft);
+  display:flex; align-items:center; justify-content:center;
+  transition: background 160ms var(--ease), transform 160ms var(--ease), color 160ms var(--ease);
+}
+.close-btn svg{ width:16px; height:16px; }
+.close-btn:hover{ background: rgba(0,0,0,.1); color: var(--ink); transform: translateY(2px); }
+
+/* ---------- empty project slot (frame remains after deletion) ---------- */
+.card.is-empty{
+  flex-direction:column; align-items:center; justify-content:center;
+  gap:8px;
+  background: transparent;
+  border: 1.5px dashed var(--hairline);
+  box-shadow:none;
+  padding:18px 14px;
+}
+.card.is-empty:hover{ border-color: var(--ink-faint); background: rgba(0,0,0,.015); box-shadow:none; }
+.empty-slot-icon{
+  width:30px; height:30px; border-radius:50%;
+  border:1.5px dashed var(--hairline);
+  display:flex; align-items:center; justify-content:center;
+  color: var(--ink-faint);
+}
+.empty-slot-icon svg{ width:16px; height:16px; }
+
+/* ---------- add project tile ---------- */
+.add-project-tile{
+  grid-column: 1 / -1;
+  flex-direction:row; align-items:center; justify-content:center;
+  gap:6px; background: transparent; border: 1.5px dashed var(--hairline);
+  box-shadow:none; padding:10px; margin-top:2px; min-height:0; height:38px;
+  cursor:pointer; opacity:.6;
+  font-family: var(--font); color: var(--ink-faint);
+  transition: border-color 140ms var(--ease), background 140ms var(--ease), color 140ms var(--ease), opacity 140ms var(--ease);
+}
+.add-project-tile:hover{ opacity:1; border-color: var(--blue); background: rgba(10,132,255,.04); color: var(--blue); }
+.add-project-tile svg{ width:14px; height:14px; }
+.add-project-tile span{ font-size:11px; font-weight:600; }
+
+/* ---------- divider before the 7th+ project ---------- */
+.grid-extra-divider{
+  grid-column: 1 / -1;
+  display:flex; align-items:center; gap:10px;
+  margin:4px 2px -2px;
+}
+.grid-extra-divider::before, .grid-extra-divider::after{
+  content:''; flex:1; height:0; border-top:1.5px dashed var(--hairline);
+}
+.grid-extra-divider span{
+  font-size:10.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+  color: var(--ink-faint); white-space:nowrap;
+}
+
+/* ---------- completed projects archive ---------- */
+.completed-section{ margin: 28px 28px 20px; }
+.completed-divider{ display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+.completed-divider::before, .completed-divider::after{
+  content:''; flex:1; height:0; border-top:1.5px dashed var(--hairline);
+}
+.completed-divider span{
+  font-size:10.5px; font-weight:700; letter-spacing:.08em;
+  color: var(--ink-faint); white-space:nowrap;
+}
+.completed-list{ display:flex; flex-direction:column; gap:2px; }
+.completed-row{
+  display:flex; align-items:center; gap:10px; padding:9px 10px;
+  border-radius:10px; cursor:pointer;
+  transition: background 140ms var(--ease);
+}
+.completed-row:hover{ background: rgba(0,0,0,.03); }
+.completed-row-icon{
+  flex:0 0 auto; width:26px; height:26px; border-radius:8px;
+  display:flex; align-items:center; justify-content:center; color:#fff;
+  opacity:.7;
+}
+.completed-row-icon svg{ width:14px; height:14px; }
+.completed-row-title{
+  flex:1; min-width:0; font-size:13.5px; font-weight:500; color: var(--ink-soft);
+  text-decoration: line-through; text-decoration-color: var(--hairline);
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+}
+.completed-row-check{ flex:0 0 auto; width:15px; height:15px; color: var(--green); }
+
+/* segmented tab control */
+.tab-bar{
+  display:flex; gap:2px; flex-wrap:wrap;
+  margin: 0 28px 4px;
+  padding:4px;
+  background: rgba(118,118,128,.12);
+  border-radius: 22px;
+}
+.tab-btn{
+  flex:1 1 auto;
+  font-size:12.5px; font-weight:600;
+  padding:8px 10px;
+  cursor:pointer;
+  border-radius: 18px;
+  border:1px solid rgba(0,0,0,.05);
+  background: rgba(255,255,255,.45);
+  color: var(--ink-soft);
+  white-space:nowrap;
+  transition: background 180ms var(--ease), color 180ms var(--ease), box-shadow 180ms var(--ease), border-color 180ms var(--ease);
+}
+.tab-btn:hover{ background: rgba(255,255,255,.7); }
+.tab-btn.active{ background:#fff; color: var(--ink); box-shadow: 0 1px 3px rgba(0,0,0,.12); border-color: transparent; }
+
+.dialog-body{ padding:18px 28px 28px; overflow-y:auto; flex:1; }
+.tab-panel{ display:none; animation: fadeUp 240ms var(--ease) both; }
+.tab-panel.active{ display:block; }
+
+/* grouped-list panel, iOS settings style */
+.group{
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--hairline-soft);
+  overflow:hidden;
+  margin-bottom:16px;
+}
+.group-title{
+  font-size:11.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase;
+  color: var(--ink-faint); margin: 0 0 8px 4px;
+}
+.row{ display:flex; align-items:center; gap:12px; padding:13px 16px; border-bottom:1px solid var(--hairline-soft); }
+.row:last-child{ border-bottom:none; }
+
+.overview-stats{
+  display:flex; align-items:center; justify-content:space-between;
+  background: var(--surface); border:1px solid var(--hairline-soft); border-radius: var(--radius-md);
+  padding:9px 14px; margin-bottom:16px;
+}
+.stat-item{ display:flex; align-items:baseline; gap:5px; }
+.stat-sep{ width:1px; height:14px; background: var(--hairline); flex:0 0 auto; }
+.stat-item .num{ font-size:14px; font-weight:800; letter-spacing:-0.01em; }
+.stat-item .lbl{ font-size:10.5px; color: var(--ink-soft); font-weight:600; }
+
+.big-progress{ display:flex; flex-direction:column; gap:10px; background: var(--surface); border:1px solid var(--hairline-soft); border-radius: var(--radius-lg); padding:16px 18px; margin-bottom:16px; }
+.big-progress-top{ display:flex; align-items:baseline; justify-content:space-between; gap:10px; }
+.big-progress-top .t1{ font-size:14px; font-weight:700; }
+.t1-num{ font-size:23px; font-weight:800; letter-spacing:-0.01em; color: var(--ink); font-variant-numeric: tabular-nums; }
+.big-progress-top .t1-sub{ font-size:11.5px; font-weight:500; color: var(--ink-soft); }
+.lv-progress .t1-sub{ font-size:10px; }
+.hp-progress .t1-sub{ font-size:10px; }
+.big-progress-top .pct-lg{ font-size:24px; font-weight:800; font-style:italic; letter-spacing:-0.02em; color: var(--ink); font-variant-numeric: tabular-nums; }
+.stat-inline{ display:flex; align-items:baseline; gap:5px; flex:0 0 auto; }
+.stat-inline .num{ font-size:14px; font-weight:800; letter-spacing:-0.01em; color: var(--ink); }
+.stat-inline .lbl{ font-size:10px; color: var(--ink-soft); font-weight:600; }
+.big-progress .hp-track{ height:14px; box-shadow: inset 0 0 0 2px rgba(0,0,0,.08); }
+.big-progress-text .t2{ font-size:12.5px; color: var(--ink-soft); }
+
+/* ---------- editable free-text fields (Overview summary / Notes) ---------- */
+.edit-field-wrap{ margin-bottom:4px; }
+.edit-textarea{
+  width:100%; resize:vertical; min-height:80px;
+  font-family: var(--font); font-size:14.5px; line-height:1.7; color: var(--ink);
+  padding:14px 16px; background: var(--surface); border:1px solid var(--hairline-soft); border-radius: var(--radius-lg);
+  outline:none; transition: border-color 140ms var(--ease);
+}
+.edit-textarea:focus{ border-color: var(--blue); }
+.edit-textarea::placeholder{ color: var(--ink-faint); }
+
+/* ---------- editable lists (Milestones / Timeline) ---------- */
+.edit-list-wrap{ background: var(--surface); border:1px solid var(--hairline-soft); border-radius: var(--radius-lg); padding:10px; }
+.edit-list{ display:flex; flex-direction:column; gap:7px; margin-bottom:8px; }
+.edit-empty{ font-size:13px; color: var(--ink-faint); font-style:italic; padding:8px 6px; }
+
+/* ---------- milestones: calendar + list side by side ---------- */
+.ms-split{ display:flex; gap:14px; align-items:flex-start; }
+.ms-split-cal{ flex:0 0 260px; }
+.ms-split-list{ flex:1; min-width:0; }
+@media (max-width:640px){
+  .ms-split{ flex-direction:column; }
+  .ms-split-cal{ flex:none; width:100%; }
+  .ms-split-list{ width:100%; }
+}
+
+/* ---------- milestone calendar ---------- */
+.cal-wrap{ background: var(--surface); border:1px solid var(--hairline-soft); border-radius: var(--radius-lg); padding:14px; }
+.cal-nav{ display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+.cal-nav-btn{
+  width:28px; height:28px; border-radius:50%; border:none; cursor:pointer;
+  background: rgba(0,0,0,.06); color: var(--ink-soft); font-size:16px; font-weight:600;
+  display:flex; align-items:center; justify-content:center;
+  transition: background 140ms var(--ease);
+}
+.cal-nav-btn:hover{ background: rgba(0,0,0,.1); }
+.cal-month-label{ font-size:14px; font-weight:700; color: var(--ink); }
+.cal-weekdays{ display:grid; grid-template-columns: repeat(7,1fr); margin-bottom:4px; }
+.cal-weekday{ text-align:center; font-size:10.5px; font-weight:700; color: var(--ink-faint); padding:4px 0; }
+.cal-grid{ display:grid; grid-template-columns: repeat(7,1fr); gap:3px; }
+.cal-cell{
+  aspect-ratio:1; border-radius:9px; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:3px; cursor:default; position:relative;
+}
+.cal-cell.cal-empty{ visibility:hidden; }
+.cal-cell.has-items{ cursor:pointer; background: rgba(10,132,255,.07); }
+.cal-cell.has-items:hover{ background: rgba(10,132,255,.13); }
+.cal-cell.is-today .cal-daynum{
+  background: var(--blue); color:#fff; border-radius:50%;
+  width:20px; height:20px; display:flex; align-items:center; justify-content:center;
+}
+.cal-daynum{ font-size:12px; font-weight:600; color: var(--ink); }
+.cal-dots{ display:flex; gap:2px; }
+.cal-dot{ width:5px; height:5px; border-radius:50%; background: var(--blue); }
+.cal-dot.done{ background: var(--green); }
+
+.edit-row{ display:flex; align-items:center; gap:8px; background: var(--surface-2); border-radius:10px; padding:7px 9px; }
+.ms-check{
+  width:20px; height:20px; border-radius:50%; flex:0 0 auto;
+  border:2px solid var(--hairline); background:#fff; cursor:pointer;
+  display:flex; align-items:center; justify-content:center; padding:0;
+  color:#fff; font-size:11px; font-weight:800;
+  transition: transform 120ms var(--ease), background 120ms var(--ease), border-color 120ms var(--ease);
+}
+.ms-check:hover{ transform: scale(1.1); }
+.ms-check.done{ background: var(--green); border-color: var(--green); }
+
+.timeline-dot{
+  width:11px; height:11px; border-radius:50%; flex:0 0 auto; background: var(--blue);
+}
+
+.edit-input{
+  border:none; outline:none; background:transparent;
+  font-family: var(--font); font-size:13.5px; color: var(--ink); padding:4px 2px;
+  border-radius:6px;
+}
+.edit-input:focus{ background: rgba(10,132,255,.07); }
+.edit-input.grow{ flex:1; min-width:0; font-weight:500; }
+.edit-input.date{ flex:0 0 92px; color: var(--ink-soft); font-size:12px; font-weight:600; }
+.edit-input::placeholder{ color: var(--ink-faint); }
+.edit-row.done .edit-input.grow{ color: var(--ink-faint); text-decoration: line-through; }
+
+.edit-del{ flex:0 0 auto; width:20px; height:20px; border:none; background:transparent; cursor:pointer; color: var(--ink-faint); font-size:15px; opacity:.5; transition: opacity 140ms var(--ease), color 140ms var(--ease); }
+.edit-del:hover{ opacity:1; color: var(--pink); }
+
+.edit-add-row{ display:flex; align-items:center; gap:8px; padding:4px 5px 2px; }
+.timeline-footnote-wrap{ padding:14px 6px 2px; }
+.timeline-footnote-title{ font-size:11px; font-weight:600; color: var(--ink-soft); margin-bottom:8px; line-height:1.5; }
+.timeline-footnote-sub{ display:inline; font-size:10.5px; font-weight:500; color: var(--ink-faint); opacity:.8; margin-top:1px; }
+.timeline-footnote-checks{ display:flex; flex-wrap:wrap; gap:14px; }
+.tl-log-check{
+  display:flex; align-items:center; gap:6px; cursor:pointer;
+  font-size:12px; font-weight:600; color: var(--ink-soft);
+}
+.tl-log-check input[type="checkbox"]{
+  width:15px; height:15px; accent-color: var(--blue); cursor:pointer;
+}
+.edit-add-input{
+  border:1px solid var(--hairline); outline:none; background: var(--surface-2);
+  font-family: var(--font); font-size:13px; color: var(--ink); border-radius:8px; padding:7px 10px;
+  transition: border-color 140ms var(--ease);
+}
+.edit-add-input:focus{ border-color: var(--blue); }
+.edit-add-input.grow{ flex:1; min-width:0; }
+.edit-add-input.date{ flex:0 0 130px; }
+.edit-add-input::placeholder{ color: var(--ink-faint); }
+.edit-add-btn{
+  flex:0 0 auto; width:26px; height:26px; border-radius:8px; border:none; cursor:pointer;
+  background: rgba(142,142,147,.1); color: var(--ink-soft); font-size:14px; font-weight:700; line-height:1;
+  transition: transform 140ms var(--ease), background 140ms var(--ease), color 140ms var(--ease);
+}
+.edit-add-btn:hover{ transform: scale(1.08); background: rgba(10,132,255,.12); color: var(--blue); }
+.edit-add-btn:active{ transform: scale(.96); }
+
+/* ---------- Eisenhower "To-Do" quadrant matrix ---------- */
+.quad-summary{ font-size:13px; color: var(--ink-soft); font-weight:600; margin-bottom:12px; text-align:right; }
+.quad-grid{ display:grid; grid-template-columns: 1fr 1fr; gap:12px; }
+@media (max-width:640px){ .quad-grid{ grid-template-columns: 1fr; } }
+
+.quad-panel{ border-radius: var(--radius-lg); padding:16px; display:flex; flex-direction:column; min-height:160px; border:1px solid var(--hairline-soft); transition: box-shadow 160ms var(--ease), background 160ms var(--ease); }
+.quad-panel.q-blue{   background: rgba(10,132,255,.06); }
+.quad-panel.q-pink{   background: rgba(255,55,95,.06); }
+.quad-panel.q-orange{ background: rgba(255,159,10,.08); }
+.quad-panel.q-gray{   background: rgba(142,142,147,.08); }
+.quad-panel.drop-hover{ box-shadow: inset 0 0 0 2.5px var(--blue); background: rgba(10,132,255,.1); }
+
+.quad-panel.quad-completed{
+  grid-column: 1 / -1;
+  margin-top:4px;
+  min-height:0;
+  background: rgba(48,209,88,.05);
+}
+.quad-panel.quad-completed.drop-hover{ box-shadow: inset 0 0 0 2.5px var(--green); background: rgba(48,209,88,.12); }
+.quad-completed-list{ flex-direction:row; flex-wrap:wrap; margin-bottom:0; }
+.quad-completed-list .quad-item{ flex:0 0 auto; }
+.quad-completed-list .quad-empty{ width:100%; }
+
+.quad-head{ margin-bottom:10px; }
+.quad-label{ display:block; font-size:13.5px; font-weight:700; letter-spacing:.04em; color: var(--ink); }
+.quad-sub{ display:block; font-size:10.5px; font-weight:400; letter-spacing:0; color: var(--ink-faint); margin-top:2px; }
+
+.quad-list{ display:flex; flex-direction:column; gap:4px; flex:1; margin-bottom:10px; }
+.quad-empty{ font-size:12.5px; color: var(--ink-faint); font-style:italic; padding:4px 0; }
+
+.quad-item{ display:flex; align-items:center; gap:9px; background: rgba(255,255,255,.75); padding:4px 10px; border-radius:9px; }
+.quad-check{
+  width:19px; height:19px; border-radius:50%; flex:0 0 auto;
+  border:2px solid var(--hairline);
+  background:#fff; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  color:#fff; font-size:11px; font-weight:800; padding:0;
+  transition: transform 140ms var(--ease), background 140ms var(--ease), border-color 140ms var(--ease);
+}
+.quad-check:hover{ transform: scale(1.1); }
+.quad-item.done .quad-check{ background: var(--green); border-color: var(--green); }
+.quad-text{ flex:1; font-size:13.5px; font-weight:500; word-break: break-word; cursor:text; }
+.quad-item.done .quad-text{ text-decoration: line-through; color: var(--ink-faint); }
+.quad-text-input{
+  width:100%; border:none; outline:none; background: rgba(0,0,0,.05);
+  font-family: var(--font); font-size:13.5px; font-weight:500; color: var(--ink);
+  border-radius:6px; padding:2px 6px;
+}
+.quad-del{
+  flex:0 0 auto; width:24px; height:24px; border:none; background:transparent; cursor:pointer;
+  color: var(--ink-faint); opacity:.55; padding:0;
+  display:flex; align-items:center; justify-content:center;
+  transition: opacity 140ms var(--ease), color 140ms var(--ease), background 140ms var(--ease);
+  border-radius:50%;
+}
+.quad-del svg{ width:14px; height:14px; }
+.quad-del:hover{ opacity:1; color: var(--pink); background: rgba(255,55,95,.1); }
+.quad-complete-btn{
+  flex:0 0 auto; width:24px; height:24px; border:none; background:transparent; cursor:pointer;
+  color: var(--ink-faint); opacity:.55; padding:0;
+  display:flex; align-items:center; justify-content:center;
+  transition: opacity 140ms var(--ease), color 140ms var(--ease), background 140ms var(--ease);
+  border-radius:50%;
+}
+.quad-complete-btn svg{ width:14px; height:14px; }
+.quad-complete-btn:hover{ opacity:1; color: var(--green); background: rgba(48,209,88,.12); }
+
+.ms-detail-btn, .ms-del-btn{
+  flex:0 0 auto; width:24px; height:24px; border:none; background:transparent; cursor:pointer;
+  color: var(--ink-faint); opacity:.5; padding:0;
+  display:flex; align-items:center; justify-content:center;
+  align-self:center;
+  transition: opacity 140ms var(--ease), color 140ms var(--ease), background 140ms var(--ease);
+  border-radius:50%;
+}
+.ms-detail-btn svg, .ms-del-btn svg{ width:14px; height:14px; }
+.ms-detail-btn:hover{ opacity:1; color: var(--blue); background: rgba(10,132,255,.1); }
+.ms-detail-btn.has-detail{ opacity:.9; color: var(--blue); }
+.ms-detail-btn.active{ opacity:1; color:#fff; background: var(--blue); }
+.ms-del-btn:hover{ opacity:1; color: var(--pink); background: rgba(255,55,95,.1); }
+
+.ms-item-wrap{ display:flex; flex-direction:column; gap:6px; }
+.ms-detail-box{ padding:0 2px; animation: fadeUp 180ms var(--ease) both; }
+.ms-detail-textarea{
+  width:100%; resize:none; overflow:hidden; min-height:60px;
+  border:1px solid var(--hairline); outline:none; background: var(--surface-2);
+  font-family: var(--font); font-size:13px; line-height:1.6; color: var(--ink);
+  border-radius:9px; padding:9px 11px;
+  transition: border-color 140ms var(--ease);
+}
+.ms-detail-textarea:focus{ border-color: var(--blue); }
+.ms-detail-textarea::placeholder{ color: var(--ink-faint); }
+
+.edit-row-title-input, .edit-row-date-input{
+  border:none; outline:none; background: rgba(0,0,0,.05);
+  font-family: var(--font); color: var(--ink);
+  border-radius:6px; padding:2px 6px;
+}
+.edit-row-title-input{ font-size:13.5px; font-weight:500; }
+.edit-row-date-input{ font-size:11.5px; font-weight:600; }
+.pop-label-sub{ text-transform:none; font-weight:500; letter-spacing:normal; color: var(--ink-soft); }
+
+.quad-add-row{ display:flex; align-items:center; gap:8px; margin-top:auto; }
+.quad-add-input{
+  flex:1; min-width:0; background: rgba(255,255,255,.85); border:1px solid var(--hairline);
+  border-radius:10px; padding:8px 11px; font-family: var(--font); font-size:13px; color: var(--ink); outline:none;
+  transition: border-color 140ms var(--ease);
+}
+.quad-add-input:focus{ border-color: var(--blue); }
+.quad-add-input::placeholder{ color: var(--ink-faint); }
+.quad-add-btn{
+  flex:0 0 auto; width:27px; height:27px; border-radius:8px; border:none; cursor:pointer;
+  background: rgba(142,142,147,.1); color: var(--ink-soft); font-size:15px; font-weight:700; line-height:1;
+  transition: transform 140ms var(--ease), background 140ms var(--ease), color 140ms var(--ease);
+}
+.quad-add-btn:hover{ transform: scale(1.08); background: rgba(10,132,255,.12); color: var(--blue); }
+.quad-add-btn:active{ transform: scale(.96); }
+
+
+.dialog-body::-webkit-scrollbar{ width:8px; }
+.dialog-body::-webkit-scrollbar-thumb{ background: rgba(0,0,0,.15); border-radius:4px; }
+
+@media (prefers-reduced-motion: reduce){
+  *{ animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-blobs">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+</div>
+
+<div class="app">
+  <header class="title-plate">
+    <div class="title-block">
+      <button class="page-title-btn" id="pageTitleBtn" type="button">
+        <h1 id="pageTitle">FOCUS</h1>
+        <svg class="page-title-swap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10l5 5 5-5"/></svg>
+      </button>
+      <p id="activeCountLabel">Active projects</p>
+    </div>
+    <div class="header-actions">
+      <button class="sync-btn" id="syncBtn" type="button">
+        <span class="sync-dot" id="syncDot"></span>
+        <span id="syncBtnLabel">Sync off</span>
+      </button>
+      <div class="save-indicator"><span class="save-dot"></span> Autosaved just now</div>
+    </div>
+  </header>
+
+  <main class="grid" id="grid"></main>
+  <section class="completed-section" id="completedSection"></section>
+
+  <section class="all-todos-view" id="allTodosView" style="display:none;">
+    <div class="alltodos-selector" id="alltodosSelector">
+      <button class="alltodos-tab active" data-mode="q1" type="button">Now</button>
+      <button class="alltodos-tab" data-mode="q2" type="button">Grow</button>
+      <button class="alltodos-tab" data-mode="q3" type="button">Quick</button>
+      <button class="alltodos-tab" data-mode="q4" type="button">Later</button>
+      <button class="alltodos-tab" data-mode="all" type="button">全4領域</button>
+    </div>
+    <div class="alltodos-body" id="alltodosBody"></div>
+  </section>
+</div>
+
+<div class="sync-popover" id="syncPopover">
+  <div class="pop-label">クラウド同期(Firebase)</div>
+  <p class="sync-desc">同じSync Codeを他の端末でも入力すると、そのデバイス間でデータが共有されます。</p>
+  <input class="sync-input" id="syncCodeInput" type="text" maxlength="60" placeholder="Sync Code を入力または作成">
+  <div class="sync-actions">
+    <button class="sync-action-btn sync-disconnect" id="syncDisconnectBtn" type="button">切断</button>
+    <button class="sync-action-btn sync-connect" id="syncConnectBtn" type="button">接続</button>
+  </div>
+  <div class="sync-status" id="syncStatusText"></div>
+</div>
+
+<div class="sync-loading-overlay" id="syncLoadingOverlay">
+  <div class="sync-loading-box">
+    <div class="sync-spinner"></div>
+    <div>同期しています…</div>
+  </div>
+</div>
+
+<div class="overlay" id="overlay">
+  <div class="overlay-scrim" id="scrim"></div>
+  <div class="dialog">
+    <div class="dialog-head">
+      <button class="dialog-icon" id="dIcon" type="button" aria-label="change icon"></button>
+      <div class="dialog-titles">
+        <div class="dialog-title-row">
+          <h2 id="dTitle">—</h2>
+          <button class="dialog-title-edit-btn" id="dTitleEditBtn" type="button" aria-label="edit title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+          </button>
+        </div>
+        <p id="dMeta">—</p>
+      </div>
+      <div class="dialog-head-actions">
+        <button class="complete-project-btn" id="completeProjectBtn" type="button" aria-label="mark project complete">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg>
+        </button>
+        <button class="delete-project-btn" id="deleteProjectBtn" type="button" aria-label="delete project">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16"/><path d="M8 6V4.5A1.5 1.5 0 0 1 9.5 3h5A1.5 1.5 0 0 1 16 4.5V6"/><path d="M6 6l1 14.5A1.5 1.5 0 0 0 8.5 22h7a1.5 1.5 0 0 0 1.5-1.5L18 6"/><path d="M10 11v6M14 11v6"/></svg>
+        </button>
+        <button class="close-btn" id="closeBtn" aria-label="close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="tab-bar" id="tabBar"></div>
+    <div class="dialog-body" id="dialogBody"></div>
+  </div>
+</div>
+
+<div class="icon-popover" id="iconPopover">
+  <div class="icon-popover-grid" id="iconPopoverGrid"></div>
+  <div class="pop-label">Color</div>
+  <div class="color-swatch-row" id="iconColorRow"></div>
+</div>
+
+<div class="item-popover" id="itemPopover">
+  <div class="item-popover-body" id="itemPopoverBody"></div>
+</div>
+
+<div class="reorder-hint" id="reorderHint">並べ替え中…</div>
+
+<div class="confirm-overlay" id="confirmOverlay">
+  <div class="confirm-scrim" id="confirmScrim"></div>
+  <div class="confirm-box">
+    <div class="confirm-msg" id="confirmMsg"></div>
+    <div class="confirm-actions">
+      <button class="confirm-btn confirm-cancel" id="confirmCancelBtn">キャンセル</button>
+      <button class="confirm-btn confirm-ok" id="confirmOkBtn">削除する</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* =========================================================
+   DATA — six sample life projects. Replace freely.
+   ========================================================= */
+const PROJECTS = [
+  {
+    id:"website", accent:"blue",
+    title:"Website Relaunch", status:"On Track", progress:62,
+    deadline:"Sep 30, 2026", updated:"2 hours ago",
+    icon:"globe",
+    overview:"A full rebuild of the personal portfolio site — new visual identity, faster build pipeline, and a proper case-study section. Currently mid-way through the front-end implementation.",
+    milestones:[
+      {t:"Design system finalized", d:"Jun 02", done:true},
+      {t:"Homepage & nav built", d:"Jun 20", done:true},
+      {t:"Case study template", d:"Jul 25", done:false},
+      {t:"Content migration", d:"Aug 20", done:false},
+      {t:"Launch & DNS cutover", d:"Sep 30", done:false},
+    ],
+    tasks:[
+      {n:"Wire up contact form backend", p:"high", tag:"BACKEND"},
+      {n:"Optimize hero image loading", p:"mid", tag:"PERF"},
+      {n:"Write 3 remaining case studies", p:"high", tag:"CONTENT"},
+      {n:"Cross-browser QA pass", p:"low", tag:"QA"},
+    ],
+    notes:"Keep the type scale locked to the current 4-step system — resist adding a 5th size. Ping hosting provider about staging subdomain before launch week.",
+    resources:[
+      {n:"Design system Figma", s:"figma.com · shared file", ic:"FG"},
+      {n:"Content tracker sheet", s:"internal spreadsheet", ic:"SH"},
+      {n:"Hosting dashboard", s:"provider console", ic:"HS"},
+    ],
+    timeline:[
+      {d:"Jun 02","t":"Design system approved"},
+      {d:"Jun 20","t":"Homepage development complete"},
+      {d:"Jul 10","t":"Started case study template"},
+      {d:"Today","t":"62% overall completion"},
+    ],
+    gallery:["Homepage v3","Nav interactions","Case study grid","Mobile layout","Color tokens","Icon set"]
+  },
+  {
+    id:"marathon", accent:"green",
+    title:"Marathon Training", status:"On Track", progress:45,
+    deadline:"Nov 15, 2026", updated:"Yesterday",
+    icon:"run",
+    overview:"16-week training block building toward a first full marathon. Base mileage phase complete, now entering the tempo & long-run build phase.",
+    milestones:[
+      {t:"Base mileage phase", d:"May 01", done:true},
+      {t:"First 15-mile long run", d:"Jun 28", done:true},
+      {t:"20-mile long run", d:"Sep 06", done:false},
+      {t:"Taper begins", d:"Oct 25", done:false},
+      {t:"Race day", d:"Nov 15", done:false},
+    ],
+    tasks:[
+      {n:"Book physio check-up", p:"mid", tag:"HEALTH"},
+      {n:"Test race-day fuel strategy", p:"high", tag:"NUTRITION"},
+      {n:"Buy new pair of shoes (~300mi mark)", p:"low", tag:"GEAR"},
+    ],
+    notes:"Right knee felt tight after last Sunday's run — watch it, consider dropping a recovery week if it persists. Aim to nail negative-split pacing on next long run.",
+    resources:[
+      {n:"Training plan spreadsheet", s:"16-week block", ic:"TP"},
+      {n:"Race course map", s:"organizer site", ic:"MP"},
+      {n:"Nutrition guide notes", s:"personal doc", ic:"NT"},
+    ],
+    timeline:[
+      {d:"May 01","t":"Started base phase"},
+      {d:"Jun 28","t":"First 15-mile long run completed"},
+      {d:"Jul 12","t":"Entered tempo build phase"},
+      {d:"Today","t":"45% of block complete"},
+    ],
+    gallery:["Weekly mileage chart","Route map","Shoe rotation","Pace splits","Recovery log","Race bib goal"]
+  },
+  {
+    id:"novel", accent:"pink",
+    title:"Novel Manuscript", status:"Ahead", progress:78,
+    deadline:"Dec 01, 2026", updated:"3 days ago",
+    icon:"book",
+    overview:"First full draft of a literary fiction manuscript, targeting ~85,000 words. Currently drafting the final act after a strong outline and midpoint revision.",
+    milestones:[
+      {t:"Outline complete", d:"Feb 14", done:true},
+      {t:"Act I draft", d:"Apr 03", done:true},
+      {t:"Midpoint revision", d:"Jun 10", done:true},
+      {t:"Act III draft", d:"Sep 15", done:false},
+      {t:"Full manuscript edit pass", d:"Nov 20", done:false},
+    ],
+    tasks:[
+      {n:"Draft chapter 24 confrontation scene", p:"high", tag:"DRAFTING"},
+      {n:"Fix timeline inconsistency, ch. 9", p:"mid", tag:"CONTINUITY"},
+      {n:"Research period detail for ch. 27", p:"low", tag:"RESEARCH"},
+    ],
+    notes:"The ending needs one more emotional beat before the final scene — consider adding a short chapter from the sister's POV. Send Act I to beta readers once Act III is drafted.",
+    resources:[
+      {n:"Character bible", s:"reference doc", ic:"CH"},
+      {n:"Beta reader list", s:"contact sheet", ic:"BR"},
+      {n:"Style guide notes", s:"personal doc", ic:"SG"},
+    ],
+    timeline:[
+      {d:"Feb 14","t":"Outline finalized"},
+      {d:"Apr 03","t":"Act I completed"},
+      {d:"Jun 10","t":"Midpoint revision done"},
+      {d:"Today","t":"78,000 of ~85,000 words drafted"},
+    ],
+    gallery:["Story outline board","Character sketches","Setting reference","Timeline map","Cover concept","Chapter tracker"]
+  },
+  {
+    id:"reno", accent:"gray",
+    title:"Home Renovation", status:"Behind", progress:30,
+    deadline:"Oct 10, 2026", updated:"5 days ago",
+    icon:"home",
+    overview:"Kitchen and living room renovation — new flooring, repainted walls, and updated fixtures. Contractor scheduling pushed the project behind the original plan.",
+    milestones:[
+      {t:"Design & material selection", d:"Apr 20", done:true},
+      {t:"Permits approved", d:"May 30", done:true},
+      {t:"Demolition", d:"Jul 05", done:false},
+      {t:"Flooring installed", d:"Aug 20", done:false},
+      {t:"Final walkthrough", d:"Oct 10", done:false},
+    ],
+    tasks:[
+      {n:"Confirm new contractor start date", p:"high", tag:"SCHEDULE"},
+      {n:"Order kitchen fixtures", p:"high", tag:"PURCHASE"},
+      {n:"Get paint samples on wall", p:"low", tag:"DESIGN"},
+    ],
+    notes:"Original contractor pushed start by 3 weeks — get written confirmation of the new timeline before paying next deposit. Double check flooring lead time with supplier.",
+    resources:[
+      {n:"Contractor contract PDF", s:"signed agreement", ic:"CT"},
+      {n:"Material order tracker", s:"spreadsheet", ic:"MT"},
+      {n:"Inspiration board", s:"saved images", ic:"IB"},
+    ],
+    timeline:[
+      {d:"Apr 20","t":"Materials finalized"},
+      {d:"May 30","t":"Permits approved"},
+      {d:"Jun 25","t":"Contractor delay flagged"},
+      {d:"Today","t":"30% complete, revised schedule pending"},
+    ],
+    gallery:["Before photos","Floor plan","Material swatches","Fixture picks","Paint palette","Layout sketch"]
+  },
+  {
+    id:"cert", accent:"orange",
+    title:"Certification Study", status:"On Track", progress:54,
+    deadline:"Sep 12, 2026", updated:"Today",
+    icon:"cap",
+    overview:"Studying for a professional certification exam — working through the official curriculum plus two practice-exam sets before the test date.",
+    milestones:[
+      {t:"Curriculum modules 1–3", d:"May 15", done:true},
+      {t:"Curriculum modules 4–6", d:"Jun 30", done:true},
+      {t:"First practice exam", d:"Jul 20", done:false},
+      {t:"Weak-area review", d:"Aug 15", done:false},
+      {t:"Exam day", d:"Sep 12", done:false},
+    ],
+    tasks:[
+      {n:"Finish practice exam set A", p:"high", tag:"PRACTICE"},
+      {n:"Re-review networking module", p:"mid", tag:"REVIEW"},
+      {n:"Book exam testing slot", p:"high", tag:"ADMIN"},
+    ],
+    notes:"Scored 68% on the diagnostic — security and networking sections are the weak spots. Block out two evenings a week purely for practice questions, not new content.",
+    resources:[
+      {n:"Official curriculum PDF", s:"study guide", ic:"CU"},
+      {n:"Practice exam portal", s:"vendor site", ic:"PE"},
+      {n:"Flashcard deck", s:"personal set", ic:"FC"},
+    ],
+    timeline:[
+      {d:"May 15","t":"Modules 1–3 complete"},
+      {d:"Jun 30","t":"Modules 4–6 complete"},
+      {d:"Jul 08","t":"Diagnostic practice exam taken"},
+      {d:"Today","t":"54% through full curriculum"},
+    ],
+    gallery:["Study schedule","Topic checklist","Score history","Flashcard set","Formula sheet","Exam center map"]
+  },
+  {
+    id:"startup", accent:"purple",
+    title:"Startup MVP", status:"On Track", progress:41,
+    deadline:"Oct 20, 2026", updated:"1 day ago",
+    icon:"rocket",
+    overview:"Building the first working version of a side-project product idea — core workflow, basic auth, and a landing page to start collecting early sign-ups.",
+    milestones:[
+      {t:"Problem & scope defined", d:"May 10", done:true},
+      {t:"Core data model built", d:"Jun 05", done:true},
+      {t:"Auth & onboarding flow", d:"Jul 30", done:false},
+      {t:"Landing page live", d:"Aug 25", done:false},
+      {t:"First 10 beta users", d:"Oct 20", done:false},
+    ],
+    tasks:[
+      {n:"Finish onboarding wizard UI", p:"high", tag:"PRODUCT"},
+      {n:"Set up waitlist email capture", p:"mid", tag:"GROWTH"},
+      {n:"Write landing page copy", p:"mid", tag:"CONTENT"},
+    ],
+    notes:"Talked to 4 potential users this week — all confirmed the core problem is real, two asked for a simpler first-run experience. Simplify onboarding to 3 steps max.",
+    resources:[
+      {n:"Product spec doc", s:"internal doc", ic:"SP"},
+      {n:"User interview notes", s:"research log", ic:"UI"},
+      {n:"Landing page draft", s:"in-progress site", ic:"LP"},
+    ],
+    timeline:[
+      {d:"May 10","t":"Scope and MVP defined"},
+      {d:"Jun 05","t":"Data model shipped"},
+      {d:"Jul 02","t":"4 user interviews completed"},
+      {d:"Today","t":"41% of MVP feature set built"},
+    ],
+    gallery:["Product flow diagram","Onboarding wireframe","Landing draft","Data model","Interview notes","Roadmap board"]
+  },
+];
+
+const ACCENT_HEX = { blue:"#0a84ff", green:"#30d158", pink:"#ff375f", gray:"#8e8e93", orange:"#ff9f0a", purple:"#bf5af2" };
+const ACCENT_CYCLE = ["blue","green","pink","gray","orange","purple"];
+const QUAD_ACCENT_CLASS = { q1:"q-pink", q2:"q-blue", q3:"q-orange", q4:"q-gray" };
+const ICON_KEYS = ["globe","run","book","home","cap","rocket","star","heart","briefcase","camera","palette","money","flag","target","bolt","chart","shield","compass","clock","gem","anchor","bell","key","leaf"];
+
+/* =========================================================
+   CUSTOM PROJECTS — beyond the original 6. Persisted
+   separately and merged into PROJECTS on load.
+   ========================================================= */
+const CUSTOM_PROJECTS_KEY = 'projects_custom_v1';
+function loadCustomProjects(){
+  try{ const raw = localStorage.getItem(CUSTOM_PROJECTS_KEY); if(raw) return JSON.parse(raw); }catch(e){}
+  return [];
+}
+function saveCustomProjects(){
+  const customs = PROJECTS.filter(p=>p.custom).map(p=>({ id:p.id, accent:p.accent }));
+  try{ localStorage.setItem(CUSTOM_PROJECTS_KEY, JSON.stringify(customs)); }catch(e){}
+}
+loadCustomProjects().forEach(c=>{
+  PROJECTS.push({
+    id:c.id, title:'New Project', status:'On Track', accent:c.accent||'blue', icon:'star',
+    deadline:'', updated:'', overview:'', tasks:[], milestones:[], timeline:[], resources:[], gallery:[],
+    custom:true,
+  });
+});
+
+/* =========================================================
+   GLOBAL SETTING — which quadrants auto-log their completions
+   to Timeline. App-wide (shared across all projects), default
+   matches the original behavior: Now/Grow on, Quick/Later off.
+   ========================================================= */
+const AUTO_TIMELINE_LOG_KEY = 'projects_auto_timeline_log_v1';
+const AUTO_TIMELINE_LOG_DEFAULT = { q1:true, q2:true, q3:false, q4:false };
+function loadAutoTimelineLog(){
+  try{
+    const raw = localStorage.getItem(AUTO_TIMELINE_LOG_KEY);
+    if(raw){ const parsed = JSON.parse(raw); return { ...AUTO_TIMELINE_LOG_DEFAULT, ...parsed }; }
+  }catch(e){}
+  return { ...AUTO_TIMELINE_LOG_DEFAULT };
+}
+function saveAutoTimelineLog(settings){
+  try{ localStorage.setItem(AUTO_TIMELINE_LOG_KEY, JSON.stringify(settings)); }catch(e){}
+}
+let autoTimelineLogSettings = loadAutoTimelineLog();
+
+/* =========================================================
+   ICONS — simple original line icons to choose from
+   ========================================================= */
+function iconSVG(key){
+  if(key === 'code') key = 'money'; // legacy alias
+  const icons = {
+    globe:`<circle cx="12" cy="12" r="8.5"/><path d="M3.7 12h16.6M12 3.5c2.6 2.3 4 5.3 4 8.5s-1.4 6.2-4 8.5c-2.6-2.3-4-5.3-4-8.5s1.4-6.2 4-8.5Z"/>`,
+    run:`<path d="M6 21V4"/><path d="M6 4h12l-3 4 3 4H6"/>`,
+    book:`<path d="M4 5.2c2.6-1 5.4-1 8 0v13.6c-2.6-1-5.4-1-8 0V5.2ZM20 5.2c-2.6-1-5.4-1-8 0v13.6c2.6-1 5.4-1 8 0V5.2Z"/>`,
+    home:`<path d="M4 11.5 12 4l8 7.5"/><path d="M6.5 10v9.5h11V10"/><path d="M10 19.5v-6h4v6"/>`,
+    cap:`<path d="M12 4 2 9l10 5 10-5-10-5Z"/><path d="M6 11.5V17c0 1.4 2.7 2.5 6 2.5s6-1.1 6-2.5v-5.5"/><path d="M22 9v6.5"/>`,
+    rocket:`<path d="M12 3c3 1.6 5 5 5 9 0 2-.6 3.6-1.4 5H8.4C7.6 15.6 7 14 7 12c0-4 2-7.4 5-9Z"/><circle cx="12" cy="10.5" r="1.6"/><path d="M8.4 17 6 21l3-1.2M15.6 17 18 21l-3-1.2"/>`,
+    star:`<path d="M12 3.5 14.5 9.3 20.8 9.9 16 14 17.4 20.2 12 16.9 6.6 20.2 8 14 3.2 9.9 9.5 9.3 12 3.5Z"/>`,
+    heart:`<path d="M12 20.5S3.5 15.4 3.5 9.4C3.5 6.4 5.8 4.5 8.3 4.5c1.6 0 3 .8 3.7 2.1.7-1.3 2.1-2.1 3.7-2.1 2.5 0 4.8 1.9 4.8 4.9 0 6-8.5 11.1-8.5 11.1Z"/>`,
+    briefcase:`<rect x="3" y="8" width="18" height="12" rx="2"/><path d="M8 8V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 13h18"/>`,
+    camera:`<path d="M4 8h3l1.6-2.5h6.8L17 8h3a1.5 1.5 0 0 1 1.5 1.5v9A1.5 1.5 0 0 1 20 20H4a1.5 1.5 0 0 1-1.5-1.5v-9A1.5 1.5 0 0 1 4 8Z"/><circle cx="12" cy="13.5" r="3.6"/>`,
+    palette:`<path d="M12 3.5a8.5 8.5 0 1 0 0 17c1 0 1.7-.8 1.7-1.7 0-.5-.2-.9-.5-1.2-.3-.3-.5-.7-.5-1.2 0-.9.7-1.7 1.7-1.7h2a3.5 3.5 0 0 0 3.5-3.5C19.9 6.8 16.4 3.5 12 3.5Z"/><circle cx="7.5" cy="11" r="1"/><circle cx="9" cy="7.5" r="1"/><circle cx="14.5" cy="7" r="1"/>`,
+    money:`<rect x="2.6" y="6.5" width="18.8" height="11" rx="2.2"/><circle cx="12" cy="12" r="2.6"/><path d="M6 9.3h.01M18 14.7h.01"/>`,
+    flag:`<path d="M6 21V4"/><path d="M6 4.5c2.2-1.2 4.3-1.2 6.5 0 2.2 1.2 4.3 1.2 6.5 0v8c-2.2 1.2-4.3 1.2-6.5 0-2.2-1.2-4.3-1.2-6.5 0Z"/>`,
+    target:`<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.6"/>`,
+    bolt:`<path d="M13 3 5 14h6l-1 7 9-12h-6l1-6Z"/>`,
+    chart:`<path d="M4 20V10M9.5 20V4M15 20v-7M20 20V8"/>`,
+    shield:`<path d="M12 3.5 19 6.5v5c0 5-3 8.5-7 9.5-4-1-7-4.5-7-9.5v-5L12 3.5Z"/><path d="M9 12l2 2 4-4.5"/>`,
+    compass:`<circle cx="12" cy="12" r="8.5"/><path d="M14.8 9.2 13 13l-3.8 1.8L11 11l3.8-1.8Z"/>`,
+    clock:`<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3.2 2"/>`,
+    gem:`<path d="M2 9h20M9 3l-2 6 5 12 5-12-2-6Z"/>`,
+    anchor:`<circle cx="12" cy="5.5" r="2"/><path d="M12 7.5V21"/><path d="M6 14a6 6 0 0 0 12 0"/><path d="M4 14h4M16 14h4"/>`,
+    bell:`<path d="M12 3.5c-3 0-5 2.3-5 5.5 0 5-2 6.5-2 6.5h14s-2-1.5-2-6.5c0-3.2-2-5.5-5-5.5Z"/><path d="M10 18a2 2 0 0 0 4 0"/>`,
+    key:`<circle cx="7" cy="12" r="4"/><path d="M10.5 12H21M17 12v3.5M20 12v2.5"/>`,
+    leaf:`<path d="M19 5c-8 0-14 5-14 13 8 0 13-5 14-13Z"/><path d="M6 18c2-4 5-7 9-9"/>`,
+  };
+  return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${icons[key]||icons.globe}</svg>`;
+}
+
+/* Time HP — not an achievement rate. It reflects how urgent the nearest
+   upcoming (or most overdue) unfinished milestone is. Nothing pending
+   soon reads as healthy; a blown deadline reads as critical, no matter
+   how much other work is done. Boundaries below extend the "5+ days
+   overdue" floor downward through longer overdue stretches too, since
+   HP dropping back up the longer something is overdue wouldn't make sense. */
+function timeHPFromDays(daysUntil){
+  if(daysUntil >= 15) return { hp:90, tier:'green' };
+  if(daysUntil >= 8)  return { hp:80, tier:'green' };
+  if(daysUntil >= 4)  return { hp:60, tier:'yellow' };
+  if(daysUntil >= 2)  return { hp:50, tier:'yellow' };
+  if(daysUntil === 1) return { hp:40, tier:'yellow' };
+  if(daysUntil === 0) return { hp:30, tier:'yellow' };
+  if(daysUntil >= -2) return { hp:20, tier:'red' };
+  if(daysUntil === -3) return { hp:10, tier:'red' };
+  return { hp:0, tier:'darkred' }; // 4+ days overdue
+}
+
+function hpMiniHTML(lvPct, hpResult){
+  const hp = hpResult ? hpResult.hp : null;
+  const tier = hpResult ? hpResult.tier : 'empty';
+  const target = hp === null ? 0 : hp;
+  return `
+    <div class="hp-mini">
+      <div class="hp-pct">${lvLabel(lvPct)}</div>
+      <div class="hp-track${hp===null?' hp-track-empty':''}">
+        <div class="hp-fill hp-${tier}" style="width:0%" data-target="${target}"></div>
+      </div>
+      <div class="xp-track${lvPct===null?' xp-track-empty':''}">
+        <div class="xp-fill" style="width:0%" data-target="${lvPct===null?0:lvPct}"></div>
+      </div>
+    </div>
+  `;
+}
+
+/* =========================================================
+   TODO STATE — Eisenhower matrix (urgent/important quadrants),
+   variable number of items per quadrant, lives in the detail
+   panel and persists to localStorage.
+   ========================================================= */
+const QUAD_KEY = 'projects_quadrant_state_v2';
+const QUAD_DEFS = [
+  { id:'q1', label:'NOW',   sub:'緊急かつ重要' },
+  { id:'q2', label:'GROW',  sub:'重要だけど緊急じゃない' },
+  { id:'q3', label:'QUICK', sub:'緊急だけど重要じゃない' },
+  { id:'q4', label:'LATER', sub:'緊急でも重要でもない' },
+];
+const QUAD_WEIGHT = { q1:4, q2:3, q3:2, q4:1 };
+const WEIGHT_TO_QUAD = { 4:'q1', 3:'q2', 2:'q3', 1:'q4' };
+// how far along a project "should" be, given its status — the same
+// judgment used to color-code Behind/On Track/Ahead.
+const STATUS_EXPECTED_PCT = { 'Ahead':90, 'On Track':55, 'Behind':20 };
+function itemWeight(it){ return typeof it.weight === 'number' ? it.weight : 2; }
+
+function loadQuadState(){
+  try{ const raw = localStorage.getItem(QUAD_KEY); if(raw) return JSON.parse(raw); }catch(e){}
+  return {};
+}
+function saveQuadState(state){ try{ localStorage.setItem(QUAD_KEY, JSON.stringify(state)); }catch(e){} }
+
+let uidCounter = 1;
+function nextUid(){ return 'i' + (uidCounter++) + '-' + Date.now().toString(36); }
+
+function defaultQuadrantsFor(p){
+  const buckets = { q1:[], q2:[], q3:[], q4:[], completed:[] };
+  const map = { high:'q1', mid:'q2', low:'q3' };
+  const ratio = (STATUS_EXPECTED_PCT[p.status] ?? 50) / 100;
+  const doneCount = Math.round(p.tasks.length * ratio);
+  p.tasks.forEach((t,i)=>{
+    const q = map[t.p] || 'q3';
+    buckets[q].push({ id: nextUid(), text: t.n, done: i < doneCount, weight: QUAD_WEIGHT[q] });
+  });
+  return buckets;
+}
+
+let quadState = loadQuadState();
+PROJECTS.forEach(p=>{
+  const s = quadState[p.id];
+  if(!s || !s.q1 || !s.q2 || !s.q3 || !s.q4){
+    quadState[p.id] = defaultQuadrantsFor(p);
+  } else {
+    // migrate older saved data: add the completed bucket and per-item weights if missing
+    if(!s.completed) s.completed = [];
+    ['q1','q2','q3','q4'].forEach(qid=>{
+      s[qid].forEach(it=>{ if(typeof it.weight !== 'number') it.weight = QUAD_WEIGHT[qid]; });
+    });
+    s.completed.forEach(it=>{ if(typeof it.weight !== 'number') it.weight = 2; });
+  }
+});
+saveQuadState(quadState);
+
+function quadCounts(id){
+  const s = quadState[id];
+  const all = [...s.q1, ...s.q2, ...s.q3, ...s.q4, ...s.completed];
+  return { done: all.filter(i=>i.done).length, total: all.length };
+}
+// Lv. is weighted by which area a task belongs (or belonged) to:
+// Now counts 4x, Grow 3x, Quick 2x, Later 1x — so finishing higher-priority
+// work moves the needle more, while 100% completion always still reads Lv.100.
+// Lv. is To-Do-only. The HP bar is a separate metric driven by milestones —
+// the two numbers are intentionally independent, like a game character's
+// Level vs. their current HP.
+function quadProgress(id){
+  const s = quadState[id];
+  const todos = [...s.q1, ...s.q2, ...s.q3, ...s.q4, ...s.completed];
+  if(todos.length === 0) return null;
+  let totalW = 0, doneW = 0;
+  todos.forEach(it=>{
+    const w = itemWeight(it);
+    totalW += w;
+    if(it.done) doneW += w;
+  });
+  if(totalW === 0) return null;
+  return Math.round((doneW/totalW)*100);
+}
+// Time HP looks at the single nearest unfinished milestone (soonest
+// upcoming, or most overdue if any are already past due) and maps its
+// distance from today through the table above. No milestones pending
+// at all reads as the best possible state — "Ahead".
+function milestoneProgress(id){
+  const items = (typeof milestoneState !== 'undefined' && milestoneState[id]) || [];
+  if(items.length === 0) return null;
+
+  const today = new Date();
+  today.setHours(0,0,0,0);
+
+  let nearestDays = null;
+  items.forEach(m=>{
+    if(m.done || !isISODate(m.date)) return;
+    const [y,mo,d] = m.date.split('-').map(Number);
+    const due = new Date(y, mo-1, d);
+    const days = Math.round((due - today) / 86400000);
+    if(nearestDays === null || days < nearestDays) nearestDays = days;
+  });
+
+  if(nearestDays === null || nearestDays > 21) return { hp:100, tier:'green' };
+  return timeHPFromDays(nearestDays);
+}
+function lvLabel(pct){ return pct === null ? '–' : 'Lv.' + (pct === 0 ? 1 : pct); }
+
+function updateCardProgress(id){
+  const p = PROJECTS.find(x=>x.id===id);
+  const cardEl = grid.querySelector(`.card[data-id="${id}"]`);
+  if(!p || !cardEl) return;
+  const lvPct = quadProgress(id);
+  const hpResult = milestoneProgress(id);
+  const fill = cardEl.querySelector('.hp-fill');
+  const track = cardEl.querySelector('.hp-track');
+  const label = cardEl.querySelector('.hp-pct');
+  const xpFill = cardEl.querySelector('.xp-fill');
+  const xpTrack = cardEl.querySelector('.xp-track');
+  const hp = hpResult ? hpResult.hp : null;
+  const tier = hpResult ? hpResult.tier : 'empty';
+  fill.className = `hp-fill hp-${tier}`;
+  fill.style.width = (hp === null ? 0 : hp) + '%';
+  track.classList.toggle('hp-track-empty', hp === null);
+  label.textContent = lvLabel(lvPct);
+  if(xpFill) xpFill.style.width = (lvPct === null ? 0 : lvPct) + '%';
+  if(xpTrack) xpTrack.classList.toggle('xp-track-empty', lvPct === null);
+
+  // the status tag (and card tint) follow HP too, so they stay in sync
+  const effectiveStatus = statusFromHPTier(tier);
+  const st = statusRule(effectiveStatus);
+  cardEl.classList.remove('st-ontrack','st-ahead','st-delayed');
+  cardEl.classList.add(st.cls);
+  const pill = cardEl.querySelector('.status-pill');
+  if(pill){
+    pill.classList.remove('st-ontrack','st-ahead','st-delayed');
+    pill.classList.add(st.cls);
+    pill.textContent = effectiveStatus;
+  }
+
+  cardEl.classList.add('pulse-update');
+  setTimeout(()=> cardEl.classList.remove('pulse-update'), 420);
+}
+
+/* =========================================================
+   PROJECT META — editable title & icon, persisted
+   ========================================================= */
+const META_KEY = 'projects_meta_v1';
+function loadMeta(){
+  try{ const raw = localStorage.getItem(META_KEY); if(raw) return JSON.parse(raw); }catch(e){}
+  return {};
+}
+function saveMeta(meta){ try{ localStorage.setItem(META_KEY, JSON.stringify(meta)); }catch(e){} }
+
+let projectMeta = loadMeta();
+PROJECTS.forEach(p=>{
+  const m = projectMeta[p.id];
+  if(m){
+    if(m.title) p.title = m.title;
+    if(m.icon) p.icon = m.icon;
+  }
+});
+
+function setProjectTitle(id, title){
+  const p = PROJECTS.find(x=>x.id===id);
+  const clean = title.trim() || p.title;
+  const wasDeleted = isProjectDeleted(id);
+  const isRevival = wasDeleted && clean && clean !== EMPTY_SLOT_LABEL;
+
+  p.title = clean;
+  projectMeta[id] = { ...(projectMeta[id]||{}), title: clean };
+  if(isRevival) projectMeta[id].deleted = false;
+  saveMeta(projectMeta);
+
+  if(isRevival){
+    renderGrid();
+  } else {
+    const cardTitleEl = grid.querySelector(`.card[data-id="${id}"] .card-title`);
+    if(cardTitleEl) cardTitleEl.textContent = clean;
+  }
+  if(dTitle && overlay.dataset.projectId === id) dTitle.textContent = clean;
+}
+
+function setProjectIcon(id, iconKey){
+  const p = PROJECTS.find(x=>x.id===id);
+  p.icon = iconKey;
+  projectMeta[id] = { ...(projectMeta[id]||{}), icon: iconKey };
+  saveMeta(projectMeta);
+  const cardIconEl = grid.querySelector(`.card[data-id="${id}"] .card-icon`);
+  if(cardIconEl) cardIconEl.innerHTML = iconSVG(iconKey);
+  if(dIcon && overlay.dataset.projectId === id) dIcon.innerHTML = iconSVG(iconKey);
+}
+
+function getIconColor(p){
+  return getMeta(p.id, 'iconColor', ACCENT_HEX[p.accent]);
+}
+function setProjectIconColor(id, color){
+  const p = PROJECTS.find(x=>x.id===id);
+  projectMeta[id] = { ...(projectMeta[id]||{}), iconColor: color };
+  saveMeta(projectMeta);
+  const cardIconEl = grid.querySelector(`.card[data-id="${id}"] .card-icon`);
+  if(cardIconEl) cardIconEl.style.background = color;
+  if(dIcon && overlay.dataset.projectId === id) dIcon.style.background = color;
+}
+
+function getMeta(id, field, fallback){
+  const m = projectMeta[id];
+  return (m && typeof m[field] === 'string') ? m[field] : fallback;
+}
+function setMeta(id, field, value){
+  projectMeta[id] = { ...(projectMeta[id]||{}), [field]: value };
+  saveMeta(projectMeta);
+}
+
+/* =========================================================
+   PROJECT DELETION — the card frame stays in the grid, but
+   all of its content (title, icon, tasks, notes, timeline,
+   milestones) is cleared. Setting a new title later revives it.
+   ========================================================= */
+const EMPTY_SLOT_LABEL = '';
+
+function isProjectDeleted(id){
+  return !!(projectMeta[id] && projectMeta[id].deleted);
+}
+
+function deleteProjectContents(id){
+  const idx = PROJECTS.findIndex(x=>x.id===id);
+  if(idx === -1) return;
+  const p = PROJECTS[idx];
+
+  if(milestoneState[id]) delete milestoneState[id];
+  if(timelineState[id]) delete timelineState[id];
+  if(quadState[id]) delete quadState[id];
+  saveMilestoneState(milestoneState);
+  saveTimelineState(timelineState);
+  saveQuadState(quadState);
+
+  if(p.custom){
+    // custom (7th+) projects have no fixed slot to preserve — remove entirely
+    PROJECTS.splice(idx, 1);
+    delete projectMeta[id];
+    saveMeta(projectMeta);
+    saveCustomProjects();
+  } else {
+    // one of the original 6 — clear contents but keep the revivable empty slot
+    p.title = EMPTY_SLOT_LABEL;
+    p.icon = 'globe';
+    projectMeta[id] = { deleted:true, title:EMPTY_SLOT_LABEL, icon:'globe', summary:'', notes:'' };
+    saveMeta(projectMeta);
+    milestoneState[id] = [];
+    timelineState[id] = [];
+    quadState[id] = { q1:[], q2:[], q3:[], q4:[], completed:[] };
+    saveMilestoneState(milestoneState);
+    saveTimelineState(timelineState);
+    saveQuadState(quadState);
+  }
+
+  renderGrid();
+}
+
+/* =========================================================
+   PROJECT COMPLETION — archives a project out of the active
+   grid into a simple accumulating list below it. Reversible.
+   ========================================================= */
+function isProjectCompleted(id){
+  return !!(projectMeta[id] && projectMeta[id].completed);
+}
+function setProjectCompleted(id, val){
+  projectMeta[id] = { ...(projectMeta[id]||{}), completed: val };
+  saveMeta(projectMeta);
+  renderGrid();
+}
+
+function createNewProject(){
+  const id = 'p' + nextUid();
+  const accent = ACCENT_CYCLE[PROJECTS.length % ACCENT_CYCLE.length];
+  const p = {
+    id, title:'New Project', status:'On Track', accent, icon:'star',
+    deadline:'', updated:'', overview:'', tasks:[], milestones:[], timeline:[], resources:[], gallery:[],
+    custom:true,
+  };
+  PROJECTS.push(p);
+  quadState[id] = defaultQuadrantsFor(p);
+  milestoneState[id] = [];
+  timelineState[id] = [];
+  saveQuadState(quadState);
+  saveMilestoneState(milestoneState);
+  saveTimelineState(timelineState);
+  saveCustomProjects();
+  renderGrid();
+  return id;
+}
+
+/* =========================================================
+   PROJECT ORDER — persisted card order for the home grid
+   ========================================================= */
+const ORDER_KEY = 'projects_order_v1';
+function loadOrder(){
+  try{ const raw = localStorage.getItem(ORDER_KEY); if(raw) return JSON.parse(raw); }catch(e){}
+  return null;
+}
+function saveOrder(){
+  try{ localStorage.setItem(ORDER_KEY, JSON.stringify(PROJECTS.map(p=>p.id))); }catch(e){}
+}
+(function applyStoredOrder(){
+  const order = loadOrder();
+  if(!order) return;
+  const byId = new Map(PROJECTS.map(p=>[p.id,p]));
+  const ordered = order.map(id=>byId.get(id)).filter(Boolean);
+  order.forEach(id=>byId.delete(id));
+  const remaining = PROJECTS.filter(p=>byId.has(p.id));
+  PROJECTS.length = 0;
+  PROJECTS.push(...ordered, ...remaining);
+})();
+
+/* =========================================================
+   RENDER — home grid
+   ========================================================= */
+const grid = document.getElementById('grid');
+
+const STATUS_RULES = {
+  'On Track': { cls:'st-ontrack' },
+  'Ahead':    { cls:'st-ahead'   },
+  'Behind':   { cls:'st-delayed' },
+};
+function statusRule(status){ return STATUS_RULES[status] || STATUS_RULES['On Track']; }
+
+// The status tag is no longer a fixed field — it's derived live from HP
+// (the nearest-milestone urgency): green = Ahead, yellow =
+// On Track, red/dark red = Behind.
+function statusFromHPTier(tier){
+  if(tier === 'green') return 'Ahead';
+  if(tier === 'yellow') return 'On Track';
+  if(tier === 'red' || tier === 'darkred') return 'Behind';
+  return 'On Track';
+}
+function getEffectiveStatus(id){
+  const hpResult = milestoneProgress(id);
+  return statusFromHPTier(hpResult ? hpResult.tier : 'empty');
+}
+
+function renderGrid(){
+  grid.innerHTML = '';
+  const activeList = PROJECTS.filter(p=> !isProjectCompleted(p.id));
+  const completedList = PROJECTS.filter(p=> !isProjectDeleted(p.id) && isProjectCompleted(p.id));
+
+  const filledCount = activeList.filter(p=> !isProjectDeleted(p.id)).length;
+  const countLabel = document.getElementById('activeCountLabel');
+  if(countLabel && currentPage !== 'alltodos'){
+    countLabel.textContent = 'Active projects';
+  }
+
+  activeList.forEach((p, i)=>{
+    if(i === 6){
+      const divider = document.createElement('div');
+      divider.className = 'grid-extra-divider';
+      divider.innerHTML = `<span>追加のプロジェクト</span>`;
+      grid.appendChild(divider);
+    }
+
+    const el = document.createElement('div');
+    el.dataset.id = p.id;
+
+    if(isProjectDeleted(p.id)){
+      el.className = 'card is-empty';
+      el.innerHTML = `
+        <div class="empty-slot-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+        </div>
+      `;
+      el.addEventListener('click', ()=>{
+        if(cardJustDragged) return;
+        openDetail(p.id);
+      });
+      grid.appendChild(el);
+      return;
+    }
+
+    const lvPct = quadProgress(p.id);
+    const hpResult = milestoneProgress(p.id);
+    const effectiveStatus = statusFromHPTier(hpResult ? hpResult.tier : 'empty');
+    const st = statusRule(effectiveStatus);
+    el.className = `card acc-${p.accent} ${st.cls}`;
+    el.innerHTML = `
+      <button class="card-icon" type="button" aria-label="change icon" style="background:${getIconColor(p)}">${iconSVG(p.icon)}</button>
+      <div class="card-body">
+        <div class="card-title-row">
+          <h3 class="card-title">${p.title}</h3>
+          <button class="title-edit-btn" type="button" aria-label="edit title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+          </button>
+        </div>
+        <span class="status-pill ${st.cls}">${effectiveStatus}</span>
+      </div>
+      ${hpMiniHTML(lvPct, hpResult)}
+    `;
+    el.addEventListener('click', (e)=>{
+      if(cardJustDragged) return;
+      if(e.target.closest('.card-icon') || e.target.closest('.title-edit-btn')) return;
+      openDetail(p.id);
+    });
+    el.querySelector('.card-icon').addEventListener('click', (e)=>{
+      e.stopPropagation();
+      openIconPopover(e.currentTarget, p.id);
+    });
+    el.querySelector('.title-edit-btn').addEventListener('click', (e)=>{
+      e.stopPropagation();
+      startTitleEdit(el.querySelector('.card-title'), p.id);
+    });
+    grid.appendChild(el);
+  });
+
+  const addTile = document.createElement('button');
+  addTile.type = 'button';
+  addTile.className = 'card add-project-tile';
+  addTile.setAttribute('aria-label', 'add project');
+  addTile.innerHTML = `
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+    <span>New Project</span>
+  `;
+  addTile.addEventListener('click', ()=>{
+    const id = createNewProject();
+    openDetail(id);
+    requestAnimationFrame(()=> startTitleEdit(dTitle, id));
+  });
+  grid.appendChild(addTile);
+
+  renderCompletedSection(completedList);
+
+  requestAnimationFrame(()=>{
+    setTimeout(()=>{
+      grid.querySelectorAll('.hp-fill, .xp-fill').forEach(f=>{ f.style.width = f.dataset.target + '%'; });
+    }, 60);
+  });
+}
+
+function renderCompletedSection(completedList){
+  const section = document.getElementById('completedSection');
+  if(!section) return;
+  if(completedList.length === 0){ section.innerHTML = ''; return; }
+  section.innerHTML = `
+    <div class="completed-divider"><span>COMPLETED</span></div>
+    <div class="completed-list">
+      ${completedList.map(p=>`
+        <div class="completed-row" data-id="${p.id}">
+          <span class="completed-row-icon" style="background:${getIconColor(p)}">${iconSVG(p.icon)}</span>
+          <span class="completed-row-title">${escapeHTML(p.title)}</span>
+          <svg class="completed-row-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+        </div>
+      `).join('')}
+    </div>
+  `;
+  section.querySelectorAll('.completed-row').forEach(row=>{
+    row.addEventListener('click', ()=> openDetail(row.dataset.id));
+  });
+}
+
+/* =========================================================
+   ALL TO DOS — a read-only, cross-project view of Now/Grow/
+   Quick/Later. Editing/checking still happens per-project;
+   clicking an item just opens that project's To-Do tab.
+   ========================================================= */
+const QUAD_LABELS = { q1:'Now', q2:'Grow', q3:'Quick', q4:'Later' };
+let currentPage = 'projects';
+let alltodosMode = 'q1';
+
+function collectAllTodosFor(qid){
+  const rows = [];
+  PROJECTS.forEach(p=>{
+    if(isProjectDeleted(p.id) || isProjectCompleted(p.id)) return;
+    const items = (quadState[p.id] && quadState[p.id][qid]) || [];
+    items.forEach(it=> rows.push({ item: it, project: p }));
+  });
+  return rows;
+}
+
+function alltodosItemHTML(row){
+  const { item, project } = row;
+  return `
+    <div class="alltodos-item${item.done ? ' done' : ''}" data-project="${project.id}">
+      <span class="ck">${item.done ? '✓' : ''}</span>
+      <span class="txt">${escapeHTML(item.text)}</span>
+      <span class="proj-tag">
+        <span class="proj-dot" style="background:${getIconColor(project)}"></span>
+        <span class="proj-name">${escapeHTML(project.title)}</span>
+      </span>
+    </div>
+  `;
+}
+
+function renderAllTodosView(){
+  const body = document.getElementById('alltodosBody');
+  if(!body) return;
+
+  document.querySelectorAll('.alltodos-tab').forEach(btn=>{
+    btn.classList.toggle('active', btn.dataset.mode === alltodosMode);
+  });
+
+  if(alltodosMode === 'all'){
+    body.innerHTML = `
+      <div class="alltodos-grid4">
+        ${['q1','q2','q3','q4'].map(qid=>{
+          const rows = collectAllTodosFor(qid);
+          return `
+            <div class="alltodos-quad-panel">
+              <div class="alltodos-quad-title">${QUAD_LABELS[qid]}</div>
+              <div class="alltodos-big-list">
+                ${rows.length ? rows.map(alltodosItemHTML).join('') : `<div class="alltodos-empty">なし</div>`}
+              </div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    `;
+  } else {
+    const rows = collectAllTodosFor(alltodosMode);
+    body.innerHTML = `
+      <div class="alltodos-big-list">
+        ${rows.length ? rows.map(alltodosItemHTML).join('') : `<div class="alltodos-empty">タスクがありません</div>`}
+      </div>
+    `;
+  }
+
+  body.querySelectorAll('.alltodos-item').forEach(el=>{
+    el.addEventListener('click', ()=>{
+      openDetail(el.dataset.project);
+      requestAnimationFrame(()=>{
+        const todoTabBtn = tabBar.querySelector('.tab-btn[data-tab="To-Do"]');
+        if(todoTabBtn) todoTabBtn.click();
+      });
+    });
+  });
+}
+
+function switchPage(page){
+  currentPage = page;
+  const pageTitle = document.getElementById('pageTitle');
+  const countLabel = document.getElementById('activeCountLabel');
+  const allTodosView = document.getElementById('allTodosView');
+  const gridEl = document.getElementById('grid');
+  const completedEl = document.getElementById('completedSection');
+
+  if(page === 'alltodos'){
+    if(pageTitle) pageTitle.textContent = 'ATLAS';
+    if(countLabel) countLabel.textContent = 'All To-Dos';
+    if(gridEl) gridEl.style.display = 'none';
+    if(completedEl) completedEl.style.display = 'none';
+    if(allTodosView) allTodosView.style.display = '';
+    renderAllTodosView();
+  } else {
+    if(pageTitle) pageTitle.textContent = 'FOCUS';
+    if(gridEl) gridEl.style.display = '';
+    if(completedEl) completedEl.style.display = '';
+    if(allTodosView) allTodosView.style.display = 'none';
+    renderGrid(); // also restores the activeCountLabel text
+  }
+}
+
+document.getElementById('pageTitleBtn').addEventListener('click', ()=>{
+  switchPage(currentPage === 'alltodos' ? 'projects' : 'alltodos');
+});
+document.getElementById('alltodosSelector').addEventListener('click', (e)=>{
+  const btn = e.target.closest('.alltodos-tab');
+  if(!btn) return;
+  alltodosMode = btn.dataset.mode;
+  renderAllTodosView();
+});
+
+/* =========================================================
+   MILESTONES (state only) — moved ahead of renderGrid() since
+   milestoneProgress() reads milestoneState for the HP bar.
+   ========================================================= */
+const MILESTONE_KEY = 'projects_milestones_v1';
+const MONTH_ABBR = {Jan:0,Feb:1,Mar:2,Apr:3,May:4,Jun:5,Jul:6,Aug:7,Sep:8,Oct:9,Nov:10,Dec:11};
+const MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+function isISODate(str){ return typeof str === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(str); }
+function parseLooseDateToISO(str, assumedYear){
+  if(!str) return '';
+  if(isISODate(str)) return str;
+  const m = str.trim().match(/^([A-Za-z]{3})[a-z]*\s+(\d{1,2})/);
+  if(m && MONTH_ABBR[m[1]] !== undefined){
+    const mo = MONTH_ABBR[m[1]];
+    const day = parseInt(m[2],10);
+    const y = assumedYear || new Date().getFullYear();
+    return `${y}-${String(mo+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+  }
+  return '';
+}
+function formatISODate(iso){
+  if(!isISODate(iso)) return iso || '';
+  const [y,mo,d] = iso.split('-').map(Number);
+  return `${MONTH_NAMES[mo-1].slice(0,3)} ${d}`;
+}
+
+function loadMilestoneState(){
+  try{ const raw = localStorage.getItem(MILESTONE_KEY); if(raw) return JSON.parse(raw); }catch(e){}
+  return {};
+}
+function saveMilestoneState(state){ try{ localStorage.setItem(MILESTONE_KEY, JSON.stringify(state)); }catch(e){} }
+function defaultMilestonesFor(p){
+  return (p.milestones||[]).map(m=>({ id: nextUid(), text: m.t, date: parseLooseDateToISO(m.d, 2026), done: !!m.done }));
+}
+
+let milestoneState = loadMilestoneState();
+PROJECTS.forEach(p=>{
+  if(!milestoneState[p.id]){
+    milestoneState[p.id] = defaultMilestonesFor(p);
+  } else {
+    milestoneState[p.id].forEach(it=>{
+      if(it.date && !isISODate(it.date)) it.date = parseLooseDateToISO(it.date, 2026);
+    });
+  }
+});
+saveMilestoneState(milestoneState);
+
+renderGrid();
+
+/* =========================================================
+   DETAIL OVERLAY LOGIC
+   ========================================================= */
+const overlay = document.getElementById('overlay');
+const scrim = document.getElementById('scrim');
+const closeBtn = document.getElementById('closeBtn');
+const deleteProjectBtn = document.getElementById('deleteProjectBtn');
+const completeProjectBtn = document.getElementById('completeProjectBtn');
+const dTitle = document.getElementById('dTitle');
+const dMeta = document.getElementById('dMeta');
+const dIcon = document.getElementById('dIcon');
+const dTitleEditBtn = document.getElementById('dTitleEditBtn');
+const tabBar = document.getElementById('tabBar');
+const dialogBody = document.getElementById('dialogBody');
+const iconPopover = document.getElementById('iconPopover');
+const iconPopoverGrid = document.getElementById('iconPopoverGrid');
+const iconColorRow = document.getElementById('iconColorRow');
+const COLOR_PRESETS = ["#f48d8d","#f4b48d","#f4db8d","#e7f48d","#c1f48d","#9af48d","#8df4a7","#8df4ce","#8df4f4","#8dcef4","#8da7f4","#9a8df4","#c18df4","#e78df4","#f48ddb","#f48db4","#d6d6db","#eddbbd"];
+const RECENT_COLORS_KEY = 'projects_recent_colors_v1';
+function loadRecentColors(){
+  try{ const raw = localStorage.getItem(RECENT_COLORS_KEY); if(raw) return JSON.parse(raw); }catch(e){}
+  return [];
+}
+function saveRecentColors(list){ try{ localStorage.setItem(RECENT_COLORS_KEY, JSON.stringify(list)); }catch(e){} }
+function pushRecentColor(hex){
+  let list = loadRecentColors().filter(c=> c.toLowerCase() !== hex.toLowerCase());
+  list.unshift(hex);
+  list = list.slice(0, 5);
+  saveRecentColors(list);
+  return list;
+}
+
+/* ---------- custom confirm dialog (native confirm()/alert() are blocked in sandboxed previews) ---------- */
+const confirmOverlay = document.getElementById('confirmOverlay');
+const confirmScrim = document.getElementById('confirmScrim');
+const confirmMsg = document.getElementById('confirmMsg');
+const confirmOkBtn = document.getElementById('confirmOkBtn');
+const confirmCancelBtn = document.getElementById('confirmCancelBtn');
+
+function customConfirm(message){
+  return new Promise(resolve=>{
+    confirmMsg.textContent = message;
+    confirmOverlay.classList.add('open');
+
+    function cleanup(result){
+      confirmOverlay.classList.remove('open');
+      confirmOkBtn.removeEventListener('click', onOk);
+      confirmCancelBtn.removeEventListener('click', onCancel);
+      confirmScrim.removeEventListener('click', onCancel);
+      document.removeEventListener('keydown', onKey);
+      resolve(result);
+    }
+    function onOk(){ cleanup(true); }
+    function onCancel(){ cleanup(false); }
+    function onKey(e){ if(e.key === 'Escape') cleanup(false); }
+
+    confirmOkBtn.addEventListener('click', onOk);
+    confirmCancelBtn.addEventListener('click', onCancel);
+    confirmScrim.addEventListener('click', onCancel);
+    document.addEventListener('keydown', onKey);
+  });
+}
+
+deleteProjectBtn.addEventListener('click', async ()=>{
+  const id = overlay.dataset.projectId;
+  if(!id) return;
+  const p = PROJECTS.find(x=>x.id===id);
+  if(!p || isProjectDeleted(id)) return;
+
+  const msg = p.custom
+    ? `「${p.title}」を完全に削除しますか？\nこの操作は取り消せません。`
+    : `「${p.title}」を削除しますか？\nタイトル・タスク・メモなどの中身はすべて消え、カードの枠だけが残ります。`;
+  const ok = await customConfirm(msg);
+  if(!ok) return;
+  deleteProjectContents(id);
+  closeDetail();
+});
+
+completeProjectBtn.addEventListener('click', ()=>{
+  const id = overlay.dataset.projectId;
+  if(!id) return;
+  const p = PROJECTS.find(x=>x.id===id);
+  if(!p || isProjectDeleted(id)) return;
+  setProjectCompleted(id, !isProjectCompleted(id));
+  closeDetail();
+});
+
+dIcon.addEventListener('click', ()=>{
+  const id = overlay.dataset.projectId;
+  if(id) openIconPopover(dIcon, id);
+});
+dTitleEditBtn.addEventListener('click', ()=>{
+  const id = overlay.dataset.projectId;
+  if(id) startTitleEdit(dTitle, id);
+});
+
+/* =========================================================
+   IME-SAFE EDITING — on Mac/Japanese IME, selecting a kanji
+   conversion candidate (by click or by Enter) can cause the
+   input to blur for an instant, or fires a keydown Enter that
+   is meant for the IME, not for us. Naively treating that as
+   "finish editing" destroys the input mid-composition. This
+   helper guards both cases for every inline edit field below.
+   ========================================================= */
+function bindImeSafeCommit(input, commit){
+  let blurTimer = null;
+  input.addEventListener('blur', ()=>{
+    blurTimer = setTimeout(()=>{
+      blurTimer = null;
+      if(document.activeElement !== input) commit();
+    }, 150); // give a transient IME-related blur a chance to self-correct
+  });
+  input.addEventListener('focus', ()=>{
+    if(blurTimer){ clearTimeout(blurTimer); blurTimer = null; }
+  });
+}
+function isImeConfirmKeydown(e){
+  return e.isComposing || e.keyCode === 229; // 229 = legacy IME-composition signal
+}
+
+/* ---------- inline title editing (shared by card & dialog) ---------- */
+function startTitleEdit(titleEl, id){
+  if(titleEl.querySelector('input')) return; // already editing
+  const current = titleEl.textContent;
+  const isCard = titleEl.classList.contains('card-title');
+  const input = document.createElement('input');
+  input.type = 'text';
+  input.maxLength = 60;
+  input.value = current;
+  input.className = isCard ? 'card-title-input' : 'dialog-title-input';
+
+  titleEl.textContent = '';
+  titleEl.appendChild(input);
+  input.focus();
+  input.select();
+
+  const commit = ()=>{
+    setProjectTitle(id, input.value);
+  };
+  bindImeSafeCommit(input, commit);
+  input.addEventListener('keydown', (e)=>{
+    if(e.key === 'Enter'){ if(isImeConfirmKeydown(e)) return; e.preventDefault(); input.blur(); }
+    if(e.key === 'Escape'){ e.preventDefault(); titleEl.textContent = current; }
+  });
+  input.addEventListener('click', e=> e.stopPropagation());
+}
+
+/* ---------- direct inline editing for To-Do items (no popover) ---------- */
+function startQuadInlineEdit(textEl, id, qid, itemId){
+  if(textEl.querySelector('input')) return; // already editing
+  const current = textEl.textContent;
+  const input = document.createElement('input');
+  input.type = 'text';
+  input.maxLength = 60;
+  input.value = current;
+  input.className = 'quad-text-input';
+
+  textEl.textContent = '';
+  textEl.appendChild(input);
+  input.focus();
+  input.select();
+
+  const commit = ()=>{
+    const arr = quadState[id] && quadState[id][qid];
+    const item = arr && arr.find(i=>i.id===itemId);
+    if(item){
+      const val = input.value.trim();
+      item.text = val || item.text;
+      saveQuadState(quadState);
+    }
+    refreshQuadrantTab(id);
+  };
+  bindImeSafeCommit(input, commit);
+  input.addEventListener('keydown', (e)=>{
+    if(e.key === 'Enter'){ if(isImeConfirmKeydown(e)) return; e.preventDefault(); input.blur(); }
+    if(e.key === 'Escape'){ e.preventDefault(); textEl.textContent = current; }
+  });
+  input.addEventListener('click', e=> e.stopPropagation());
+}
+
+/* ---------- direct inline editing for milestone title & date ---------- */
+function startMilestoneTextEdit(textEl, id, itemId){
+  if(textEl.querySelector('input')) return;
+  const item = milestoneState[id] && milestoneState[id].find(i=>i.id===itemId);
+  if(!item) return;
+  const currentDisplay = textEl.textContent;
+  const input = document.createElement('input');
+  input.type = 'text';
+  input.maxLength = 80;
+  input.value = item.text;
+  input.className = 'edit-row-title-input';
+
+  textEl.textContent = '';
+  textEl.appendChild(input);
+  input.focus();
+  input.select();
+
+  const commit = ()=>{
+    const it = milestoneState[id] && milestoneState[id].find(i=>i.id===itemId);
+    if(it){
+      const val = input.value.trim();
+      it.text = val || it.text;
+      saveMilestoneState(milestoneState);
+    }
+    refreshMilestoneTab(id);
+  };
+  bindImeSafeCommit(input, commit);
+  input.addEventListener('keydown', (e)=>{
+    if(e.key === 'Enter'){ if(isImeConfirmKeydown(e)) return; e.preventDefault(); input.blur(); }
+    if(e.key === 'Escape'){ e.preventDefault(); textEl.textContent = currentDisplay; }
+  });
+  input.addEventListener('click', e=> e.stopPropagation());
+}
+
+function startMilestoneDateEdit(dateEl, id, itemId){
+  if(dateEl.querySelector('input')) return;
+  const item = milestoneState[id] && milestoneState[id].find(i=>i.id===itemId);
+  if(!item) return;
+  const input = document.createElement('input');
+  input.type = 'date';
+  input.value = isISODate(item.date) ? item.date : '';
+  input.className = 'edit-row-date-input';
+
+  dateEl.textContent = '';
+  dateEl.appendChild(input);
+  input.focus();
+
+  let committed = false;
+  const commit = ()=>{
+    if(committed) return;
+    committed = true;
+    const it = milestoneState[id] && milestoneState[id].find(i=>i.id===itemId);
+    if(it){
+      it.date = input.value;
+      saveMilestoneState(milestoneState);
+    }
+    refreshMilestoneTab(id);
+  };
+  input.addEventListener('blur', commit);
+  input.addEventListener('change', commit);
+  input.addEventListener('keydown', (e)=>{
+    if(e.key === 'Enter'){ e.preventDefault(); input.blur(); }
+    if(e.key === 'Escape'){ e.preventDefault(); committed = true; refreshMilestoneTab(id); }
+  });
+  input.addEventListener('click', e=> e.stopPropagation());
+}
+
+/* ---------- direct inline editing for timeline date & text ---------- */
+function startTimelineTextEdit(textEl, id, itemId){
+  if(textEl.querySelector('input')) return;
+  const item = timelineState[id] && timelineState[id].find(i=>i.id===itemId);
+  if(!item) return;
+  const currentDisplay = textEl.textContent;
+  const input = document.createElement('input');
+  input.type = 'text';
+  input.maxLength = 100;
+  input.value = item.text;
+  input.className = 'edit-row-title-input';
+
+  textEl.textContent = '';
+  textEl.appendChild(input);
+  input.focus();
+  input.select();
+
+  const commit = ()=>{
+    const it = timelineState[id] && timelineState[id].find(i=>i.id===itemId);
+    if(it){
+      const val = input.value.trim();
+      it.text = val || it.text;
+      saveTimelineState(timelineState);
+    }
+    refreshTimelineTab(id);
+  };
+  bindImeSafeCommit(input, commit);
+  input.addEventListener('keydown', (e)=>{
+    if(e.key === 'Enter'){ if(isImeConfirmKeydown(e)) return; e.preventDefault(); input.blur(); }
+    if(e.key === 'Escape'){ e.preventDefault(); textEl.textContent = currentDisplay; }
+  });
+  input.addEventListener('click', e=> e.stopPropagation());
+}
+
+function startTimelineDateEdit(dateEl, id, itemId){
+  if(dateEl.querySelector('input')) return;
+  const item = timelineState[id] && timelineState[id].find(i=>i.id===itemId);
+  if(!item) return;
+  const input = document.createElement('input');
+  input.type = 'text';
+  input.maxLength = 30;
+  input.value = item.date || '';
+  input.placeholder = 'Date';
+  input.className = 'edit-row-date-input';
+
+  dateEl.textContent = '';
+  dateEl.appendChild(input);
+  input.focus();
+  input.select();
+
+  let committed = false;
+  const commit = ()=>{
+    if(committed) return;
+    committed = true;
+    const it = timelineState[id] && timelineState[id].find(i=>i.id===itemId);
+    if(it){
+      it.date = input.value.trim();
+      saveTimelineState(timelineState);
+    }
+    refreshTimelineTab(id);
+  };
+  bindImeSafeCommit(input, commit);
+  input.addEventListener('keydown', (e)=>{
+    if(e.key === 'Enter'){ if(isImeConfirmKeydown(e)) return; e.preventDefault(); input.blur(); }
+    if(e.key === 'Escape'){ e.preventDefault(); committed = true; refreshTimelineTab(id); }
+  });
+  input.addEventListener('click', e=> e.stopPropagation());
+}
+
+/* ---------- icon picker popover (shared by card & dialog) ---------- */
+function openIconPopover(anchorEl, id){
+  const p = PROJECTS.find(x=>x.id===id);
+  const currentColor = getIconColor(p);
+  iconPopoverGrid.style.setProperty('--swatch-accent', ACCENT_HEX[p.accent]);
+  iconPopoverGrid.innerHTML = ICON_KEYS.map(key=>`
+    <button class="icon-swatch${key===p.icon?' selected':''}" type="button" data-icon="${key}" aria-label="${key}">${iconSVG(key)}</button>
+  `).join('');
+
+  const recentColors = loadRecentColors();
+  iconColorRow.innerHTML = COLOR_PRESETS.map(c=>`
+    <button class="color-swatch${c.toLowerCase()===currentColor.toLowerCase()?' selected':''}" type="button" data-color="${c}" style="background:${c}" aria-label="color"></button>
+  `).join('') + `
+    <label class="color-swatch color-swatch-custom" aria-label="custom color">
+      <input type="color" class="color-native-input" value="${currentColor}">
+    </label>
+  ` + [0,1,2,3,4].map(i=>{
+    const c = recentColors[i];
+    if(!c) return `<span class="color-swatch color-swatch-empty" aria-hidden="true"></span>`;
+    return `<button class="color-swatch${c.toLowerCase()===currentColor.toLowerCase()?' selected':''}" type="button" data-color="${c}" style="background:${c}" aria-label="recent color"></button>`;
+  }).join('');
+
+  const rect = anchorEl.getBoundingClientRect();
+  const popW = 254;
+  let left = rect.left;
+  if(left + popW > window.innerWidth - 12) left = window.innerWidth - popW - 12;
+  iconPopover.style.left = left + 'px';
+  iconPopover.style.top = (rect.bottom + 8) + 'px';
+  iconPopover.classList.add('open');
+  iconPopover.dataset.projectId = id;
+
+  requestAnimationFrame(()=>{
+    const pr = iconPopover.getBoundingClientRect();
+    if(pr.bottom > window.innerHeight - 12){
+      iconPopover.style.top = Math.max(12, rect.top - pr.height - 8) + 'px';
+    }
+  });
+
+  iconPopoverGrid.querySelectorAll('.icon-swatch').forEach(btn=>{
+    btn.onclick = (e)=>{
+      e.stopPropagation();
+      setProjectIcon(id, btn.dataset.icon);
+      closeIconPopover();
+    };
+  });
+
+  iconColorRow.querySelectorAll('.color-swatch[data-color]').forEach(btn=>{
+    btn.onclick = (e)=>{
+      e.stopPropagation();
+      setProjectIconColor(id, btn.dataset.color);
+      iconColorRow.querySelectorAll('.color-swatch').forEach(b=>b.classList.remove('selected'));
+      btn.classList.add('selected');
+    };
+  });
+  const nativeInput = iconColorRow.querySelector('.color-native-input');
+  if(nativeInput){
+    nativeInput.addEventListener('click', e=> e.stopPropagation());
+    nativeInput.addEventListener('input', (e)=>{
+      setProjectIconColor(id, e.target.value);
+      iconColorRow.querySelectorAll('.color-swatch[data-color]').forEach(b=>b.classList.remove('selected'));
+    });
+    nativeInput.addEventListener('change', (e)=>{
+      pushRecentColor(e.target.value);
+      openIconPopover(anchorEl, id); // re-render so the new pick appears in the recent-colors row
+    });
+  }
+}
+function closeIconPopover(){ iconPopover.classList.remove('open'); }
+document.addEventListener('click', (e)=>{
+  if(!iconPopover.contains(e.target) && !e.target.closest('.card-icon') && !e.target.closest('#dIcon')){
+    closeIconPopover();
+  }
+});
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeIconPopover(); });
+
+const TABS = ['Overview','To-Do','Milestones','Timeline','Notes'];
+
+function openDetail(id){
+  const p = PROJECTS.find(x=>x.id===id);
+  if(!p) return;
+  const empty = isProjectDeleted(id);
+
+  dTitle.textContent = p.title;
+  if(empty){
+    dMeta.textContent = '空きプロジェクト — タイトルを入力すると再利用できます';
+    dMeta.style.display = '';
+  } else {
+    dMeta.textContent = '';
+    dMeta.style.display = 'none';
+  }
+  dIcon.innerHTML = iconSVG(p.icon);
+  dIcon.style.background = getIconColor(p);
+  deleteProjectBtn.style.display = empty ? 'none' : 'flex';
+
+  const completed = isProjectCompleted(id);
+  completeProjectBtn.style.display = empty ? 'none' : 'flex';
+  completeProjectBtn.classList.toggle('is-completed', completed);
+  completeProjectBtn.setAttribute('aria-label', completed ? 'restore to active' : 'mark project complete');
+  completeProjectBtn.innerHTML = completed
+    ? `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>`
+    : `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg>`;
+
+  tabBar.innerHTML = TABS.map((t,i)=>`<button class="tab-btn${i===0?' active':''}" data-tab="${t}">${t}</button>`).join('');
+  dialogBody.innerHTML = TABS.map((t,i)=> renderTab(t,p,i===0)).join('');
+
+  tabBar.querySelectorAll('.tab-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      tabBar.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+      dialogBody.querySelectorAll('.tab-panel').forEach(pnl=>pnl.classList.remove('active'));
+      btn.classList.add('active');
+      dialogBody.querySelector(`.tab-panel[data-tab="${btn.dataset.tab}"]`).classList.add('active');
+    });
+  });
+
+  overlay.classList.add('open');
+  overlay.dataset.projectId = id;
+  document.body.style.overflow = 'hidden';
+
+  setTimeout(()=>{
+    dialogBody.querySelectorAll('.big-progress .hp-fill').forEach(bf=>{
+      bf.style.width = bf.dataset.target + '%';
+    });
+  }, 150);
+}
+
+function closeDetail(){ overlay.classList.remove('open'); document.body.style.overflow=''; }
+closeBtn.addEventListener('click', closeDetail);
+scrim.addEventListener('click', closeDetail);
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeDetail(); });
+
+function renderTab(tab, p, active){
+  let inner = '';
+  if(tab==='Overview'){
+    const lvPct = quadProgress(p.id);
+    const hpResult = milestoneProgress(p.id);
+    const { done: msDone, total: msTotal } = milestoneCounts(p.id);
+    const { done: qDone, total: qTotal } = quadCounts(p.id);
+    const hp = hpResult ? hpResult.hp : null;
+    const tier = hpResult ? hpResult.tier : 'empty';
+    const hpLabel = hp === null ? '–' : hp + '%';
+    inner = `
+      <div class="big-progress lv-progress">
+        <div class="big-progress-top">
+          <div class="t1"><span class="t1-num">${lvLabel(lvPct)}</span>  <span class="t1-sub">- To-Do達成度・重み付き</span></div>
+          <div class="stat-inline"><span class="num">${qDone}/${qTotal}</span><span class="lbl">To-Dos</span></div>
+        </div>
+        <div class="hp-track${lvPct===null?' hp-track-empty':''}">
+          <div class="hp-fill hp-blue" style="width:0%" data-target="${lvPct===null?0:lvPct}"></div>
+        </div>
+        ${lvPct===null ? `<div class="big-progress-text"><div class="t2">Add To-Dos to start tracking Level</div></div>` : ''}
+      </div>
+      <div class="big-progress hp-progress">
+        <div class="big-progress-top">
+          <div class="t1"><span class="t1-num">HP ${hpLabel}</span>  <span class="t1-sub">- 次のマイルストーンまでの猶予</span></div>
+          <div class="stat-inline"><span class="num">${msDone}/${msTotal}</span><span class="lbl">Milestones</span></div>
+        </div>
+        <div class="hp-track${hp===null?' hp-track-empty':''}">
+          <div class="hp-fill hp-${tier}" style="width:0%" data-target="${hp===null?0:hp}"></div>
+        </div>
+        ${hp===null ? `<div class="big-progress-text"><div class="t2">Add milestones to start tracking HP</div></div>` : ''}
+      </div>
+      <div class="edit-field-wrap">
+        <div class="group-title">Quest Summary</div>
+        <textarea class="edit-textarea" data-field="summary" data-project="${p.id}" rows="4" placeholder="Add a short summary...">${escapeHTML(getMeta(p.id,'summary',p.overview))}</textarea>
+      </div>
+    `;
+  } else if(tab==='Milestones'){
+    inner = buildMilestonesHTML(p.id);
+  } else if(tab==='Notes'){
+    inner = `
+      <div class="edit-field-wrap">
+        <textarea class="edit-textarea" data-field="notes" data-project="${p.id}" rows="8" placeholder="Add notes...">${escapeHTML(getMeta(p.id,'notes',p.notes))}</textarea>
+      </div>
+    `;
+  } else if(tab==='To-Do'){
+    inner = buildQuadrantHTML(p.id);
+  } else if(tab==='Timeline'){
+    inner = buildTimelineHTML(p.id);
+  }
+  return `<div class="tab-panel${active?' active':''}" data-tab="${tab}">${inner}</div>`;
+}
+
+/* ---------- Eisenhower "To-Do" quadrant matrix ---------- */
+function buildQuadrantHTML(id){
+  const s = quadState[id];
+  const { done, total } = quadCounts(id);
+  return `
+    <div class="quad-summary">${done} / ${total} 完了</div>
+    <div class="quad-grid">
+      ${QUAD_DEFS.map(def => buildQuadrantPanel(id, def, s[def.id])).join('')}
+      ${buildCompletedPanel(id, s)}
+    </div>
+  `;
+}
+function buildQuadrantPanel(id, def, items){
+  return `
+    <div class="quad-panel ${QUAD_ACCENT_CLASS[def.id]}" data-project="${id}" data-quad="${def.id}">
+      <div class="quad-head">
+        <span class="quad-label">${def.label}</span>
+        <span class="quad-sub">${def.sub}</span>
+      </div>
+      <div class="quad-list" data-quad="${def.id}">
+        ${items.length ? items.map(it=>`
+          <div class="quad-item${it.done?' done':''}" data-item="${it.id}" data-quad="${def.id}">
+            <button class="quad-check" type="button" data-action="toggle">${it.done?'✓':''}</button>
+            <span class="quad-text" data-action="edit-inline">${escapeHTML(it.text)}</span>
+            <button class="quad-complete-btn" type="button" data-action="complete-direct" aria-label="move to completed">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg>
+            </button>
+            <button class="quad-del" type="button" data-action="delete-direct" aria-label="delete">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16"/><path d="M8 6V4.5A1.5 1.5 0 0 1 9.5 3h5A1.5 1.5 0 0 1 16 4.5V6"/><path d="M6 6l1 14.5A1.5 1.5 0 0 0 8.5 22h7a1.5 1.5 0 0 0 1.5-1.5L18 6"/><path d="M10 11v6M14 11v6"/></svg>
+            </button>
+          </div>
+        `).join('') : `<div class="quad-empty">タスクなし</div>`}
+      </div>
+      <div class="quad-add-row">
+        <input class="quad-add-input" type="text" maxlength="60" placeholder="タスクを追加">
+        <button class="quad-add-btn" type="button" data-action="add">+</button>
+      </div>
+    </div>
+  `;
+}
+function buildCompletedPanel(id, s){
+  const items = s.completed || [];
+  return `
+    <div class="quad-panel quad-completed" data-project="${id}">
+      <div class="quad-head">
+        <span class="quad-label">COMPLETED</span>
+        <span class="quad-sub">完了済み · ここへドラッグして移動</span>
+      </div>
+      <div class="quad-list quad-completed-list" data-quad="completed">
+        ${items.length ? items.map(it=>`
+          <div class="quad-item${it.done?' done':''}" data-item="${it.id}" data-quad="completed">
+            <button class="quad-check" type="button" data-action="toggle">${it.done?'✓':''}</button>
+            <span class="quad-text" data-action="edit-inline">${escapeHTML(it.text)}</span>
+            <button class="quad-del" type="button" data-action="delete-direct" aria-label="delete">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16"/><path d="M8 6V4.5A1.5 1.5 0 0 1 9.5 3h5A1.5 1.5 0 0 1 16 4.5V6"/><path d="M6 6l1 14.5A1.5 1.5 0 0 0 8.5 22h7a1.5 1.5 0 0 0 1.5-1.5L18 6"/><path d="M10 11v6M14 11v6"/></svg>
+            </button>
+          </div>
+        `).join('') : `<div class="quad-empty">タスクをここにドラッグすると完了ボックスに移動します</div>`}
+      </div>
+    </div>
+  `;
+}
+function escapeHTML(str){
+  return String(str).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function refreshQuadrantTab(id){
+  const panel = dialogBody.querySelector('.tab-panel[data-tab="To-Do"]');
+  if(panel) panel.innerHTML = buildQuadrantHTML(id);
+  updateCardProgress(id);
+  refreshOverviewStatsOnly(id);
+}
+
+dialogBody.addEventListener('click', (e)=>{
+  const addBtn = e.target.closest('[data-action="add"]');
+  const toggleBtn = e.target.closest('[data-action="toggle"]');
+  const delBtn = e.target.closest('[data-action="delete-direct"]');
+  const completeBtn = e.target.closest('[data-action="complete-direct"]');
+  const editTrigger = e.target.closest('[data-action="edit-inline"]');
+  if(!addBtn && !toggleBtn && !delBtn && !completeBtn && !editTrigger) return;
+
+  const panelEl = e.target.closest('.quad-panel');
+  if(!panelEl) return;
+  const id = panelEl.dataset.project;
+
+  if(addBtn){
+    const qid = panelEl.dataset.quad;
+    if(!qid) return;
+    const input = panelEl.querySelector('.quad-add-input');
+    const text = input.value.trim();
+    if(!text) return;
+    quadState[id][qid].push({ id: nextUid(), text, done:false, weight: QUAD_WEIGHT[qid] });
+    saveQuadState(quadState);
+    refreshQuadrantTab(id);
+    const newInput = dialogBody.querySelector(`.quad-panel[data-quad="${qid}"] .quad-add-input`);
+    if(newInput) newInput.focus();
+    return;
+  }
+  if(toggleBtn){
+    const itemEl = e.target.closest('.quad-item');
+    const qid = itemEl.dataset.quad;
+    const arr = quadState[id][qid];
+    const idx = arr ? arr.findIndex(i=>i.id===itemEl.dataset.item) : -1;
+    if(idx > -1){
+      const item = arr[idx];
+      if(qid === 'completed' && item.done){
+        // unchecking inside Completed — send it back to the quadrant its weight came from
+        const targetQid = WEIGHT_TO_QUAD[item.weight] || 'q3';
+        const [moved] = arr.splice(idx, 1);
+        moved.done = false;
+        quadState[id][targetQid].push(moved);
+      } else {
+        item.done = !item.done;
+      }
+      saveQuadState(quadState);
+      refreshQuadrantTab(id);
+    }
+    return;
+  }
+  if(completeBtn){
+    const itemEl = e.target.closest('.quad-item');
+    const qid = itemEl.dataset.quad;
+    const arr = quadState[id][qid];
+    if(arr && qid !== 'completed'){
+      const idx = arr.findIndex(i=>i.id===itemEl.dataset.item);
+      if(idx > -1){
+        const [moved] = arr.splice(idx, 1);
+        moved.done = true; // weight stays frozen from its last active quadrant
+        quadState[id].completed.push(moved);
+        saveQuadState(quadState);
+        logCompletionToTimeline(id, moved.text, qid);
+        refreshQuadrantTab(id);
+      }
+    }
+    return;
+  }
+  if(delBtn){
+    const itemEl = e.target.closest('.quad-item');
+    const qid = itemEl.dataset.quad;
+    if(quadState[id][qid]){
+      quadState[id][qid] = quadState[id][qid].filter(i=>i.id!==itemEl.dataset.item);
+      saveQuadState(quadState);
+      refreshQuadrantTab(id);
+    }
+    return;
+  }
+  if(editTrigger){
+    const itemEl = e.target.closest('.quad-item');
+    const qid = itemEl.dataset.quad;
+    startQuadInlineEdit(editTrigger, id, qid, itemEl.dataset.item);
+    return;
+  }
+});
+dialogBody.addEventListener('keydown', (e)=>{
+  if(e.key==='Enter' && e.target.classList.contains('quad-add-input')){
+    e.preventDefault();
+    e.target.closest('.quad-panel').querySelector('[data-action="add"]').click();
+  }
+});
+
+/* =========================================================
+   MILESTONES — variable-length, fully editable list
+   ========================================================= */
+const milestoneViewState = {}; // in-memory only: { [projectId]: { year, month } }
+function getMilestoneView(id){
+  if(!milestoneViewState[id]){
+    const now = new Date();
+    milestoneViewState[id] = { year: now.getFullYear(), month: now.getMonth() };
+  }
+  return milestoneViewState[id];
+}
+
+function milestoneCounts(id){
+  const items = milestoneState[id] || [];
+  return { done: items.filter(m=>m.done).length, total: items.length };
+}
+
+function buildMilestonesHTML(id){
+  const view = getMilestoneView(id);
+  return `
+    <div class="ms-split">
+      <div class="ms-split-cal">${buildMilestoneCalendarHTML(id, view)}</div>
+      <div class="ms-split-list">${buildMilestoneListHTML(id)}</div>
+    </div>
+  `;
+}
+
+const openDetailIds = new Set(); // in-memory only: which milestone memo boxes are expanded
+
+function buildMilestoneListHTML(id){
+  const items = milestoneState[id];
+  return `
+    <div class="edit-list-wrap" data-project="${id}" data-kind="milestone">
+      <div class="edit-list">
+        ${items.length ? items.map(it=>{
+          const isOpen = openDetailIds.has(it.id);
+          return `
+          <div class="ms-item-wrap" data-item="${it.id}">
+            <div class="edit-row" data-item="${it.id}">
+              <button class="ms-check ${it.done?'done':''}" type="button" data-action="toggle">${it.done?'✓':''}</button>
+              <div class="edit-row-main">
+                <span class="edit-row-title ${it.done?'done':''}" data-action="edit-inline-text">${it.text ? escapeHTML(it.text) : '(タイトル未設定)'}</span>
+                <span class="edit-row-date" data-action="edit-inline-date">${it.date ? escapeHTML(formatISODate(it.date)) : '+ 日付'}</span> <button class="ms-detail-btn${it.detail ? ' has-detail' : ''}${isOpen ? ' active' : ''}" type="button" data-action="toggle-detail" aria-label="detail">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h6l4 4v12H8z"/><path d="M14 4v4h4"/><path d="M10 13h6M10 17h6"/></svg>
+                </button>
+              </div>
+              <button class="ms-del-btn" type="button" data-action="delete-direct" aria-label="delete">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16"/><path d="M8 6V4.5A1.5 1.5 0 0 1 9.5 3h5A1.5 1.5 0 0 1 16 4.5V6"/><path d="M6 6l1 14.5A1.5 1.5 0 0 0 8.5 22h7a1.5 1.5 0 0 0 1.5-1.5L18 6"/><path d="M10 11v6M14 11v6"/></svg>
+              </button>
+            </div>
+            ${isOpen ? `
+            <div class="ms-detail-box">
+              <textarea class="ms-detail-textarea" data-field="detail" placeholder="詳細メモを入力…" rows="1">${escapeHTML(it.detail||'')}</textarea>
+            </div>` : ''}
+          </div>
+        `;
+        }).join('') : `<div class="edit-empty">マイルストーンなし</div>`}
+      </div>
+      <div class="edit-add-row">
+        <input class="edit-add-input grow" type="text" placeholder="New milestone">
+        <input class="edit-add-input date" type="date">
+        <button class="edit-add-btn" type="button" data-action="add">+</button>
+      </div>
+    </div>
+  `;
+}
+
+function autoGrowTextarea(el){
+  if(!el) return;
+  el.style.height = 'auto';
+  el.style.height = Math.min(320, Math.max(60, el.scrollHeight)) + 'px';
+}
+function autoGrowAllDetailBoxes(scope){
+  (scope || document).querySelectorAll('.ms-detail-textarea').forEach(autoGrowTextarea);
+}
+
+
+function buildMilestoneCalendarHTML(id, view){
+  const items = milestoneState[id] || [];
+  const { year, month } = view;
+  const firstWeekday = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month+1, 0).getDate();
+
+  const byDay = {};
+  items.forEach(it=>{
+    if(!isISODate(it.date)) return;
+    const [y,mo,d] = it.date.split('-').map(Number);
+    if(y===year && mo-1===month){
+      (byDay[d] = byDay[d] || []).push(it);
+    }
+  });
+
+  const today = new Date();
+  let cells = '';
+  for(let i=0;i<firstWeekday;i++) cells += `<div class="cal-cell cal-empty"></div>`;
+  for(let d=1; d<=daysInMonth; d++){
+    const dayItems = byDay[d] || [];
+    const isToday = today.getFullYear()===year && today.getMonth()===month && today.getDate()===d;
+    cells += `
+      <div class="cal-cell${dayItems.length?' has-items':''}${isToday?' is-today':''}" data-day="${d}">
+        <span class="cal-daynum">${d}</span>
+        ${dayItems.length ? `<div class="cal-dots">${dayItems.slice(0,3).map(it=>`<span class="cal-dot${it.done?' done':''}"></span>`).join('')}</div>` : ''}
+      </div>
+    `;
+  }
+
+  return `
+    <div class="cal-wrap" data-project="${id}">
+      <div class="cal-nav">
+        <button class="cal-nav-btn" type="button" data-action="cal-prev">‹</button>
+        <div class="cal-month-label">${MONTH_NAMES[month]} ${year}</div>
+        <button class="cal-nav-btn" type="button" data-action="cal-next">›</button>
+      </div>
+      <div class="cal-weekdays">${['S','M','T','W','T','F','S'].map(w=>`<div class="cal-weekday">${w}</div>`).join('')}</div>
+      <div class="cal-grid">${cells}</div>
+    </div>
+  `;
+}
+
+/* =========================================================
+   TIMELINE — variable-length, fully editable list
+   ========================================================= */
+const TIMELINE_KEY = 'projects_timeline_v1';
+function loadTimelineState(){
+  try{ const raw = localStorage.getItem(TIMELINE_KEY); if(raw) return JSON.parse(raw); }catch(e){}
+  return {};
+}
+function saveTimelineState(state){ try{ localStorage.setItem(TIMELINE_KEY, JSON.stringify(state)); }catch(e){} }
+function defaultTimelineFor(p){
+  return (p.timeline||[]).map(t=>({ id: nextUid(), date: t.d, text: t.t }));
+}
+let timelineState = loadTimelineState();
+PROJECTS.forEach(p=>{ if(!timelineState[p.id]) timelineState[p.id] = defaultTimelineFor(p); });
+saveTimelineState(timelineState);
+
+function buildTimelineHTML(id){
+  const items = timelineState[id];
+  return `
+    <div class="edit-list-wrap" data-project="${id}" data-kind="timeline">
+      <div class="edit-list">
+        ${items.length ? items.map(it=>{
+          const isOpen = openDetailIds.has(it.id);
+          return `
+          <div class="ms-item-wrap" data-item="${it.id}">
+            <div class="edit-row" data-item="${it.id}">
+              <span class="timeline-dot"></span>
+              <div class="edit-row-main">
+                <span class="edit-row-date" data-action="edit-inline-date">${it.date ? escapeHTML(it.date) : '+ 日付'}</span>
+                <span class="edit-row-title" data-action="edit-inline-text">${it.text ? escapeHTML(it.text) : '(内容未設定)'}</span>
+              </div>
+              <button class="ms-detail-btn${it.detail ? ' has-detail' : ''}${isOpen ? ' active' : ''}" type="button" data-action="toggle-detail" aria-label="detail">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h6l4 4v12H8z"/><path d="M14 4v4h4"/><path d="M10 13h6M10 17h6"/></svg>
+              </button>
+              <button class="ms-del-btn" type="button" data-action="delete-direct" aria-label="delete">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16"/><path d="M8 6V4.5A1.5 1.5 0 0 1 9.5 3h5A1.5 1.5 0 0 1 16 4.5V6"/><path d="M6 6l1 14.5A1.5 1.5 0 0 0 8.5 22h7a1.5 1.5 0 0 0 1.5-1.5L18 6"/><path d="M10 11v6M14 11v6"/></svg>
+              </button>
+            </div>
+            ${isOpen ? `
+            <div class="ms-detail-box">
+              <textarea class="ms-detail-textarea" data-field="detail" placeholder="詳細メモを入力…" rows="1">${escapeHTML(it.detail||'')}</textarea>
+            </div>` : ''}
+          </div>
+        `;
+        }).join('') : `<div class="edit-empty">タイムラインなし</div>`}
+      </div>
+      <div class="edit-add-row">
+        <input class="edit-add-input date" type="text" placeholder="Date">
+        <input class="edit-add-input grow" type="text" placeholder="What happened">
+        <button class="edit-add-btn" type="button" data-action="add">+</button>
+      </div>
+      <div class="timeline-footnote-wrap">
+        <div class="timeline-footnote-title">ToDo完了時に自動追加 <span class="timeline-footnote-sub">(全プロジェクト共通の設定です)</span></div>
+        <div class="timeline-footnote-checks">
+          ${[['q1','Now'],['q2','Grow'],['q3','Quick'],['q4','Later']].map(([qid,label])=>`
+            <label class="tl-log-check">
+              <input type="checkbox" data-qid="${qid}" class="auto-tl-log-input" ${autoTimelineLogSettings[qid] ? 'checked' : ''}>
+              <span>${label}</span>
+            </label>
+          `).join('')}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function escAttr(str){ return escapeHTML(str==null ? '' : str); }
+
+/* ---------- live refresh helpers ---------- */
+function refreshOverviewStatsOnly(id){
+  const panel = dialogBody.querySelector('.tab-panel[data-tab="Overview"]');
+  if(!panel) return;
+  const p = PROJECTS.find(x=>x.id===id);
+  const lvPct = quadProgress(id);
+  const hpResult = milestoneProgress(id);
+  const { done: msDone, total: msTotal } = milestoneCounts(id);
+  const { done: qDone, total: qTotal } = quadCounts(id);
+
+  const lvBox = panel.querySelector('.lv-progress');
+  if(lvBox){
+    const fill = lvBox.querySelector('.hp-fill');
+    const track = lvBox.querySelector('.hp-track');
+    const pct = lvBox.querySelector('.t1-num');
+    const stat = lvBox.querySelector('.stat-inline .num');
+    if(fill) fill.style.width = (lvPct === null ? 0 : lvPct) + '%';
+    if(track) track.classList.toggle('hp-track-empty', lvPct === null);
+    if(pct) pct.textContent = lvLabel(lvPct);
+    if(stat) stat.textContent = `${qDone}/${qTotal}`;
+    let hint = lvBox.querySelector('.big-progress-text');
+    if(lvPct === null && !hint){
+      lvBox.insertAdjacentHTML('beforeend', `<div class="big-progress-text"><div class="t2">Add To-Dos to start tracking Level</div></div>`);
+    } else if(lvPct !== null && hint){
+      hint.remove();
+    }
+  }
+
+  const hpBox = panel.querySelector('.hp-progress');
+  if(hpBox){
+    const hp = hpResult ? hpResult.hp : null;
+    const tier = hpResult ? hpResult.tier : 'empty';
+    const fill = hpBox.querySelector('.hp-fill');
+    const track = hpBox.querySelector('.hp-track');
+    const pct = hpBox.querySelector('.t1-num');
+    const stat = hpBox.querySelector('.stat-inline .num');
+    if(fill){
+      fill.className = `hp-fill hp-${tier}`;
+      fill.style.width = (hp === null ? 0 : hp) + '%';
+    }
+    if(track) track.classList.toggle('hp-track-empty', hp === null);
+    if(pct) pct.textContent = `HP ${hp === null ? '–' : hp + '%'}`;
+    if(stat) stat.textContent = `${msDone}/${msTotal}`;
+    let hint = hpBox.querySelector('.big-progress-text');
+    if(hp === null && !hint){
+      hpBox.insertAdjacentHTML('beforeend', `<div class="big-progress-text"><div class="t2">Add milestones to start tracking HP</div></div>`);
+    } else if(hp !== null && hint){
+      hint.remove();
+    }
+  }
+}
+
+function refreshMilestoneTab(id){
+  const panel = dialogBody.querySelector('.tab-panel[data-tab="Milestones"]');
+  if(panel) panel.innerHTML = buildMilestonesHTML(id);
+  autoGrowAllDetailBoxes(panel);
+  updateCardProgress(id);
+  refreshOverviewStatsOnly(id);
+}
+function refreshTimelineTab(id){
+  const panel = dialogBody.querySelector('.tab-panel[data-tab="Timeline"]');
+  if(panel) panel.innerHTML = buildTimelineHTML(id);
+  autoGrowAllDetailBoxes(panel);
+}
+
+/* ---------- milestone calendar navigation ---------- */
+dialogBody.addEventListener('click', (e)=>{
+  const prevBtn = e.target.closest('[data-action="cal-prev"]');
+  const nextBtn = e.target.closest('[data-action="cal-next"]');
+  if(prevBtn || nextBtn){
+    const id = overlay.dataset.projectId;
+    const view = getMilestoneView(id);
+    view.month += prevBtn ? -1 : 1;
+    if(view.month < 0){ view.month = 11; view.year--; }
+    else if(view.month > 11){ view.month = 0; view.year++; }
+    refreshMilestoneTab(id);
+    return;
+  }
+  const dayCell = e.target.closest('.cal-cell.has-items[data-day]');
+  if(dayCell){
+    const id = overlay.dataset.projectId;
+    const view = getMilestoneView(id);
+    const day = parseInt(dayCell.dataset.day, 10);
+    const items = milestoneState[id] || [];
+    const match = items.find(it=>{
+      if(!isISODate(it.date)) return false;
+      const [y,mo,d] = it.date.split('-').map(Number);
+      return y===view.year && mo-1===view.month && d===day;
+    });
+    if(match) openItemPopover(dayCell, { kind:'milestone', id, itemId: match.id });
+  }
+});
+
+/* ---------- delegated events for milestone / timeline lists ---------- */
+dialogBody.addEventListener('click', (e)=>{
+  const addBtn = e.target.closest('[data-action="add"]');
+  const toggleBtn = e.target.closest('[data-action="toggle"]');
+  if(!addBtn && !toggleBtn) return;
+
+  const wrap = e.target.closest('.edit-list-wrap');
+  if(!wrap) return;
+  const id = wrap.dataset.project;
+  const kind = wrap.dataset.kind;
+  const state = kind === 'milestone' ? milestoneState : timelineState;
+  const save = kind === 'milestone' ? saveMilestoneState : saveTimelineState;
+  const refresh = kind === 'milestone' ? refreshMilestoneTab : refreshTimelineTab;
+
+  if(addBtn){
+    if(kind === 'milestone'){
+      const titleInput = wrap.querySelector('.edit-add-input.grow');
+      const dateInput = wrap.querySelector('.edit-add-input.date');
+      const text = titleInput.value.trim();
+      if(!text) return;
+      state[id].push({ id: nextUid(), text, date: dateInput.value.trim(), done:false });
+    } else {
+      const dateInput = wrap.querySelector('.edit-add-input.date');
+      const textInput = wrap.querySelector('.edit-add-input.grow');
+      const text = textInput.value.trim();
+      if(!text) return;
+      state[id].push({ id: nextUid(), date: dateInput.value.trim(), text });
+    }
+    save(state);
+    refresh(id);
+    const focusTarget = dialogBody.querySelector('.edit-add-input.grow');
+    if(focusTarget) focusTarget.focus();
+    return;
+  }
+  if(toggleBtn){
+    const itemEl = e.target.closest('.edit-row');
+    const item = state[id].find(i=>i.id===itemEl.dataset.item);
+    if(item){ item.done = !item.done; save(state); refresh(id); }
+    return;
+  }
+});
+
+/* ---------- direct inline edit + detail/delete icons for milestone rows ---------- */
+dialogBody.addEventListener('click', (e)=>{
+  const wrap = e.target.closest('.edit-list-wrap[data-kind="milestone"]');
+  if(!wrap) return;
+  const id = wrap.dataset.project;
+
+  const textTrigger = e.target.closest('[data-action="edit-inline-text"]');
+  const dateTrigger = e.target.closest('[data-action="edit-inline-date"]');
+  const delBtn = e.target.closest('[data-action="delete-direct"]');
+  const detailBtn = e.target.closest('[data-action="toggle-detail"]');
+  if(!textTrigger && !dateTrigger && !delBtn && !detailBtn) return;
+
+  const itemEl = e.target.closest('.edit-row');
+  if(!itemEl) return;
+  const itemId = itemEl.dataset.item;
+
+  if(textTrigger){ startMilestoneTextEdit(textTrigger, id, itemId); return; }
+  if(dateTrigger){ startMilestoneDateEdit(dateTrigger, id, itemId); return; }
+  if(delBtn){
+    milestoneState[id] = milestoneState[id].filter(i=>i.id!==itemId);
+    saveMilestoneState(milestoneState);
+    openDetailIds.delete(itemId);
+    refreshMilestoneTab(id);
+    return;
+  }
+  if(detailBtn){
+    openItemPopover(detailBtn, { kind:'milestone', id, itemId });
+    return;
+  }
+});
+
+/* ---------- direct inline edit + detail/delete icons for timeline rows ---------- */
+dialogBody.addEventListener('click', (e)=>{
+  const wrap = e.target.closest('.edit-list-wrap[data-kind="timeline"]');
+  if(!wrap) return;
+  const id = wrap.dataset.project;
+
+  const textTrigger = e.target.closest('[data-action="edit-inline-text"]');
+  const dateTrigger = e.target.closest('[data-action="edit-inline-date"]');
+  const delBtn = e.target.closest('[data-action="delete-direct"]');
+  const detailBtn = e.target.closest('[data-action="toggle-detail"]');
+  if(!textTrigger && !dateTrigger && !delBtn && !detailBtn) return;
+
+  const itemEl = e.target.closest('.edit-row');
+  if(!itemEl) return;
+  const itemId = itemEl.dataset.item;
+
+  if(textTrigger){ startTimelineTextEdit(textTrigger, id, itemId); return; }
+  if(dateTrigger){ startTimelineDateEdit(dateTrigger, id, itemId); return; }
+  if(delBtn){
+    timelineState[id] = timelineState[id].filter(i=>i.id!==itemId);
+    saveTimelineState(timelineState);
+    openDetailIds.delete(itemId);
+    refreshTimelineTab(id);
+    return;
+  }
+  if(detailBtn){
+    if(openDetailIds.has(itemId)) openDetailIds.delete(itemId);
+    else openDetailIds.add(itemId);
+    refreshTimelineTab(id);
+    if(openDetailIds.has(itemId)){
+      requestAnimationFrame(()=>{
+        const box = dialogBody.querySelector(`.ms-item-wrap[data-item="${itemId}"] .ms-detail-textarea`);
+        if(box){ autoGrowTextarea(box); box.focus(); }
+      });
+    }
+    return;
+  }
+});
+
+dialogBody.addEventListener('input', (e)=>{
+  if(e.target.classList.contains('ms-detail-textarea')){
+    const wrap = e.target.closest('.edit-list-wrap[data-kind="milestone"], .edit-list-wrap[data-kind="timeline"]');
+    const itemWrap = e.target.closest('.ms-item-wrap');
+    if(!wrap || !itemWrap) return;
+    const id = wrap.dataset.project;
+    const itemId = itemWrap.dataset.item;
+    const kind = wrap.dataset.kind;
+    const state = kind === 'milestone' ? milestoneState : timelineState;
+    const save = kind === 'milestone' ? saveMilestoneState : saveTimelineState;
+    const item = state[id] && state[id].find(i=>i.id===itemId);
+    if(item){
+      item.detail = e.target.value;
+      save(state);
+    }
+    autoGrowTextarea(e.target);
+  }
+});
+
+dialogBody.addEventListener('input', (e)=>{
+  if(e.target.classList.contains('edit-textarea')){
+    setMeta(e.target.dataset.project, e.target.dataset.field, e.target.value);
+  }
+});
+
+dialogBody.addEventListener('change', (e)=>{
+  if(e.target.classList.contains('auto-tl-log-input')){
+    const qid = e.target.dataset.qid;
+    autoTimelineLogSettings = { ...autoTimelineLogSettings, [qid]: e.target.checked };
+    saveAutoTimelineLog(autoTimelineLogSettings);
+  }
+});
+
+dialogBody.addEventListener('keydown', (e)=>{
+  if(e.key==='Enter' && e.target.classList.contains('edit-add-input')){
+    e.preventDefault();
+    e.target.closest('.edit-list-wrap').querySelector('[data-action="add"]').click();
+  }
+});
+
+/* =========================================================
+   CLICK-TO-EDIT POPOVER — shared by milestones, timeline
+   and to-do items. Clicking any item's text pops out a small
+   editor instead of showing inline inputs in the list.
+   ========================================================= */
+const itemPopover = document.getElementById('itemPopover');
+const itemPopoverBody = document.getElementById('itemPopoverBody');
+let popoverCtx = null;
+
+function getPopoverStateArray(ctx){
+  if(ctx.kind==='milestone') return milestoneState[ctx.id];
+  if(ctx.kind==='timeline') return timelineState[ctx.id];
+  return quadState[ctx.id][ctx.qid];
+}
+function savePopoverState(ctx){
+  if(ctx.kind==='milestone') saveMilestoneState(milestoneState);
+  else if(ctx.kind==='timeline') saveTimelineState(timelineState);
+  else saveQuadState(quadState);
+}
+function refreshPopoverOwner(ctx){
+  if(ctx.kind==='milestone') refreshMilestoneTab(ctx.id);
+  else if(ctx.kind==='timeline') refreshTimelineTab(ctx.id);
+  else refreshQuadrantTab(ctx.id);
+}
+
+function buildPopoverFields(ctx, item){
+  if(ctx.kind==='milestone'){
+    return `
+      <div class="pop-label">詳細メモ <span class="pop-label-sub">— ${escapeHTML(item.text || '(タイトル未設定)')}</span></div>
+      <textarea class="pop-input pop-textarea" data-field="detail" rows="6" placeholder="詳細メモを入力…" autofocus>${escapeHTML(item.detail || '')}</textarea>
+      <div class="pop-actions">
+        <span></span>
+        <button class="pop-btn pop-btn-done" type="button" data-action="pop-close">完了</button>
+      </div>
+    `;
+  }
+  if(ctx.kind==='timeline'){
+    return `
+      <div class="pop-label">日付</div>
+      <input class="pop-input" type="text" data-field="date" value="${escAttr(item.date)}" placeholder="Date">
+      <div class="pop-label">できごと</div>
+      <input class="pop-input" type="text" data-field="text" value="${escAttr(item.text)}" placeholder="What happened">
+      <div class="pop-actions">
+        <button class="pop-btn pop-btn-del" type="button" data-action="pop-delete">削除</button>
+        <button class="pop-btn pop-btn-done" type="button" data-action="pop-close">完了</button>
+      </div>
+    `;
+  }
+  return `
+    <div class="pop-label">タスク内容</div>
+    <input class="pop-input" type="text" data-field="text" value="${escAttr(item.text)}" placeholder="Task">
+    <div class="pop-actions">
+      <button class="pop-btn pop-btn-del" type="button" data-action="pop-delete">削除</button>
+      <button class="pop-btn pop-btn-done" type="button" data-action="pop-close">完了</button>
+    </div>
+  `;
+}
+
+function openItemPopover(anchorEl, ctx){
+  popoverCtx = ctx;
+  const arr = getPopoverStateArray(ctx);
+  const item = arr && arr.find(i=>i.id===ctx.itemId);
+  if(!item) return;
+  itemPopoverBody.innerHTML = buildPopoverFields(ctx, item);
+
+  const rect = anchorEl.getBoundingClientRect();
+  const popW = 280;
+  let left = rect.left;
+  if(left + popW > window.innerWidth - 12) left = window.innerWidth - popW - 12;
+  if(left < 12) left = 12;
+  itemPopover.style.left = left + 'px';
+  itemPopover.style.top = (rect.bottom + 8) + 'px';
+  itemPopover.classList.add('open');
+
+  requestAnimationFrame(()=>{
+    const pRect = itemPopover.getBoundingClientRect();
+    if(pRect.bottom > window.innerHeight - 12){
+      itemPopover.style.top = Math.max(12, rect.top - pRect.height - 8) + 'px';
+    }
+  });
+
+  const firstInput = itemPopoverBody.querySelector('.pop-input');
+  if(firstInput){ firstInput.focus(); firstInput.select(); }
+}
+function closeItemPopover(){
+  itemPopover.classList.remove('open');
+  popoverCtx = null;
+}
+
+function updateRowDisplay(ctx, item){
+  if(ctx.kind==='quad'){
+    const el = dialogBody.querySelector(`.quad-item[data-item="${ctx.itemId}"] .quad-text`);
+    if(el) el.textContent = item.text;
+    return;
+  }
+  if(ctx.kind==='milestone'){
+    refreshMilestoneTab(ctx.id);
+    return;
+  }
+  const row = dialogBody.querySelector(`.edit-row[data-item="${ctx.itemId}"]`);
+  if(!row) return;
+  const titleEl = row.querySelector('.edit-row-title');
+  if(titleEl) titleEl.textContent = item.text || '(内容未設定)';
+  const dateEl = row.querySelector('.edit-row-date');
+  if(dateEl) dateEl.textContent = item.date || '';
+}
+
+dialogBody.addEventListener('click', (e)=>{
+  const trigger = e.target.closest('[data-action="open-edit"]');
+  if(!trigger) return;
+  const wrap = trigger.closest('.edit-list-wrap');
+  if(wrap){
+    const itemEl = trigger.closest('.edit-row');
+    openItemPopover(trigger, { kind: wrap.dataset.kind, id: wrap.dataset.project, itemId: itemEl.dataset.item });
+  }
+});
+
+itemPopoverBody.addEventListener('input', (e)=>{
+  if(!popoverCtx || !e.target.classList.contains('pop-input')) return;
+  const arr = getPopoverStateArray(popoverCtx);
+  const item = arr && arr.find(i=>i.id===popoverCtx.itemId);
+  if(!item) return;
+  item[e.target.dataset.field] = e.target.value;
+  savePopoverState(popoverCtx);
+  updateRowDisplay(popoverCtx, item);
+});
+
+itemPopoverBody.addEventListener('click', (e)=>{
+  if(!popoverCtx) return;
+  const tabBtn = e.target.closest('[data-pop-tab]');
+  if(tabBtn){
+    const target = tabBtn.dataset.popTab;
+    itemPopoverBody.querySelectorAll('.pop-tab-btn').forEach(b=> b.classList.toggle('active', b===tabBtn));
+    itemPopoverBody.querySelectorAll('.pop-tab-panel').forEach(p=> p.classList.toggle('active', p.dataset.popPanel===target));
+    return;
+  }
+  if(e.target.closest('[data-action="pop-delete"]')){
+    const arr = getPopoverStateArray(popoverCtx);
+    const idx = arr.findIndex(i=>i.id===popoverCtx.itemId);
+    if(idx>-1) arr.splice(idx,1);
+    savePopoverState(popoverCtx);
+    const ctx = popoverCtx;
+    closeItemPopover();
+    refreshPopoverOwner(ctx);
+    return;
+  }
+  if(e.target.closest('[data-action="pop-close"]')){
+    closeItemPopover();
+  }
+});
+
+document.addEventListener('click', (e)=>{
+  if(itemPopover.classList.contains('open') && !itemPopover.contains(e.target) && !e.target.closest('[data-action="open-edit"]') && !e.target.closest('[data-action="toggle-detail"]')){
+    closeItemPopover();
+  }
+});
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeItemPopover(); });
+
+/* =========================================================
+   LONG-PRESS TO REORDER — unified across Milestones,
+   Timeline, and To-Do items. Short tap still opens the
+   edit popover above; a long-press pops the row out and
+   lets you drag it to a new position in the same list.
+   ========================================================= */
+const reorderHint = document.getElementById('reorderHint');
+const LONG_PRESS_MS = 420;
+const MOVE_CANCEL_PX = 8;
+const ROW_SELECTOR = '.edit-row, .quad-item';
+
+let pressState = null;   // pending long-press timer info
+let dragCtx = null;      // active drag info
+let justDragged = false; // suppresses the click that follows a drag
+
+function isRowEl(el){ return el && (el.classList.contains('edit-row') || el.classList.contains('quad-item') || el.classList.contains('ms-item-wrap')); }
+
+function ctxFromItem(item){
+  const quadPanel = item.closest('.quad-panel');
+  if(quadPanel) return { kind:'quad', id: quadPanel.dataset.project, qid: item.dataset.quad || quadPanel.dataset.quad };
+  const wrap = item.closest('.edit-list-wrap');
+  if(wrap) return { kind: wrap.dataset.kind, id: wrap.dataset.project };
+  return null;
+}
+
+dialogBody.addEventListener('pointerdown', (e)=>{
+  if(e.button !== undefined && e.button !== 0) return;
+  let item = e.target.closest(ROW_SELECTOR);
+  if(!item || !dialogBody.contains(item)) return;
+  if(e.target.closest('button')) return; // don't start a long-press from the checkbox
+  if(item.classList.contains('edit-row') && item.parentElement && item.parentElement.classList.contains('ms-item-wrap')){
+    item = item.parentElement; // drag the whole milestone (row + any open memo box) together
+  }
+
+  pressState = { x:e.clientX, y:e.clientY, item, pointerId:e.pointerId };
+  clearTimeout(pressState.timer);
+  pressState.timer = setTimeout(()=>{
+    if(pressState) startDrag(pressState.item, e);
+  }, LONG_PRESS_MS);
+});
+
+dialogBody.addEventListener('pointermove', (e)=>{
+  if(pressState && !dragCtx){
+    const dx = Math.abs(e.clientX - pressState.x), dy = Math.abs(e.clientY - pressState.y);
+    if(dx > MOVE_CANCEL_PX || dy > MOVE_CANCEL_PX){
+      clearTimeout(pressState.timer);
+      pressState = null;
+    }
+  }
+  if(dragCtx && e.pointerId === dragCtx.pointerId){
+    onDragMove(e);
+  }
+});
+
+function endPress(e){
+  if(pressState) clearTimeout(pressState.timer);
+  pressState = null;
+  if(dragCtx && (!e || e.pointerId === dragCtx.pointerId)){
+    endDrag();
+  }
+}
+dialogBody.addEventListener('pointerup', endPress);
+dialogBody.addEventListener('pointercancel', endPress);
+dialogBody.addEventListener('pointerleave', (e)=>{ if(dragCtx) endPress(e); });
+
+// swallow the click that naturally follows a long-press drag
+dialogBody.addEventListener('click', (e)=>{
+  if(justDragged){
+    e.stopPropagation();
+    e.preventDefault();
+    justDragged = false;
+  }
+}, true);
+
+function startDrag(item, e){
+  pressState = null;
+  const context = ctxFromItem(item);
+  if(!context) return;
+  const container = item.parentElement;
+  const rowEls = Array.from(container.children).filter(isRowEl);
+  const originalIndex = rowEls.indexOf(item);
+  const rects = rowEls.map(el=>el.getBoundingClientRect());
+
+  try{ item.setPointerCapture(e.pointerId); }catch(err){}
+  try{ if(navigator.vibrate) navigator.vibrate(12); }catch(err){}
+
+  dragCtx = {
+    pointerId: e.pointerId, item, container, context,
+    rowEls, rects, originalIndex, targetIndex: originalIndex,
+    startX: e.clientX, startY: e.clientY, itemHeight: rects[originalIndex] ? rects[originalIndex].height : item.offsetHeight,
+    crossContainer: null,
+  };
+
+  item.classList.add('sort-active');
+  reorderHint.classList.add('show');
+  positionHint(e);
+}
+
+function positionHint(e){
+  reorderHint.style.left = Math.min(e.clientX + 14, window.innerWidth - 140) + 'px';
+  reorderHint.style.top = Math.max(e.clientY - 44, 8) + 'px';
+}
+
+function clearOriginShift(){
+  const { item, rowEls, originalIndex } = dragCtx;
+  if(dragCtx.targetIndex !== originalIndex){
+    dragCtx.targetIndex = originalIndex;
+    rowEls.forEach(el=>{
+      if(el===item) return;
+      el.classList.remove('sort-shift');
+      el.style.transform = '';
+    });
+  }
+}
+
+function onDragMove(e){
+  e.preventDefault();
+  const { item, rowEls, rects, originalIndex, startX, startY, itemHeight, context } = dragCtx;
+  const deltaX = e.clientX - startX;
+  const deltaY = e.clientY - startY;
+  item.style.transform = `translate(${deltaX}px, ${deltaY}px) scale(1.035)`;
+  positionHint(e);
+
+  // cross-quadrant / cross-bucket hover detection — To-Do items only
+  if(context.kind === 'quad'){
+    // the dragged item (and the hint bubble) sit directly under the
+    // pointer, so elementFromPoint would otherwise always hit them
+    // instead of the quadrant underneath — hide them from hit-testing.
+    item.style.pointerEvents = 'none';
+    reorderHint.style.pointerEvents = 'none';
+    const hoverEl = document.elementFromPoint(e.clientX, e.clientY);
+    item.style.pointerEvents = '';
+    reorderHint.style.pointerEvents = '';
+
+    const hoverList = hoverEl ? hoverEl.closest('.quad-list') : null;
+    const hoverContainer = (hoverList && hoverList !== dragCtx.container) ? hoverList : null;
+
+    if(hoverContainer !== dragCtx.crossContainer){
+      if(dragCtx.crossContainer){
+        const prevPanel = dragCtx.crossContainer.closest('.quad-panel');
+        if(prevPanel) prevPanel.classList.remove('drop-hover');
+      }
+      if(hoverContainer){
+        const newPanel = hoverContainer.closest('.quad-panel');
+        if(newPanel) newPanel.classList.add('drop-hover');
+      }
+      dragCtx.crossContainer = hoverContainer;
+    }
+
+    if(dragCtx.crossContainer){
+      clearOriginShift();
+      return;
+    }
+  }
+
+  const originalCenter = rects[originalIndex].top + itemHeight/2;
+  const currentCenter = originalCenter + deltaY;
+
+  let newIndex = originalIndex;
+  for(let i=0;i<rowEls.length;i++){
+    if(i===originalIndex) continue;
+    const c = rects[i].top + rects[i].height/2;
+    if(i < originalIndex && currentCenter < c) newIndex = Math.min(newIndex, i);
+    if(i > originalIndex && currentCenter > c) newIndex = Math.max(newIndex, i);
+  }
+
+  if(newIndex !== dragCtx.targetIndex){
+    dragCtx.targetIndex = newIndex;
+    rowEls.forEach((el, i)=>{
+      if(el === item) return;
+      let shift = 0;
+      if(newIndex < originalIndex && i >= newIndex && i < originalIndex) shift = itemHeight;
+      else if(newIndex > originalIndex && i > originalIndex && i <= newIndex) shift = -itemHeight;
+      el.classList.add('sort-shift');
+      el.style.transform = shift ? `translateY(${shift}px)` : '';
+    });
+  }
+}
+
+// When a To-Do is dragged into Completed, log it to the Timeline too,
+// dated with today so the timeline reads as an accurate history.
+function todayDisplayString(){
+  const now = new Date();
+  return `${MONTH_NAMES[now.getMonth()].slice(0,3)} ${now.getDate()}`;
+}
+function logCompletionToTimeline(id, taskText, qid){
+  if(!autoTimelineLogSettings[qid]) return;
+  if(!timelineState[id]) timelineState[id] = [];
+  timelineState[id].push({ id: nextUid(), date: todayDisplayString(), text: `Completed: ${taskText}` });
+  saveTimelineState(timelineState);
+  refreshTimelineTab(id);
+}
+
+function endDrag(){
+  const { item, rowEls, context, originalIndex, targetIndex, crossContainer } = dragCtx;
+  item.classList.remove('sort-active');
+  item.style.transform = '';
+  rowEls.forEach(el=>{ el.classList.remove('sort-shift'); el.style.transform = ''; });
+  reorderHint.classList.remove('show');
+
+  if(crossContainer && context.kind === 'quad'){
+    const panel = crossContainer.closest('.quad-panel');
+    if(panel) panel.classList.remove('drop-hover');
+
+    const targetQid = crossContainer.dataset.quad; // 'q1'..'q4' or 'completed'
+    const sourceArr = quadState[context.id] && quadState[context.id][context.qid];
+    const idx = sourceArr ? sourceArr.findIndex(i=>i.id === item.dataset.item) : -1;
+
+    if(idx > -1 && targetQid && targetQid !== context.qid){
+      const [moved] = sourceArr.splice(idx, 1);
+      if(targetQid === 'completed'){
+        moved.done = true; // weight stays as-is, frozen from its last active quadrant
+        logCompletionToTimeline(context.id, moved.text, context.qid);
+      } else {
+        if(context.qid === 'completed') moved.done = false;
+        moved.weight = QUAD_WEIGHT[targetQid]; // now sitting in this quadrant, so it counts at this weight
+      }
+      quadState[context.id][targetQid].push(moved);
+      saveQuadState(quadState);
+      refreshQuadrantTab(context.id);
+    }
+
+    justDragged = true;
+    setTimeout(()=>{ justDragged = false; }, 350);
+    dragCtx = null;
+    return;
+  }
+
+  if(targetIndex !== originalIndex){
+    const arr = getPopoverStateArray(context);
+    if(arr){
+      const [moved] = arr.splice(originalIndex, 1);
+      arr.splice(targetIndex, 0, moved);
+      savePopoverState(context);
+      refreshPopoverOwner(context);
+    }
+    justDragged = true;
+    setTimeout(()=>{ justDragged = false; }, 350);
+  }
+  dragCtx = null;
+}
+
+/* =========================================================
+   LONG-PRESS TO REORDER — the project cards, extended to
+   cross between the active grid and the Completed archive.
+   Drag a card down into Completed to archive it; drag a
+   completed row up into the grid to restore it to active.
+   ========================================================= */
+let cardPressState = null;
+let cardDragCtx = null;
+let cardJustDragged = false;
+const dragRoot = document.querySelector('.app');
+
+dragRoot.addEventListener('pointerdown', (e)=>{
+  if(e.button !== undefined && e.button !== 0) return;
+  const card = e.target.closest('.card:not(.is-empty):not(.add-project-tile)');
+  const row = card ? null : e.target.closest('.completed-row');
+  const item = card || row;
+  if(!item) return;
+  if(e.target.closest('button')) return; // don't start a long-press from icon/title-edit/add buttons
+
+  cardPressState = { x:e.clientX, y:e.clientY, item, kind: card ? 'grid' : 'completed', pointerId:e.pointerId };
+  clearTimeout(cardPressState.timer);
+  cardPressState.timer = setTimeout(()=>{
+    if(cardPressState) startCardDrag(cardPressState.item, cardPressState.kind, e);
+  }, LONG_PRESS_MS);
+});
+
+dragRoot.addEventListener('pointermove', (e)=>{
+  if(cardPressState && !cardDragCtx){
+    const dx = Math.abs(e.clientX - cardPressState.x), dy = Math.abs(e.clientY - cardPressState.y);
+    if(dx > MOVE_CANCEL_PX || dy > MOVE_CANCEL_PX){
+      clearTimeout(cardPressState.timer);
+      cardPressState = null;
+    }
+  }
+  if(cardDragCtx && e.pointerId === cardDragCtx.pointerId){
+    onCardDragMove(e);
+  }
+});
+
+function endCardPress(e){
+  if(cardPressState) clearTimeout(cardPressState.timer);
+  cardPressState = null;
+  if(cardDragCtx && (!e || e.pointerId === cardDragCtx.pointerId)){
+    endCardDrag();
+  }
+}
+dragRoot.addEventListener('pointerup', endCardPress);
+dragRoot.addEventListener('pointercancel', endCardPress);
+dragRoot.addEventListener('pointerleave', (e)=>{ if(cardDragCtx) endCardPress(e); });
+
+dragRoot.addEventListener('click', (e)=>{
+  if(cardJustDragged){
+    e.stopPropagation();
+    e.preventDefault();
+    cardJustDragged = false;
+  }
+}, true);
+
+function startCardDrag(item, kind, e){
+  cardPressState = null;
+  const siblingEls = kind === 'grid'
+    ? Array.from(grid.children).filter(c=>c.classList.contains('card') && !c.classList.contains('add-project-tile'))
+    : Array.from(document.querySelectorAll('.completed-row'));
+  const originalIndex = siblingEls.indexOf(item);
+
+  try{ item.setPointerCapture(e.pointerId); }catch(err){}
+  try{ if(navigator.vibrate) navigator.vibrate(12); }catch(err){}
+
+  cardDragCtx = {
+    pointerId: e.pointerId, item, kind, siblingEls, originalIndex,
+    startX: e.clientX, startY: e.clientY,
+    targetEl: null, crossZone: false,
+  };
+  item.classList.add('sort-active');
+  reorderHint.classList.add('show');
+  positionHint(e);
+
+  // show the "other" zone as a live drop target while dragging
+  const completedSection = document.getElementById('completedSection');
+  if(kind === 'grid'){
+    completedSection.classList.add('drop-zone-active');
+  } else {
+    grid.classList.add('drop-zone-active');
+  }
+}
+
+function onCardDragMove(e){
+  e.preventDefault();
+  const { item, kind, siblingEls } = cardDragCtx;
+  const dx = e.clientX - cardDragCtx.startX, dy = e.clientY - cardDragCtx.startY;
+  item.style.transform = `translate(${dx}px, ${dy}px) scale(1.045)`;
+  positionHint(e);
+
+  const otherContainer = kind === 'grid' ? document.getElementById('completedSection') : grid;
+  const otherRect = otherContainer.getBoundingClientRect();
+  const overOther = e.clientX >= otherRect.left && e.clientX <= otherRect.right && e.clientY >= otherRect.top && e.clientY <= otherRect.bottom;
+
+  otherContainer.classList.toggle('drop-hover', overOther);
+  cardDragCtx.crossZone = overOther;
+
+  let hovered = null;
+  if(!overOther){
+    for(const el of siblingEls){
+      if(el === item) continue;
+      const r = el.getBoundingClientRect();
+      if(e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom){
+        hovered = el;
+        break;
+      }
+    }
+  }
+  if(cardDragCtx.targetEl && cardDragCtx.targetEl !== hovered){
+    cardDragCtx.targetEl.classList.remove('sort-target');
+  }
+  if(hovered) hovered.classList.add('sort-target');
+  cardDragCtx.targetEl = hovered;
+}
+
+function endCardDrag(){
+  const { item, kind, targetEl, crossZone, originalIndex, siblingEls } = cardDragCtx;
+  item.classList.remove('sort-active');
+  item.style.transform = '';
+  if(targetEl) targetEl.classList.remove('sort-target');
+  document.getElementById('completedSection').classList.remove('drop-zone-active', 'drop-hover');
+  grid.classList.remove('drop-zone-active', 'drop-hover');
+
+  const id = item.dataset.id;
+
+  if(crossZone && id){
+    setProjectCompleted(id, kind === 'grid'); // dragged into Completed → true; dragged into grid → false (restore)
+    cardJustDragged = true;
+    setTimeout(()=>{ cardJustDragged = false; }, 350);
+  } else if(targetEl){
+    const targetIndex = siblingEls.indexOf(targetEl);
+    const originalId = id, targetId = targetEl.dataset.id;
+    const fromIdx = PROJECTS.findIndex(p=>p.id===originalId);
+    const toIdx = PROJECTS.findIndex(p=>p.id===targetId);
+    if(fromIdx > -1 && toIdx > -1){
+      const [moved] = PROJECTS.splice(fromIdx, 1);
+      PROJECTS.splice(toIdx, 0, moved);
+      saveOrder();
+      saveCustomProjects();
+      renderGrid();
+    }
+    cardJustDragged = true;
+    setTimeout(()=>{ cardJustDragged = false; }, 350);
+  }
+  reorderHint.classList.remove('show');
+  cardDragCtx = null;
+}
+
+/* =========================================================
+   CLOUD SYNC (Firebase) — an optional layer on top of the
+   existing localStorage state. Local storage stays the source
+   of truth for instant reads/writes; when a Sync Code is set,
+   every save is also pushed to a shared Firestore document, and
+   on load the latest cloud copy is pulled down if it's newer.
+   ========================================================= */
+const SYNC_CODE_KEY = 'projects_sync_code_v1';
+const SYNC_META_KEY = 'projects_sync_meta_v1';
+const SYNC_DATA_KEYS = { ORDER_KEY, META_KEY, QUAD_KEY, MILESTONE_KEY, TIMELINE_KEY, CUSTOM_PROJECTS_KEY };
+
+// A stable per-device ID so we can tell "the cloud's latest write was from
+// this same device" (safe to sync silently) apart from "a different device
+// wrote to the cloud while we were offline" (needs the user's say-so).
+const DEVICE_ID_KEY = 'projects_device_id_v1';
+function getDeviceId(){
+  try{
+    let id = localStorage.getItem(DEVICE_ID_KEY);
+    if(!id){ id = 'dev-' + Math.random().toString(36).slice(2) + Date.now().toString(36); localStorage.setItem(DEVICE_ID_KEY, id); }
+    return id;
+  }catch(e){ return 'dev-unknown'; }
+}
+const THIS_DEVICE_ID = getDeviceId();
+
+function collectSyncBlob(){
+  const read = (key)=>{ try{ return JSON.parse(localStorage.getItem(key) || 'null'); }catch(e){ return null; } };
+  return {
+    order: read(SYNC_DATA_KEYS.ORDER_KEY),
+    meta: read(SYNC_DATA_KEYS.META_KEY),
+    quad: read(SYNC_DATA_KEYS.QUAD_KEY),
+    milestones: read(SYNC_DATA_KEYS.MILESTONE_KEY),
+    timeline: read(SYNC_DATA_KEYS.TIMELINE_KEY),
+    customProjects: read(SYNC_DATA_KEYS.CUSTOM_PROJECTS_KEY),
+    savedAt: Date.now(),
+    deviceId: THIS_DEVICE_ID,
+  };
+}
+function applySyncBlob(blob){
+  if(!blob) return;
+  const write = (key, val)=>{ if(val !== undefined && val !== null) try{ localStorage.setItem(key, JSON.stringify(val)); }catch(e){} };
+  write(SYNC_DATA_KEYS.ORDER_KEY, blob.order);
+  write(SYNC_DATA_KEYS.META_KEY, blob.meta);
+  write(SYNC_DATA_KEYS.QUAD_KEY, blob.quad);
+  write(SYNC_DATA_KEYS.MILESTONE_KEY, blob.milestones);
+  write(SYNC_DATA_KEYS.TIMELINE_KEY, blob.timeline);
+  write(SYNC_DATA_KEYS.CUSTOM_PROJECTS_KEY, blob.customProjects);
+}
+function getLastSyncedAt(){
+  try{ return (JSON.parse(localStorage.getItem(SYNC_META_KEY) || '{}').lastCloudSavedAt) || 0; }catch(e){ return 0; }
+}
+function setLastSyncedAt(ts){
+  try{ localStorage.setItem(SYNC_META_KEY, JSON.stringify({ lastCloudSavedAt: ts })); }catch(e){}
+}
+function getSyncCode(){ try{ return localStorage.getItem(SYNC_CODE_KEY) || ''; }catch(e){ return ''; } }
+function setSyncCode(code){ try{ if(code) localStorage.setItem(SYNC_CODE_KEY, code); else localStorage.removeItem(SYNC_CODE_KEY); }catch(e){} }
+
+function debounce(fn, wait){
+  let t;
+  return (...args)=>{ clearTimeout(t); t = setTimeout(()=>fn(...args), wait); };
+}
+
+const pushToCloudDebounced = debounce(async ()=>{
+  if(!window.firebaseSync || !window.firebaseSync.isConnected()) return;
+  const blob = collectSyncBlob();
+  await window.firebaseSync.push(blob);
+  setLastSyncedAt(blob.savedAt);
+  setSyncStatus('同期済み ' + new Date(blob.savedAt).toLocaleTimeString('ja-JP', {hour:'2-digit', minute:'2-digit'}));
+}, 900);
+
+// monkey-patch the existing save*State functions so every local
+// write also triggers a debounced cloud push, without touching
+// the many call sites scattered through the app.
+(function(){
+  const _saveOrder = saveOrder;
+  saveOrder = function(...a){ const r = _saveOrder(...a); pushToCloudDebounced(); return r; };
+  const _saveMeta = saveMeta;
+  saveMeta = function(...a){ const r = _saveMeta(...a); pushToCloudDebounced(); return r; };
+  const _saveQuadState = saveQuadState;
+  saveQuadState = function(...a){ const r = _saveQuadState(...a); pushToCloudDebounced(); return r; };
+  const _saveMilestoneState = saveMilestoneState;
+  saveMilestoneState = function(...a){ const r = _saveMilestoneState(...a); pushToCloudDebounced(); return r; };
+  const _saveTimelineState = saveTimelineState;
+  saveTimelineState = function(...a){ const r = _saveTimelineState(...a); pushToCloudDebounced(); return r; };
+})();
+
+/* =========================================================
+   RECONNECT CONFLICT CHECK — when the connection comes back
+   after being offline, see whether ANOTHER device pushed
+   newer changes to the cloud in the meantime. If so, ask
+   before overwriting either side. If the cloud's last write
+   was from this same device, there's no real conflict, so
+   sync resumes silently as usual.
+   ========================================================= */
+let wasOffline = typeof navigator !== 'undefined' && navigator.onLine === false;
+
+async function checkForReconnectConflict(){
+  const code = getSyncCode();
+  if(!code || !window.firebaseSync) return;
+  try{
+    await window.firebaseSync.connect(code);
+    const cloudBlob = await window.firebaseSync.pull();
+    if(!cloudBlob) return;
+
+    const cloudIsNewer = cloudBlob.savedAt > getLastSyncedAt();
+    const sameDevice = cloudBlob.deviceId === THIS_DEVICE_ID;
+
+    if(!cloudIsNewer || sameDevice){
+      // no real conflict — either nothing changed, or it was us all along
+      pushToCloudDebounced();
+      return;
+    }
+
+    // a different device wrote newer data while we were offline
+    const useCloud = await customConfirm(
+      '接続が回復しました。オフラインの間に、別の端末でも更新がありました。\nクラウド側の最新内容を読み込みますか?\n(「いいえ」を選ぶと、このデバイスの内容をクラウドに保存します)'
+    );
+    if(useCloud){
+      applySyncBlob(cloudBlob);
+      setLastSyncedAt(cloudBlob.savedAt);
+      setSyncStatus('クラウドの内容を読み込みました。再読み込みします…');
+      setTimeout(()=> location.reload(), 500);
+    } else {
+      const blob = collectSyncBlob();
+      await window.firebaseSync.push(blob);
+      setLastSyncedAt(blob.savedAt);
+      setSyncStatus('このデバイスの内容をクラウドに保存しました。');
+    }
+  }catch(err){
+    console.warn('reconnect conflict check failed', err);
+  }
+}
+
+window.addEventListener('offline', ()=>{
+  wasOffline = true;
+  setSyncStatus('オフラインです。変更はこの端末に保存されます。');
+});
+window.addEventListener('online', ()=>{
+  if(wasOffline){
+    wasOffline = false;
+    checkForReconnectConflict();
+  }
+});
+
+/* ---------- Sync UI ---------- */
+const syncBtn = document.getElementById('syncBtn');
+const syncBtnLabel = document.getElementById('syncBtnLabel');
+const syncDot = document.getElementById('syncDot');
+const syncPopover = document.getElementById('syncPopover');
+const syncCodeInput = document.getElementById('syncCodeInput');
+const syncConnectBtn = document.getElementById('syncConnectBtn');
+const syncDisconnectBtn = document.getElementById('syncDisconnectBtn');
+const syncStatusText = document.getElementById('syncStatusText');
+const syncLoadingOverlay = document.getElementById('syncLoadingOverlay');
+
+function setSyncStatus(text){ if(syncStatusText) syncStatusText.textContent = text; }
+
+function refreshSyncButton(){
+  const code = getSyncCode();
+  if(code){
+    syncBtn.classList.add('connected');
+    syncBtnLabel.textContent = 'Synced';
+    syncCodeInput.value = code;
+    syncDisconnectBtn.style.display = '';
+  } else {
+    syncBtn.classList.remove('connected');
+    syncBtnLabel.textContent = 'Sync off';
+    syncDisconnectBtn.style.display = 'none';
+  }
+}
+
+syncBtn.addEventListener('click', (e)=>{
+  e.stopPropagation();
+  const rect = syncBtn.getBoundingClientRect();
+  const popW = 300;
+  let left = rect.right - popW;
+  if(left < 12) left = 12;
+  syncPopover.style.left = left + 'px';
+  syncPopover.style.top = (rect.bottom + 8) + 'px';
+  syncPopover.classList.toggle('open');
+  setSyncStatus(window.firebaseSync ? '' : 'Firebase未設定です(コード側で設定が必要)');
+});
+document.addEventListener('click', (e)=>{
+  if(syncPopover.classList.contains('open') && !syncPopover.contains(e.target) && e.target !== syncBtn && !syncBtn.contains(e.target)){
+    syncPopover.classList.remove('open');
+  }
+});
+
+syncConnectBtn.addEventListener('click', async ()=>{
+  const code = syncCodeInput.value.trim();
+  if(!code){ setSyncStatus('Sync Codeを入力してください'); return; }
+  if(!window.firebaseSync){ setSyncStatus('Firebase未設定です(コード側でconfigを設定してください)'); return; }
+
+  setSyncStatus('接続しています…');
+  await window.firebaseSync.connect(code);
+  setSyncCode(code);
+  refreshSyncButton();
+
+  const cloudBlob = await window.firebaseSync.pull();
+  if(cloudBlob){
+    applySyncBlob(cloudBlob);
+    setLastSyncedAt(cloudBlob.savedAt || Date.now());
+    setSyncStatus('クラウドのデータを読み込みました。再読み込みします…');
+    setTimeout(()=> location.reload(), 500);
+  } else {
+    // nothing in the cloud yet for this code — push current local state
+    const blob = collectSyncBlob();
+    await window.firebaseSync.push(blob);
+    setLastSyncedAt(blob.savedAt);
+    setSyncStatus('接続しました。このデータをクラウドに保存しました。');
+  }
+});
+
+syncDisconnectBtn.addEventListener('click', ()=>{
+  setSyncCode('');
+  refreshSyncButton();
+  setSyncStatus('切断しました(ローカル保存のみになります)');
+});
+
+refreshSyncButton();
+
+// on load: if already connected, pull the latest cloud copy and
+// only reload if it's actually newer than what we already applied.
+window.addEventListener('load', async ()=>{
+  const code = getSyncCode();
+  if(!code || !window.firebaseSync){ return; }
+
+  syncLoadingOverlay.classList.add('show');
+  try{
+    await window.firebaseSync.connect(code);
+    const cloudBlob = await window.firebaseSync.pull();
+    if(cloudBlob && cloudBlob.savedAt > getLastSyncedAt()){
+      applySyncBlob(cloudBlob);
+      setLastSyncedAt(cloudBlob.savedAt);
+      location.reload();
+      return;
+    }
+  }catch(err){
+    console.warn('cloud sync check failed', err);
+  }
+  syncLoadingOverlay.classList.remove('show');
+});
+</script>
+
+<!-- =========================================================
+     Firebase cloud sync (optional). Paste your own Firebase
+     project config below to enable cross-device sync via the
+     "Sync" button in the header. Without a real config, the
+     app works exactly as before using localStorage only.
+
+     Setup (free):
+     1) https://console.firebase.google.com → Add project
+     2) Build → Firestore Database → Create database (test mode is fine to start)
+     3) Build → Authentication → Sign-in method → enable "Anonymous"
+     4) Project settings → General → "Your apps" → Web app (</>) → copy the config object below
+     5) Firestore → Rules, paste:
+          rules_version = '2';
+          service cloud.firestore {
+            match /databases/{database}/documents {
+              match /quest_dashboards/{code} {
+                allow read, write: if request.auth != null;
+              }
+            }
+          }
+     ========================================================= -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+  import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+  // ▼▼▼ paste your own Firebase project config here ▼▼▼
+  const firebaseConfig = {
+    apiKey: "AIzaSyDgSZHErKJijFTXQiNIjp0Ec3-W0Ou60Og",
+    authDomain: "taskparty-db284.firebaseapp.com",
+    projectId: "taskparty-db284",
+    storageBucket: "taskparty-db284.firebasestorage.app",
+    messagingSenderId: "421829442531",
+    appId: "1:421829442531:web:4b518dab281713f55f7ed6",
+  };
+  // ▲▲▲ paste your own Firebase project config here ▲▲▲
+
+  if(firebaseConfig.apiKey){
+    let app, db, auth, docRef;
+
+    async function ensureInit(){
+      if(app) return;
+      app = initializeApp(firebaseConfig);
+      db = getFirestore(app);
+      auth = getAuth(app);
+      await signInAnonymously(auth).catch(err=> console.warn('anon sign-in failed', err));
+    }
+
+    async function connect(code){
+      await ensureInit();
+      docRef = doc(db, 'quest_dashboards', code);
+    }
+
+    async function pull(){
+      if(!docRef) return null;
+      try{
+        const snap = await getDoc(docRef);
+        return snap.exists() ? snap.data() : null;
+      }catch(e){ console.warn('sync pull failed', e); return null; }
+    }
+
+    async function push(blob){
+      if(!docRef) return;
+      try{ await setDoc(docRef, blob); }catch(e){ console.warn('sync push failed', e); }
+    }
+
+    window.firebaseSync = { connect, pull, push, isConnected: ()=> !!docRef };
+  }
+</script>
+</body>
+</html>
