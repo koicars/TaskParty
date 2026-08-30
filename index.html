@@ -7256,14 +7256,31 @@ window.addEventListener('load', async ()=>{
     q4: { fg: "#333333", bg: "#f2f2f2", bd: "#d8d8d8" },
   };
   const Q_COLOR_DARK = {
-    q1: { fg: "#ff6b5f", bg: "rgba(255,80,70,.16)",  bd: "rgba(255,80,70,.4)" },
-    q2: { fg: "#5fd88a", bg: "rgba(60,210,120,.16)", bd: "rgba(60,210,120,.4)" },
-    q3: { fg: "#5fa8ff", bg: "rgba(70,150,255,.16)", bd: "rgba(70,150,255,.4)" },
-    q4: { fg: "#c7c9ce", bg: "rgba(150,155,165,.14)", bd: "rgba(150,155,165,.35)" },
+    q1: { fg: "#ff6b5f", bg: "rgba(255,80,70,.16)",  bd: "rgba(255,80,70,.4)",  glow: "rgba(255,80,70,.5)" },
+    q2: { fg: "#5fd88a", bg: "rgba(60,210,120,.16)", bd: "rgba(60,210,120,.4)", glow: "rgba(60,210,120,.5)" },
+    q3: { fg: "#5fa8ff", bg: "rgba(70,150,255,.16)", bd: "rgba(70,150,255,.4)", glow: "rgba(70,150,255,.5)" },
+    q4: { fg: "#c7c9ce", bg: "rgba(150,155,165,.14)", bd: "rgba(150,155,165,.35)", glow: "rgba(150,155,165,.4)" },
   };
   function getQColor(q){
     const dark = document.documentElement.getAttribute("data-theme") === "atlas-dark";
     return (dark ? Q_COLOR_DARK : Q_COLOR_LIGHT)[q];
+  }
+  // Colors the whole suggestion row like a To-Do quad-panel card: a flat
+  // tinted background in light theme (matching .quad-panel there), or the
+  // same inner-glow-fading-to-center treatment the dark theme quad-panels
+  // use, instead of the row staying a plain, uncoloured list line.
+  function styleAtlasRow(rowEl, quad){
+    const dark = document.documentElement.getAttribute("data-theme") === "atlas-dark";
+    const c = getQColor(quad);
+    if(dark){
+      rowEl.style.background = "var(--surface-2, #131615)";
+      rowEl.style.boxShadow = `inset 0 0 22px -4px ${c.glow}`;
+      rowEl.style.borderColor = c.bd;
+    } else {
+      rowEl.style.background = c.bg;
+      rowEl.style.boxShadow = "none";
+      rowEl.style.borderColor = c.bd;
+    }
   }
 
   /* ---------- Atlasの人格・判断・出力契約・ルール（プロトタイプ準拠） ---------- */
@@ -7272,6 +7289,15 @@ window.addEventListener('load', async ()=>{
 トーン: 静か / 丁寧 / 正確 / 端的 / 落ち着き / 控えめ。
 してはいけない: 絵文字、過剰な称賛（「すごい」「さすが」等）、雑談、不要な高揚、子供っぽい表現、励ましのスピーチ、長い前置き。「私は」を多用しない。人格を主張しすぎない。ブランドは FocusAtlas であり、Atlas自身ではありません。
 常に: 要点を短く。結論から。次の一手をひとつ示す。ユーザーの決定権を尊重する。`;
+
+  const INPUT_INTERPRETATION = `入力の解釈:
+ユーザーの入力は、相談・質問だけとは限らない。他のAI（ChatGPT等）との検討結果や、Todo/Project内容を整理した文書、すでに結論まで出ている検討結果がそのまま貼られることがある。まず次を判定する: (a)相談・質問・判断依頼、(b)すでに結論が出ている内容、(c)実行すべきTodoが含まれる内容、(d)これらの混在。
+
+確定事項の尊重: 「〜することにした」「〜で進める」「結論：」「採用する」「今後〜する」「Todoとして〜を行う」等、ユーザーまたは他のAIによって意思決定・方針・結論が明確になっている内容は、その是非を再度議論し直さない。確定事項として尊重したうえで、(1)実行すべき内容をTodoとして抽出し、(2)必要な粒度へ分解し、(3)対象Projectを判定し、(4)NOW/GROW/QUICK/LATERの適切な象限を提案する。
+
+相談と確定の混在: 確定済みの内容はそのまま維持し、未決定の部分についてのみ相談・提案を行う（例:「バナー形式は決めた。ただし印刷会社はまだ。どこが良い？」→バナー形式は維持、印刷会社選定のみ相談対象）。
+
+原則: ASKはユーザーの判断を毎回やり直すAIではない。決まったことは引き継ぎ、決まっていないことだけを考え、最終的にTodoという行動へ変換する。`;
 
   const DECISION_LOGIC = `判断は次の順序で行う: 1.Vision → 2.Project Goal → 3.Milestone → 4.現状の進捗 → 5.締切 → 6.重要度 → 7.緊急度 → 8.推奨アクション。Todoだけを見て判断せず、Project全体を理解した上で提案する。
 
@@ -7305,7 +7331,7 @@ window.addEventListener('load', async ()=>{
 - 相談が目標(DESTINATION)や方針の是非を問う場合、suggestedTasks や priorityChanges が空でも、conciergeMessage で必ず評価を返す：曖昧さ・ずれ・見直すべき点を挙げ、問題なければ「現状は妥当」と明言し、任意で補強点を一つ添える。目標(DESTINATION)が未設定なら、その旨と設定を促す一言を返す。
 - 回答は短く。長文禁止。conciergeMessage は原則3行以内、振り返り系の相談のみ最大6行まで可。いずれの場合も空にしない。reason は一言（15文字前後）に収める。`;
 
-  const SYSTEM_PROMPT = [PERSONALITY, DECISION_LOGIC, CONSULT_SCHEMA, RULES].join("\n\n");
+  const SYSTEM_PROMPT = [PERSONALITY, INPUT_INTERPRETATION, DECISION_LOGIC, CONSULT_SCHEMA, RULES].join("\n\n");
 
   /* ---------- コンテキスト構築（本体の buildProjectMarkdown に id一覧を足す） ---------- */
   function atlasContext(pid) {
@@ -7510,7 +7536,80 @@ window.addEventListener('load', async ()=>{
     try { localStorage.setItem(ASK_CONSENT_KEY, "1"); } catch (e) {}
   }
 
+  /* ---------- ASK初回チュートリアル: こちらも独立したLocal Storageキー ---------- */
+  const ASK_TUTORIAL_KEY = "atlas_ask_tutorial_seen_v1";
+  function hasSeenAskTutorial() {
+    try { return localStorage.getItem(ASK_TUTORIAL_KEY) === "1"; } catch (e) { return false; }
+  }
+  function setSeenAskTutorial() {
+    try { localStorage.setItem(ASK_TUTORIAL_KEY, "1"); } catch (e) {}
+  }
+  const ASK_TUTORIAL_SLIDES = [
+    { title: "Ask anything.", body: "相談したいことを、そのまま入力できます。" },
+    { title: "Already figured it out?", body: "ChatGPTなど他のAIで整理した内容や、<br>すでに結論が出ている文章も、そのまま貼り付けられます。" },
+    { title: "Turn decisions into action.", body: "Atlasは決まったことを尊重し、<br>必要なTodoを抽出してProjectと優先度への割り振りを提案します。" },
+  ];
+
   function renderAtlasPanel(pid, panel) {
+    if (!hasSeenAskTutorial()) {
+      renderAskTutorial(pid, panel);
+    } else {
+      renderAskForm(pid, panel);
+    }
+  }
+
+  function renderAskTutorial(pid, panel) {
+    let step = 0;
+    panel.innerHTML = `
+      <div class="ask-tut">
+        <button class="ask-tut-skip" type="button">Skip</button>
+        <div class="ask-tut-slide">
+          <div class="ask-tut-title"></div>
+          <div class="ask-tut-body"></div>
+        </div>
+        <div class="ask-tut-dots">${ASK_TUTORIAL_SLIDES.map(() => `<span></span>`).join("")}</div>
+        <button class="ask-tut-next" type="button"></button>
+      </div>`;
+    const titleEl = panel.querySelector(".ask-tut-title");
+    const bodyEl = panel.querySelector(".ask-tut-body");
+    const dots = panel.querySelectorAll(".ask-tut-dots span");
+    const nextBtn = panel.querySelector(".ask-tut-next");
+    const skipBtn = panel.querySelector(".ask-tut-skip");
+    const slideEl = panel.querySelector(".ask-tut-slide");
+
+    function draw() {
+      const s = ASK_TUTORIAL_SLIDES[step];
+      titleEl.textContent = s.title;
+      bodyEl.innerHTML = s.body;
+      dots.forEach((d, i) => d.classList.toggle("active", i === step));
+      nextBtn.textContent = step === ASK_TUTORIAL_SLIDES.length - 1 ? "Start ASK" : "次へ";
+    }
+    function finish() {
+      setSeenAskTutorial();
+      renderAskForm(pid, panel);
+    }
+    function advance() {
+      if (step < ASK_TUTORIAL_SLIDES.length - 1) { step++; draw(); }
+      else finish();
+    }
+    draw();
+    nextBtn.addEventListener("click", advance);
+    skipBtn.addEventListener("click", finish);
+    // Tap anywhere on the slide, or swipe left, also advances — swipe right goes back.
+    slideEl.addEventListener("click", advance);
+    let touchX = null;
+    slideEl.addEventListener("touchstart", (e) => { touchX = e.touches[0].clientX; }, { passive: true });
+    slideEl.addEventListener("touchend", (e) => {
+      if (touchX == null) return;
+      const dx = e.changedTouches[0].clientX - touchX;
+      touchX = null;
+      if (Math.abs(dx) < 30) return; // treat as a tap, already handled by click
+      if (dx < 0) advance();
+      else if (step > 0) { step--; draw(); }
+    }, { passive: true });
+  }
+
+  function renderAskForm(pid, panel) {
     panel.innerHTML = `
       <div class="atlas-panel">
         <label class="atlas-label">相談内容</label>
@@ -7639,6 +7738,7 @@ window.addEventListener('load', async ()=>{
         const list = row.dataset.list, key = row.dataset.key;
         const arr = list === "new" ? p.newTasks : p.quadChanges;
         const rec = arr.find((x) => x._key === key);
+        styleAtlasRow(row, rec._quad);
         row.querySelector(".atlas-chk").addEventListener("change", (e) => {
           rec._accept = e.target.checked; row.style.opacity = e.target.checked ? "1" : ".4";
         });
@@ -7647,6 +7747,7 @@ window.addEventListener('load', async ()=>{
           rec._quad = e.target.value;
           const c = getQColor(rec._quad);
           sel.style.color = c.fg; sel.style.background = c.bg; sel.style.borderColor = c.bd;
+          styleAtlasRow(row, rec._quad);
         });
       });
       resultEl.querySelector(".atlas-discard").addEventListener("click", () => {
@@ -7721,7 +7822,7 @@ window.addEventListener('load', async ()=>{
     .atlas-prophead{display:flex;align-items:baseline;gap:10px;margin-bottom:6px}
     .atlas-prophead b{font-size:15px}
     .atlas-note{font-size:11.5px;color:var(--ink-faint,#a1a1a6)}
-    .atlas-row{display:flex;align-items:flex-start;gap:11px;padding:11px 0;border-top:1px solid rgba(0,0,0,.06)}
+    .atlas-row{display:flex;align-items:flex-start;gap:11px;padding:11px 12px;margin:6px 0;border-radius:12px;border:1px solid transparent;transition:background 160ms,box-shadow 160ms}
     .atlas-chk{margin-top:3px;width:16px;height:16px;flex:0 0 auto;accent-color:var(--ink,#1d1d1f);cursor:pointer}
     .atlas-tag{flex:0 0 auto;font-size:10.5px;font-weight:700;border-radius:999px;padding:2px 9px;border:1px solid;margin-top:1px;white-space:nowrap}
     .atlas-tag-new{background:#e9f5ee;color:#0a5c2a;border-color:#bfe0cd}
@@ -7749,7 +7850,6 @@ window.addEventListener('load', async ()=>{
     [data-theme="atlas-dark"] .atlas-run,
     [data-theme="atlas-dark"] .atlas-apply{ background:#A7C4A1; color:#0D1110 }
     [data-theme="atlas-dark"] .atlas-concierge{ border-left-color:#A7C4A1 }
-    [data-theme="atlas-dark"] .atlas-row{ border-top-color:rgba(247,245,240,.08) }
     [data-theme="atlas-dark"] .atlas-tag-new{ background:rgba(60,210,120,.16); color:#5fd88a; border-color:rgba(60,210,120,.4); }
     [data-theme="atlas-dark"] .atlas-tag-chg{ background:rgba(70,150,255,.16); color:#5fa8ff; border-color:rgba(70,150,255,.4); }
     [data-theme="atlas-dark"] .atlas-applied{ background:rgba(167,196,161,.14); border-color:rgba(167,196,161,.3); color:#A7C4A1 }
@@ -7759,7 +7859,27 @@ window.addEventListener('load', async ()=>{
     [data-theme="atlas-dark"] .atlas-consent-title{ color:var(--ink) }
     [data-theme="atlas-dark"] .atlas-consent-body{ color:var(--ink-soft) }
     [data-theme="atlas-dark"] .atlas-consent-btn{ background:#A7C4A1; color:#0D1110 }
-    [data-theme="atlas-dark"] .atlas-consent-link{ color:var(--ink-faint) }`;
+    [data-theme="atlas-dark"] .atlas-consent-link{ color:var(--ink-faint) }
+
+    /* ASK初回チュートリアル: シンプルな3ステップ。派手な演出はしない */
+    .ask-tut{ display:flex; flex-direction:column; align-items:center; text-align:center; padding:34px 12px 18px; position:relative; }
+    .ask-tut-skip{ position:absolute; top:0; right:0; border:none; background:transparent; color:var(--ink-faint,#a1a1a6);
+      font-size:12px; padding:4px 6px; cursor:pointer; font-family:inherit; }
+    .ask-tut-slide{ min-height:96px; display:flex; flex-direction:column; align-items:center; justify-content:center;
+      max-width:280px; cursor:pointer; }
+    .ask-tut-title{ font-size:17px; font-weight:700; color:var(--ink,#1d1d1f); margin-bottom:10px; }
+    .ask-tut-body{ font-size:12.5px; line-height:1.7; color:var(--ink-soft,#6e6e73); }
+    .ask-tut-dots{ display:flex; gap:6px; margin:18px 0 16px; }
+    .ask-tut-dots span{ width:6px; height:6px; border-radius:50%; background:var(--hairline,rgba(0,0,0,.12)); transition:background 160ms; }
+    .ask-tut-dots span.active{ background:var(--ink-soft,#6e6e73); }
+    .ask-tut-next{ border:none; border-radius:10px; background:var(--ink,#1d1d1f); color:#fff; font-size:13px; font-weight:600;
+      padding:10px 22px; cursor:pointer; font-family:inherit; min-width:120px; }
+    [data-theme="atlas-dark"] .ask-tut-title{ color:var(--ink) }
+    [data-theme="atlas-dark"] .ask-tut-body{ color:var(--ink-soft) }
+    [data-theme="atlas-dark"] .ask-tut-skip{ color:var(--ink-faint) }
+    [data-theme="atlas-dark"] .ask-tut-dots span{ background:var(--hairline) }
+    [data-theme="atlas-dark"] .ask-tut-dots span.active{ background:#A7C4A1 }
+    [data-theme="atlas-dark"] .ask-tut-next{ background:#A7C4A1; color:#0D1110 }`;
     const style = document.createElement("style");
     style.id = "atlas-css";
     style.textContent = css;
