@@ -245,15 +245,15 @@ body{
    that hugs the rounded border and fades to the real dark surface toward
    the middle — keeps the category colour legible at the edge while giving
    center-sitting text better contrast than a flat translucent wash did. */
-[data-theme="atlas-dark"] .quad-panel{
+html[data-theme="atlas-dark"] .quad-panel{
   background: var(--surface-2);
   box-shadow: inset 0 0 34px -4px var(--panel-glow, transparent);
 }
-[data-theme="atlas-dark"] .quad-panel.q-pink{   --panel-glow: rgba(255,80,70,.55);  border-color: rgba(255,80,70,.28); }
-[data-theme="atlas-dark"] .quad-panel.q-blue{   --panel-glow: rgba(60,210,120,.55); border-color: rgba(60,210,120,.28); }
-[data-theme="atlas-dark"] .quad-panel.q-orange{ --panel-glow: rgba(70,150,255,.55); border-color: rgba(70,150,255,.28); }
-[data-theme="atlas-dark"] .quad-panel.q-gray{   --panel-glow: rgba(150,155,165,.45); border-color: rgba(150,155,165,.25); }
-[data-theme="atlas-dark"] .quad-panel.quad-completed{ --panel-glow: rgba(240,180,0,.45); border-color: rgba(240,180,0,.28); }
+[data-theme="atlas-dark"] .quad-panel.q-pink{   --panel-glow: rgba(255,80,70,.30);  border-color: rgba(255,80,70,.18); }
+[data-theme="atlas-dark"] .quad-panel.q-blue{   --panel-glow: rgba(60,210,120,.30); border-color: rgba(60,210,120,.18); }
+[data-theme="atlas-dark"] .quad-panel.q-orange{ --panel-glow: rgba(70,150,255,.30); border-color: rgba(70,150,255,.18); }
+[data-theme="atlas-dark"] .quad-panel.q-gray{   --panel-glow: rgba(150,155,165,.22); border-color: rgba(150,155,165,.15); }
+[data-theme="atlas-dark"] .quad-panel.quad-completed{ --panel-glow: rgba(240,180,0,.24); border-color: rgba(240,180,0,.16); }
 [data-theme="atlas-dark"] .quad-panel.drop-hover{
   background: var(--surface-2);
   box-shadow: inset 0 0 0 2.5px var(--blue), inset 0 0 34px -4px var(--panel-glow, transparent);
@@ -266,6 +266,40 @@ body{
 [data-theme="atlas-dark"] .quad-panel.q-orange .quad-label{ color:#5fa8ff; }
 [data-theme="atlas-dark"] .quad-panel.q-gray   .quad-label{ color:#c7c9ce; }
 [data-theme="atlas-dark"] .quad-panel.quad-completed .quad-label{ color:#e8c468; }
+
+/* Vivid: same inner-glow mechanism as Dark, using Vivid's own bright
+   accent colours as the edge glow, fading to the theme's white surface. */
+html[data-theme="vivid"] .quad-panel{
+  background: var(--surface);
+  box-shadow: inset 0 0 34px -4px var(--panel-glow, transparent);
+}
+[data-theme="vivid"] .quad-panel.q-pink{   --panel-glow: rgba(255,55,95,.24);  border-color: rgba(255,55,95,.18); }
+[data-theme="vivid"] .quad-panel.q-blue{   --panel-glow: rgba(48,209,88,.24);  border-color: rgba(48,209,88,.18); }
+[data-theme="vivid"] .quad-panel.q-orange{ --panel-glow: rgba(10,132,255,.24); border-color: rgba(10,132,255,.18); }
+[data-theme="vivid"] .quad-panel.q-gray{   --panel-glow: rgba(142,142,147,.20); border-color: rgba(142,142,147,.15); }
+[data-theme="vivid"] .quad-panel.quad-completed{ --panel-glow: rgba(240,180,0,.20); border-color: rgba(240,180,0,.15); }
+[data-theme="vivid"] .quad-panel.drop-hover{
+  background: var(--surface);
+  box-shadow: inset 0 0 0 2.5px var(--blue), inset 0 0 34px -4px var(--panel-glow, transparent);
+}
+
+/* Mono: "value-only" theme — categories stay distinguishable by lightness
+   alone, not hue, so the glow uses greyscale tones (darkest = NOW, most
+   urgent, down to lightest = LATER) rather than colour, matching the
+   grayscale ramp Mono already uses for HP status elsewhere. */
+html[data-theme="mono"] .quad-panel{
+  background: var(--surface);
+  box-shadow: inset 0 0 34px -4px var(--panel-glow, transparent);
+}
+[data-theme="mono"] .quad-panel.q-pink{   --panel-glow: rgba(255,55,95,.22);  border-color: rgba(255,55,95,.15); }
+[data-theme="mono"] .quad-panel.q-blue{   --panel-glow: rgba(48,209,88,.22);  border-color: rgba(48,209,88,.15); }
+[data-theme="mono"] .quad-panel.q-orange{ --panel-glow: rgba(10,132,255,.22); border-color: rgba(10,132,255,.15); }
+[data-theme="mono"] .quad-panel.q-gray{   --panel-glow: rgba(142,142,147,.20); border-color: rgba(142,142,147,.13); }
+[data-theme="mono"] .quad-panel.quad-completed{ --panel-glow: rgba(240,180,0,.20); border-color: rgba(240,180,0,.13); }
+[data-theme="mono"] .quad-panel.drop-hover{
+  background: var(--surface);
+  box-shadow: inset 0 0 0 2.5px #333, inset 0 0 34px -4px var(--panel-glow, transparent);
+}
 [data-theme="atlas-dark"] .focus-toggle-btn,
 [data-theme="atlas-dark"] .complete-project-btn,
 [data-theme="atlas-dark"] .delete-project-btn,
@@ -367,6 +401,15 @@ body{
 }
 @keyframes fadeUp{ from{ opacity:0; transform:translateY(10px);} to{ opacity:1; transform:translateY(0);} }
 .title-block{ padding-left: var(--title-block-offset, 10px); }
+/* FOCUS ⇄ ATLAS 初回ヒント: 既存の easing/duration を流用した控えめなフェードのみ。
+   モーダルではなくただのテキストなので、タップ・スワイプ・スクロールを一切妨げない。 */
+.focus-atlas-hint{
+  padding-left: var(--title-block-offset, 10px);
+  font-size:11.5px; font-weight:600; color: var(--ink-faint);
+  max-height:0; opacity:0; overflow:hidden; pointer-events:none;
+  transition: opacity var(--dur) var(--ease), max-height var(--dur) var(--ease), margin-top var(--dur) var(--ease);
+}
+.focus-atlas-hint.show{ max-height:20px; opacity:1; margin-top:2px; }
 .title-block h1{
   font-size: 30px;
   font-weight:700;
@@ -2076,6 +2119,7 @@ body{
           <svg class="page-title-swap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 8l-4 4 4 4"/><path d="M15 8l4 4-4 4"/></svg>
         </button>
       </div>
+      <div class="focus-atlas-hint" id="focusAtlasHint" aria-hidden="true">Swipe or tap FOCUS to see your Atlas</div>
       <p id="activeCountLabel">Your highest priorities</p>
     </div>
     <div class="header-actions">
@@ -3977,10 +4021,40 @@ function switchPage(page){
 }
 
 document.getElementById('pageTitleBtn').addEventListener('click', ()=>{
+  dismissFocusAtlasHint();
   const i = PAGE_ORDER.indexOf(currentPage);
   const next = PAGE_ORDER[(i + 1) % PAGE_ORDER.length];
   switchPage(next);
 });
+
+/* ---------- FOCUS ⇄ ATLAS 初回ヒント ----------
+   初回のみ、タイトル付近に小さく表示。モーダルではないため操作は一切妨げない。
+   独立したLocal Storageキーで表示済み状態を保持し、一度確認したら再表示しない。
+   Daily Focus実装後は、その終了後に呼ぶよう呼び出し側を調整する想定（現時点では
+   通常の初期表示直後に一度だけ呼ばれる）。switchPage自体には手を入れず、外側から
+   ラップして「切り替えたら消える」を実現する。 */
+const FOCUS_ATLAS_HINT_KEY = 'focus_atlas_hint_seen_v1';
+function hasSeenFocusAtlasHint(){
+  try{ return localStorage.getItem(FOCUS_ATLAS_HINT_KEY) === '1'; }catch(e){ return false; }
+}
+function setSeenFocusAtlasHint(){
+  try{ localStorage.setItem(FOCUS_ATLAS_HINT_KEY, '1'); }catch(e){}
+}
+let focusAtlasHintTimer = null;
+function dismissFocusAtlasHint(){
+  const el = document.getElementById('focusAtlasHint');
+  if(el) el.classList.remove('show');
+  if(focusAtlasHintTimer){ clearTimeout(focusAtlasHintTimer); focusAtlasHintTimer = null; }
+  setSeenFocusAtlasHint();
+}
+function maybeShowFocusAtlasHint(){
+  if(hasSeenFocusAtlasHint()) return;
+  const el = document.getElementById('focusAtlasHint');
+  if(!el) return;
+  el.classList.add('show');
+  focusAtlasHintTimer = setTimeout(dismissFocusAtlasHint, 4000);
+}
+maybeShowFocusAtlasHint();
 
 /* ---------- Horizontal swipe to switch FOCUS <-> ATLAS ----------
    Swipe left = next page, swipe right = previous page.
@@ -4016,6 +4090,7 @@ document.getElementById('pageTitleBtn').addEventListener('click', ()=>{
     const dy = t.clientY - startY;
     if(Math.abs(dx) < SWIPE_MIN_X) return;      // too small
     if(Math.abs(dy) > SWIPE_MAX_Y) return;      // too vertical (scroll)
+    dismissFocusAtlasHint();
     const i = PAGE_ORDER.indexOf(currentPage);
     if(dx < 0){
       // swipe left -> next page
@@ -7317,6 +7392,9 @@ window.addEventListener('load', async ()=>{
   "priorityChanges": [
     { "itemId": string, "to": "NOW"|"GROW"|"QUICK"|"LATER", "reason": string }
   ],
+  "suggestedMilestones": [
+    { "text": string, "date": "YYYY-MM-DD"|null, "reason": string, "requiresConfirmation": true }
+  ],
   "observations": [
     { "text": "確信度の高い指摘。締切・順序・抜けに加え、目標(DESTINATION)の曖昧さ・妥当性に関する点も可。最大3件。" }
   ]
@@ -7326,7 +7404,7 @@ window.addEventListener('load', async ()=>{
 - AI assists. Humans decide. あなたはTodo/Project/優先度/締切を勝手に書き換えない。すべて提案であり、requiresConfirmation は常に true。
 - タスクの削除は絶対に提案しない。除去・不要の指摘もしない。
 - priorityChanges は既存タスクの itemId を必ず参照する。
-- マイルストーン自体は編集・追加しない（読むだけ）。ただし締切ギャップを埋める新規タスクの提案は可。
+- マイルストーンは、明確な根拠（締切ギャップ・Project内で言及されている工程等）がある場合のみ新規提案してよい（suggestedMilestones）。既存マイルストーンの編集・削除・日付変更は提案しない。日付が不明なら date は null。
 - observations は確信度が高いものだけ、最大3件。なければ空配列。完了済みタスクも踏まえる。
 - 相談が目標(DESTINATION)や方針の是非を問う場合、suggestedTasks や priorityChanges が空でも、conciergeMessage で必ず評価を返す：曖昧さ・ずれ・見直すべき点を挙げ、問題なければ「現状は妥当」と明言し、任意で補強点を一つ添える。目標(DESTINATION)が未設定なら、その旨と設定を促す一言を返す。
 - 回答は短く。長文禁止。conciergeMessage は原則3行以内、振り返り系の相談のみ最大6行まで可。いずれの場合も空にしない。reason は一言（15文字前後）に収める。`;
@@ -7389,7 +7467,7 @@ window.addEventListener('load', async ()=>{
                  : res.status === 401 || res.status === 403 ? "（認証・権限エラー）" : "";
       throw new Error(`サーバーからエラー応答 (HTTP ${res.status})${hint}${detail}`);
     }
-    if (!raw || !raw.trim()) throw new Error("空の応答が返りました。もう一度お試しください。");
+    if (!raw || !raw.trim()) throw new Error("空の応答が返りました（サーバー側のトークン上限で本文が生成されなかった可能性があります）。もう一度お試しいただくか、相談内容を短くしてみてください。");
 
     // --- スキーマJSONを取り出す（ラッパー/コードフェンス/途中切れに耐性） ---
     const parsed = extractModelJSON(raw);
@@ -7408,8 +7486,16 @@ window.addEventListener('load', async ()=>{
       if (!found || !toQ || found.quad === toQ) return null;
       return { _key: "c" + i, _accept: true, _quad: toQ, _fromQuad: found.quad, _item: found.item, reason: c.reason || "" };
     }).filter(Boolean);
+    const newMilestones = (parsed.suggestedMilestones || []).map((m, i) => ({
+      _key: "m" + i, _accept: true,
+      text: m.text, date: isValidISODate(m.date) ? m.date : null, reason: m.reason || "",
+    }));
     const concerns = (parsed.observations || []).slice(0, 3);
-    return { conciergeMessage: parsed.conciergeMessage || "", newTasks, quadChanges, concerns };
+    return { conciergeMessage: parsed.conciergeMessage || "", newTasks, quadChanges, newMilestones, concerns };
+  }
+
+  function isValidISODate(s) {
+    return typeof s === "string" && /^\d{4}-\d{2}-\d{2}$/.test(s);
   }
 
   /* 途中で切れたJSON応答をできる範囲で救済する。
@@ -7519,6 +7605,16 @@ window.addEventListener('load', async ()=>{
     }
     saveQuadState(quadState);
     try { refreshQuadrantTab(pid); } catch (_) {}
+
+    if (proposal.newMilestones && proposal.newMilestones.length) {
+      if (!Array.isArray(milestoneState[pid])) milestoneState[pid] = [];
+      for (const m of proposal.newMilestones) {
+        if (!m._accept) continue;
+        milestoneState[pid].push({ id: nextUid(), text: m.text, date: m.date, done: false });
+      }
+      saveMilestoneState(milestoneState);
+      try { refreshMilestoneTab(pid); } catch (_) {}
+    }
   }
 
   function esc(s) {
@@ -7547,7 +7643,7 @@ window.addEventListener('load', async ()=>{
   const ASK_TUTORIAL_SLIDES = [
     { title: "Ask anything.", body: "相談したいことを、そのまま入力できます。" },
     { title: "Already figured it out?", body: "ChatGPTなど他のAIで整理した内容や、<br>すでに結論が出ている文章も、そのまま貼り付けられます。" },
-    { title: "Turn decisions into action.", body: "Atlasは決まったことを尊重し、<br>必要なTodoを抽出してProjectと優先度への割り振りを提案します。" },
+    { title: "Turn decisions into action.", body: "AIは決まったことを尊重し、<br>必要なTodoを抽出してProjectと優先度への割り振りを提案します。" },
   ];
 
   function renderAtlasPanel(pid, panel) {
@@ -7716,25 +7812,33 @@ window.addEventListener('load', async ()=>{
           <select class="atlas-qsel" style="color:${to.fg};background:${to.bg};border-color:${to.bd}">${opts}</select>
         </div>`;
       }).join("");
+      const rowsMs = p.newMilestones.map((m) => {
+        return `<div class="atlas-row atlas-row-ms" data-list="ms" data-key="${m._key}">
+          <input type="checkbox" class="atlas-chk" checked>
+          <span class="atlas-tag atlas-tag-ms">MS</span>
+          <div class="atlas-rowtext"><div>${esc(m.text)}</div>
+            <div class="atlas-reason">${m.date ? esc(m.date) + " ・ " : ""}${esc(m.reason)}</div></div>
+        </div>`;
+      }).join("");
       const concerns = p.concerns.length
         ? `<div class="atlas-concerns"><div class="atlas-concerns-h">留意点</div>${p.concerns.map((c) => `<div class="atlas-concern">${esc(c.text)}</div>`).join("")}</div>` : "";
-      const emptyAll = !p.conciergeMessage && !p.newTasks.length && !p.quadChanges.length && !p.concerns.length;
+      const emptyAll = !p.conciergeMessage && !p.newTasks.length && !p.quadChanges.length && !p.newMilestones.length && !p.concerns.length;
       const nothing = emptyAll
         ? `<div class="atlas-muted">明確な回答が得られませんでした。対象プロジェクトの目標（Overview / DESTINATION）が未設定か、質問が抽象的かもしれません。Overview に目標を書くか、質問を具体化して再度お試しください。</div>`
-        : ((!p.newTasks.length && !p.quadChanges.length)
+        : ((!p.newTasks.length && !p.quadChanges.length && !p.newMilestones.length)
             ? `<div class="atlas-muted">今回はタスクの追加・変更提案はありません。</div>` : "");
 
       resultEl.innerHTML = `
         ${p.conciergeMessage ? `<div class="atlas-concierge"><div class="atlas-concierge-k">ATLAS</div><div class="atlas-concierge-t">${esc(p.conciergeMessage)}</div></div>` : ""}
         <div class="atlas-prophead"><b>提案</b><span class="atlas-note">承認するまで反映されません</span></div>
-        ${nothing}${rowsNew}${rowsChg}${concerns}
+        ${nothing}${rowsNew}${rowsChg}${rowsMs}${concerns}
         <div class="atlas-actions">
           <button class="atlas-discard" type="button">破棄</button>
           <button class="atlas-apply" type="button">承認して反映</button>
         </div>`;
       resultEl.hidden = false;
 
-      resultEl.querySelectorAll(".atlas-row").forEach((row) => {
+      resultEl.querySelectorAll(".atlas-row[data-list='new'], .atlas-row[data-list='chg']").forEach((row) => {
         const list = row.dataset.list, key = row.dataset.key;
         const arr = list === "new" ? p.newTasks : p.quadChanges;
         const rec = arr.find((x) => x._key === key);
@@ -7748,6 +7852,12 @@ window.addEventListener('load', async ()=>{
           const c = getQColor(rec._quad);
           sel.style.color = c.fg; sel.style.background = c.bg; sel.style.borderColor = c.bd;
           styleAtlasRow(row, rec._quad);
+        });
+      });
+      resultEl.querySelectorAll(".atlas-row[data-list='ms']").forEach((row) => {
+        const rec = p.newMilestones.find((x) => x._key === row.dataset.key);
+        row.querySelector(".atlas-chk").addEventListener("change", (e) => {
+          rec._accept = e.target.checked; row.style.opacity = e.target.checked ? "1" : ".4";
         });
       });
       resultEl.querySelector(".atlas-discard").addEventListener("click", () => {
@@ -7827,6 +7937,8 @@ window.addEventListener('load', async ()=>{
     .atlas-tag{flex:0 0 auto;font-size:10.5px;font-weight:700;border-radius:999px;padding:2px 9px;border:1px solid;margin-top:1px;white-space:nowrap}
     .atlas-tag-new{background:#e9f5ee;color:#0a5c2a;border-color:#bfe0cd}
     .atlas-tag-chg{background:#eaf1fb;color:#0a4d99;border-color:#c3d7f0}
+    .atlas-tag-ms{background:#fbf3d9;color:#9a7400;border-color:#ecd98a}
+    .atlas-row-ms{background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.08)}
     .atlas-rowtext{flex:1;min-width:0;font-size:13.5px;line-height:1.5}
     .atlas-reason{font-size:11.5px;color:var(--ink-soft,#6e6e73);margin-top:3px;line-height:1.5}
     .atlas-qsel{flex:0 0 auto;border:1px solid;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:700;
@@ -7852,6 +7964,8 @@ window.addEventListener('load', async ()=>{
     [data-theme="atlas-dark"] .atlas-concierge{ border-left-color:#A7C4A1 }
     [data-theme="atlas-dark"] .atlas-tag-new{ background:rgba(60,210,120,.16); color:#5fd88a; border-color:rgba(60,210,120,.4); }
     [data-theme="atlas-dark"] .atlas-tag-chg{ background:rgba(70,150,255,.16); color:#5fa8ff; border-color:rgba(70,150,255,.4); }
+    [data-theme="atlas-dark"] .atlas-tag-ms{ background:rgba(240,180,0,.16); color:#e8c468; border-color:rgba(240,180,0,.4); }
+    [data-theme="atlas-dark"] .atlas-row-ms{ background:rgba(247,245,240,.05); border-color:rgba(247,245,240,.12); }
     [data-theme="atlas-dark"] .atlas-applied{ background:rgba(167,196,161,.14); border-color:rgba(167,196,161,.3); color:#A7C4A1 }
     [data-theme="atlas-dark"] .atlas-discard{ background:transparent; border:1px solid var(--hairline); color:var(--ink-soft) }
     [data-theme="atlas-dark"] .atlas-error{ color:#C97A5A }
