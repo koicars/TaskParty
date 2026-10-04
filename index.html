@@ -157,7 +157,7 @@ body{
   color-scheme: dark;
   --proj-tag-bg:#232826;
   --bg:#0D1110; --surface:#171B1A; --surface-2:#131615;
-  --ink:#F7F5F0; --ink-soft:#A6ADA4; --ink-faint:#6B726A;
+  --ink:#F7F5F0; --ink-soft:#A6ADA4; --ink-faint:#858C83;
   --hairline:rgba(247,245,240,.10); --hairline-soft:rgba(247,245,240,.05);
   /* actions/accents → sage green (brand) */
   --blue:#A7C4A1; --green:#A7C4A1; --pink:#C99A6A;
@@ -232,9 +232,9 @@ body{
 [data-theme="atlas-dark"] .edit-add-btn{ background:rgba(247,245,240,.08); color:var(--ink-soft); }
 [data-theme="atlas-dark"] .edit-add-btn:hover{ background:rgba(167,196,161,.16); color:#A7C4A1; }
 [data-theme="atlas-dark"] .edit-add-input.date.icon-date{ background:rgba(247,245,240,.08); }
-[data-theme="atlas-dark"] .edit-add-input.date.icon-date::before{ color:var(--ink-soft); }
+[data-theme="atlas-dark"] .edit-add-input.date.icon-date::before{ background-color:var(--ink-soft); }
 [data-theme="atlas-dark"] .edit-add-input.date.icon-date.has-date{ background:rgba(167,196,161,.16); }
-[data-theme="atlas-dark"] .edit-add-input.date.icon-date.has-date::before{ color:#A7C4A1; }
+[data-theme="atlas-dark"] .edit-add-input.date.icon-date.has-date::before{ background-color:#A7C4A1; }
 [data-theme="atlas-dark"] .edit-add-input.date.icon-date:hover{ background:rgba(167,196,161,.14); }
 [data-theme="atlas-dark"] .edit-row-title-input,
 [data-theme="atlas-dark"] .edit-row-date-input{ background:rgba(247,245,240,.08); color:var(--ink); }
@@ -300,6 +300,107 @@ html[data-theme="mono"] .quad-panel{
   background: var(--surface);
   box-shadow: inset 0 0 0 2.5px #333, inset 0 0 34px -4px var(--panel-glow, transparent);
 }
+
+/* ===== Design pass: ATLAS columns share the To-Do quad-panel glow language ===== */
+html[data-theme="atlas-dark"] .alltodos-col{ background: var(--surface-2); box-shadow: inset 0 0 34px -4px var(--panel-glow, transparent); }
+html[data-theme="vivid"] .alltodos-col,
+html[data-theme="mono"] .alltodos-col{ background: var(--surface); box-shadow: inset 0 0 34px -4px var(--panel-glow, transparent); }
+[data-theme="atlas-dark"] .alltodos-col.q-pink{   --panel-glow: rgba(255,80,70,.30);  border-color: rgba(255,80,70,.18); }
+[data-theme="atlas-dark"] .alltodos-col.q-blue{   --panel-glow: rgba(60,210,120,.30); border-color: rgba(60,210,120,.18); }
+[data-theme="atlas-dark"] .alltodos-col.q-orange{ --panel-glow: rgba(70,150,255,.30); border-color: rgba(70,150,255,.18); }
+[data-theme="atlas-dark"] .alltodos-col.q-gray{   --panel-glow: rgba(150,155,165,.22); border-color: rgba(150,155,165,.15); }
+[data-theme="vivid"] .alltodos-col.q-pink, [data-theme="mono"] .alltodos-col.q-pink{     --panel-glow: rgba(255,55,95,.24);  border-color: rgba(255,55,95,.18); }
+[data-theme="vivid"] .alltodos-col.q-blue, [data-theme="mono"] .alltodos-col.q-blue{     --panel-glow: rgba(48,209,88,.24);  border-color: rgba(48,209,88,.18); }
+[data-theme="vivid"] .alltodos-col.q-orange, [data-theme="mono"] .alltodos-col.q-orange{ --panel-glow: rgba(10,132,255,.24); border-color: rgba(10,132,255,.18); }
+[data-theme="vivid"] .alltodos-col.q-gray, [data-theme="mono"] .alltodos-col.q-gray{     --panel-glow: rgba(142,142,147,.20); border-color: rgba(142,142,147,.15); }
+[data-theme="atlas-dark"] .alltodos-col.q-pink   .alltodos-col-title{ color:#ff6b5f; }
+[data-theme="atlas-dark"] .alltodos-col.q-blue   .alltodos-col-title{ color:#5fd88a; }
+[data-theme="atlas-dark"] .alltodos-col.q-orange .alltodos-col-title{ color:#5fa8ff; }
+[data-theme="atlas-dark"] .alltodos-col.q-gray   .alltodos-col-title{ color:#c7c9ce; }
+.alltodos-col-title{ letter-spacing:.04em; }
+[data-theme="atlas-dark"] .alltodos-col-sub{ color: var(--ink-soft); }
+[data-theme="atlas-dark"] .quad-sub{ color: var(--ink-soft); opacity:1; }
+/* Tonal project icons: tinted tile + coloured glyph instead of a fully
+   saturated tile — keeps project identity while letting the brand palette lead. */
+.card-icon, .dialog-icon, .completed-row-icon{
+  background: color-mix(in srgb, var(--ic, #8e8e93) 18%, var(--surface, #fff)) !important;
+  color: var(--ic, #8e8e93) !important;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ic, #8e8e93) 28%, transparent);
+}
+/* ===== Design pass: detail header — secondary actions live in a "…" menu so the
+   title gets the width; title wraps to 2 lines instead of truncating per word. ===== */
+.dialog-titles h2{ display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; white-space:normal; overflow-wrap:anywhere; line-height:1.2; }
+.dialog-more{ position:relative; }
+.dialog-more-btn{
+  width:30px; height:30px; border-radius:50%; border:none; cursor:pointer;
+  background: rgba(0,0,0,.06); color: var(--ink-soft);
+  display:flex; align-items:center; justify-content:center;
+  transition: background 160ms var(--ease), color 160ms var(--ease);
+}
+.dialog-more-btn svg{ width:16px; height:16px; }
+.dialog-more-btn:hover, .dialog-more.open .dialog-more-btn{ background: rgba(0,0,0,.1); color: var(--ink); }
+[data-theme="atlas-dark"] .dialog-more-btn{ background: rgba(247,245,240,.08); }
+[data-theme="atlas-dark"] .dialog-more-btn:hover, [data-theme="atlas-dark"] .dialog-more.open .dialog-more-btn{ background: rgba(247,245,240,.14); }
+.dialog-more-menu{
+  position:absolute; right:0; top:calc(100% + 6px); z-index:30; min-width:178px;
+  background: var(--surface); border:1px solid var(--hairline); border-radius:12px; padding:5px;
+  box-shadow: 0 14px 36px rgba(0,0,0,.18);
+  display:flex; flex-direction:column; gap:2px;
+  opacity:0; visibility:hidden; transform: translateY(-4px);
+  transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease), visibility 0s linear var(--dur);
+}
+.dialog-more.open .dialog-more-menu{ opacity:1; visibility:visible; transform:none; transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease); }
+[data-theme="atlas-dark"] .dialog-more-menu{ box-shadow: 0 14px 36px rgba(0,0,0,.5); }
+.dialog-more-menu .complete-project-btn,
+.dialog-more-menu .delete-project-btn{
+  width:100%; height:auto; border-radius:8px; padding:9px 10px; gap:10px;
+  justify-content:flex-start; background: transparent !important;
+  font-family: var(--font); font-size:13px; font-weight:500; color: var(--ink);
+}
+.dialog-more-menu .complete-project-btn:hover{ background: rgba(126,169,127,.12) !important; color: var(--green); }
+.dialog-more-menu .delete-project-btn{ color: var(--hp-red, #d0453b); }
+.dialog-more-menu .delete-project-btn:hover{ background: rgba(208,69,59,.1) !important; }
+.dialog-more-menu .complete-project-btn::after{ content:'完了にする'; }
+.dialog-more-menu .complete-project-btn.is-completed::after{ content:'アクティブに戻す'; }
+.dialog-more-menu .delete-project-btn::after{ content:'削除'; }
+/* ===== Design pass: tabs — one quiet row with an underline, not a grid of pills ===== */
+.dialog .tab-bar{
+  display:flex; gap:22px; grid-template-columns:none;
+  margin:0 28px 6px; padding:0; background:none; border-radius:0;
+  border-bottom:1px solid var(--hairline);
+}
+.dialog .tab-bar .tab-btn{
+  flex:0 0 auto; padding:10px 0 11px; margin-bottom:-1px;
+  font-size:13px; font-weight:600; letter-spacing:.01em;
+  background:none; border:none; border-radius:0; box-shadow:none;
+  color: var(--ink-faint); border-bottom:2px solid transparent;
+  overflow:visible;
+}
+.dialog .tab-bar .tab-btn:hover{ background:none; color: var(--ink-soft); filter:none; }
+.dialog .tab-bar .tab-btn.active{ color: var(--ink); border-bottom-color: var(--green); background:none; box-shadow:none; font-weight:700; }
+.dialog .tab-bar .tab-btn.active:hover{ background:none; filter:none; }
+@media (max-width:520px){ .dialog .tab-bar{ margin:0 18px 6px; gap:20px; } }
+/* sections merged into a tab (Notes in Overview, Timeline in Milestones) */
+.merged-section{ margin-top:22px; padding-top:18px; border-top:1px solid var(--hairline); }
+.merged-section > .group-title{ margin-bottom:10px; }
+/* ===== Design pass: home header shows no system chrome. Theme/Sync moved to
+   Settings; the sync chip appears only when a sync problem needs attention. ===== */
+.header-actions .theme-tag, .header-actions .save-indicator{ display:none !important; }
+.header-actions .sync-btn{ display:none !important; }
+.header-actions .sync-btn.sync-error{ display:inline-flex !important; color: var(--hp-red, #d0453b); }
+/* ===== Design pass: status colour — red only when it is genuinely urgent.
+   "Behind" reads as a calm amber; only the critical tier (darkred) is red and
+   tints the card. Prevents alarm fatigue when several projects slip. ===== */
+html .card.st-delayed{ background: var(--surface); }
+html .card.st-delayed:hover{ box-shadow: 0 3px 8px rgba(0,0,0,.05), 0 12px 24px rgba(0,0,0,.07); }
+[data-theme="atlas-dark"] .status-pill.st-delayed{ background: rgba(201,161,90,.15); color:#D9B572; }
+[data-theme="vivid"] .status-pill.st-delayed{ background: rgba(255,159,10,.14); color:#a86400; }
+[data-theme="atlas-dark"] .status-pill.st-delayed.st-critical{ background: rgba(235,87,74,.2); color:#ff8173; }
+[data-theme="vivid"] .status-pill.st-delayed.st-critical{ background: rgba(255,55,95,.14); color:#d02348; }
+/* Completed checks use the calm brand green everywhere, not each project's accent */
+html .quad-item.done .quad-check{ background: var(--green); border-color: var(--green); }
+html[data-theme="atlas-dark"] .quad-item.done .quad-check{ color:#0D1110; }
+html[data-theme="atlas-dark"] .quad-check{ background: transparent; border-color: var(--ink-faint); }
 [data-theme="atlas-dark"] .focus-toggle-btn,
 [data-theme="atlas-dark"] .complete-project-btn,
 [data-theme="atlas-dark"] .delete-project-btn,
@@ -887,6 +988,7 @@ html[data-theme="mono"] .quad-panel{
 @keyframes cardIn{ from{ opacity:0; transform: translateY(10px) scale(.985); } to{ opacity:1; transform: translateY(0) scale(1);} }
 .card:hover{ transform: translateY(-3px); box-shadow: 0 3px 8px rgba(0,0,0,.05), 0 12px 24px rgba(0,0,0,.07); }
 .card.sort-active{
+  animation:none; /* cardIn's fill-mode:both would otherwise override the inline drag transform */
   position:relative; z-index:70;
   box-shadow: 0 24px 46px rgba(0,0,0,.22), 0 4px 10px rgba(0,0,0,.1);
   transform: scale(1.045);
@@ -1193,6 +1295,49 @@ html[data-theme="mono"] .quad-panel{
 .settings-row-title{ font-size:13.5px; font-weight:700; color: var(--ink); }
 .settings-row-sub{ font-size:11.5px; color: var(--ink-faint); line-height:1.4; }
 
+/* Daily Focus: 静かな全画面オーバーレイ。カード1つとテキストのみ、独自の派手な
+   演出はせず、既存の easing/duration を使う。 */
+.daily-focus-overlay{
+  position:fixed; inset:0; z-index:150;
+  display:flex; align-items:center; justify-content:center; padding:20px;
+  background:rgba(0,0,0,.4);
+  opacity:0; visibility:hidden; pointer-events:none;
+  transition: opacity var(--dur) var(--ease), visibility 0s linear var(--dur);
+}
+.daily-focus-overlay.open{ opacity:1; visibility:visible; pointer-events:auto; transition: opacity var(--dur) var(--ease); }
+.daily-focus-box{
+  width:100%; max-width:360px; max-height:80vh; overflow-y:auto;
+  background: var(--surface,#fff); border-radius:18px; padding:22px 20px;
+  box-shadow: 0 20px 50px rgba(0,0,0,.25);
+}
+.daily-focus-head{ text-align:center; margin-bottom:16px; }
+.daily-focus-title{ font-size:17px; font-weight:700; color: var(--ink); margin-bottom:4px; }
+.daily-focus-sub{ font-size:12.5px; color: var(--ink-faint); }
+.daily-focus-list{ display:flex; flex-direction:column; gap:7px; margin-bottom:16px; }
+.daily-focus-item{
+  display:flex; align-items:center; gap:10px; text-align:left;
+  border:1px solid var(--hairline,rgba(0,0,0,.08)); border-radius:12px; padding:10px 12px;
+  background:transparent; cursor:pointer; font-family:inherit;
+  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+.daily-focus-item .dfi-dot{ width:16px; height:16px; border-radius:50%; flex:0 0 auto; border:1.6px solid var(--ink-faint); }
+.daily-focus-item.selected{ background: rgba(167,196,161,.14); border-color:#A7C4A1; }
+.daily-focus-item.selected .dfi-dot{ background:#A7C4A1; border-color:#A7C4A1; }
+.dfi-body{ display:flex; flex-direction:column; gap:1px; min-width:0; }
+.dfi-proj{ font-size:10.5px; color: var(--ink-faint); }
+.dfi-text{ font-size:13px; color: var(--ink); font-weight:600; }
+.daily-focus-empty{ font-size:12.5px; color: var(--ink-faint); text-align:center; padding:16px 0; }
+.daily-focus-actions{ display:flex; justify-content:space-between; align-items:center; gap:10px; }
+.daily-focus-skip{ border:none; background:transparent; color: var(--ink-faint); font-size:13px; padding:8px; cursor:pointer; font-family:inherit; }
+.daily-focus-set{ border:none; border-radius:10px; background: var(--ink); color:#fff; font-size:13.5px; font-weight:700;
+  padding:10px 22px; cursor:pointer; font-family:inherit; }
+.daily-focus-set:disabled{ opacity:.4; cursor:default; }
+.daily-focus-success{ text-align:center; font-size:14px; font-weight:700; color: var(--ink); padding:20px 0; }
+[data-theme="atlas-dark"] .daily-focus-box{ background: var(--surface); }
+[data-theme="atlas-dark"] .daily-focus-item{ border-color: var(--hairline); }
+[data-theme="atlas-dark"] .daily-focus-item.selected{ background: rgba(167,196,161,.14); border-color:#A7C4A1; }
+[data-theme="atlas-dark"] .daily-focus-set{ background:#A7C4A1; color:#0D1110; }
+
 /* ---------- AI export: project picker ---------- */
 .ai-picker-popover{ max-height:min(70vh, 460px); display:flex; flex-direction:column; }
 .ai-picker-list{
@@ -1375,6 +1520,7 @@ html[data-theme="mono"] .quad-panel{
   transition: opacity 160ms var(--ease);
 }
 .reorder-hint.show{ opacity:1; }
+[data-theme="atlas-dark"] .reorder-hint{ background:#A7C4A1; color:#0D1110; }
 
 /* ---------- custom confirm dialog (native confirm() is blocked in sandboxed previews) ---------- */
 .confirm-overlay{
@@ -1597,6 +1743,9 @@ html[data-theme="mono"] .quad-panel{
 .add-project-tile span{ font-size:11px; font-weight:600; }
 
 /* ---------- divider before the 7th+ project ---------- */
+.grid-extra-divider.sort-target span{ color: var(--blue); }
+.grid-extra-divider.sort-target::before, .grid-extra-divider.sort-target::after{ border-top-color: var(--blue); }
+.grid-extra-divider.drag-only{ min-height:30px; }
 .grid-extra-divider{
   grid-column: 1 / -1;
   display:flex; align-items:center; gap:10px;
@@ -1890,12 +2039,13 @@ html[data-theme="mono"] .quad-panel{
   transition: transform 140ms var(--ease), background 140ms var(--ease);
 }
 .edit-add-input.date.icon-date::before{
-  content:"\1F4C5"; position:absolute; inset:0;
-  display:flex; align-items:center; justify-content:center;
-  font-size:14px; line-height:1; color: var(--ink-soft); pointer-events:none;
+  content:""; position:absolute; left:50%; top:50%; width:15px; height:15px;
+  transform:translate(-50%,-50%); pointer-events:none;
+  background-color: var(--ink-soft);
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3.5' y='5' width='17' height='15.5' rx='3'/%3E%3Cpath d='M3.5 10h17M8 3v4M16 3v4'/%3E%3C/svg%3E") center/contain no-repeat; mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3.5' y='5' width='17' height='15.5' rx='3'/%3E%3Cpath d='M3.5 10h17M8 3v4M16 3v4'/%3E%3C/svg%3E") center/contain no-repeat;
 }
 .edit-add-input.date.icon-date.has-date{ background: rgba(46,94,61,.14); }
-.edit-add-input.date.icon-date.has-date::before{ color: var(--blue); }
+.edit-add-input.date.icon-date.has-date::before{ background-color: var(--blue); }
 .edit-add-input.date.icon-date:hover{ transform: scale(1.08); background: rgba(46,94,61,.12); }
 .edit-add-input.date.icon-date:active{ transform: scale(.96); }
 .edit-add-input.date.icon-date:focus{ border:none; }
@@ -2168,6 +2318,24 @@ html[data-theme="mono"] .quad-panel{
 <div class="theme-popover settings-popover" id="settingsPopover">
   <div class="pop-label">SETTINGS</div>
   <div class="settings-list">
+    <button class="settings-row" id="settingsThemeRow" type="button">
+      <span class="settings-row-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor" stroke="none"/></svg>
+      </span>
+      <span class="settings-row-body">
+        <span class="settings-row-title">テーマ</span>
+        <span class="settings-row-sub" id="settingsThemeSub">—</span>
+      </span>
+    </button>
+    <button class="settings-row" id="settingsSyncRow" type="button">
+      <span class="settings-row-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 18a4.5 4.5 0 0 1-.4-9A6 6 0 0 1 18 9.5a4 4 0 0 1-.5 8.5z"/></svg>
+      </span>
+      <span class="settings-row-body">
+        <span class="settings-row-title">クラウド同期</span>
+        <span class="settings-row-sub" id="settingsSyncSub">—</span>
+      </span>
+    </button>
     <button class="settings-row" id="exportJsonBtn" type="button">
       <span class="settings-row-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
@@ -2204,8 +2372,32 @@ html[data-theme="mono"] .quad-panel{
         <span class="settings-row-sub">4象限を2×2レイアウトのシートで保存</span>
       </span>
     </button>
+    <button class="settings-row" id="dailyFocusToggleRow" type="button">
+      <span class="settings-row-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+      </span>
+      <span class="settings-row-body">
+        <span class="settings-row-title">Daily Focus</span>
+        <span class="settings-row-sub" id="dailyFocusToggleSub">その日最初の起動時にToday's Pickを確認 — ON</span>
+      </span>
+    </button>
   </div>
   <p class="theme-note">書き出したファイルは手元の保険になります。端末やクラウドが失われても、このファイルから復元できます。</p>
+</div>
+
+<div class="daily-focus-overlay" id="dailyFocusOverlay">
+  <div class="daily-focus-box">
+    <div class="daily-focus-head">
+      <div class="daily-focus-title">What matters today?</div>
+      <div class="daily-focus-sub">Pick 1–3 actions.</div>
+    </div>
+    <div class="daily-focus-list" id="dailyFocusList"></div>
+    <div class="daily-focus-actions">
+      <button class="daily-focus-skip" id="dailyFocusSkipBtn" type="button">Skip</button>
+      <button class="daily-focus-set" id="dailyFocusSetBtn" type="button" disabled>Set Today</button>
+    </div>
+    <div class="daily-focus-success" id="dailyFocusSuccess" hidden>Today is set.</div>
+  </div>
 </div>
 
 <div class="theme-popover ai-picker-popover" id="aiPickerPopover">
@@ -2267,12 +2459,17 @@ html[data-theme="mono"] .quad-panel{
         <button class="focus-toggle-btn" id="focusToggleBtn" type="button" aria-label="toggle focus">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3" fill="currentColor" stroke="none"/></svg>
         </button>
+        <div class="dialog-more" id="dialogMore">
+          <button class="dialog-more-btn" id="dialogMoreBtn" type="button" aria-label="more actions"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="5.5" cy="12" r="1.3" fill="currentColor"/><circle cx="12" cy="12" r="1.3" fill="currentColor"/><circle cx="18.5" cy="12" r="1.3" fill="currentColor"/></svg></button>
+          <div class="dialog-more-menu" id="dialogMoreMenu">
         <button class="complete-project-btn" id="completeProjectBtn" type="button" aria-label="mark project complete">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg>
         </button>
         <button class="delete-project-btn" id="deleteProjectBtn" type="button" aria-label="delete project">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16"/><path d="M8 6V4.5A1.5 1.5 0 0 1 9.5 3h5A1.5 1.5 0 0 1 16 4.5V6"/><path d="M6 6l1 14.5A1.5 1.5 0 0 0 8.5 22h7a1.5 1.5 0 0 0 1.5-1.5L18 6"/><path d="M10 11v6M14 11v6"/></svg>
         </button>
+          </div>
+        </div>
         <button class="close-btn" id="closeBtn" aria-label="close">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
         </button>
@@ -3115,8 +3312,8 @@ function setProjectIconColor(id, color){
   projectMeta[id] = { ...(projectMeta[id]||{}), iconColor: color };
   saveMeta(projectMeta);
   const cardIconEl = grid.querySelector(`.card[data-id="${id}"] .card-icon`);
-  if(cardIconEl) cardIconEl.style.background = color;
-  if(dIcon && overlay.dataset.projectId === id) dIcon.style.background = color;
+  if(cardIconEl){ cardIconEl.style.background = color; cardIconEl.style.setProperty('--ic', color); }
+  if(dIcon && overlay.dataset.projectId === id){ dIcon.style.background = color; dIcon.style.setProperty('--ic', color); }
   // Keep everything else that follows the accent in step: the active tab,
   // completed checkmarks, and the project dots shown in the ATLAS lists.
   if(overlay.dataset.projectId === id) applyProjectAccent(color);
@@ -3459,9 +3656,10 @@ function buildProjectCardEl(p){
   const hpResult = milestoneProgress(p.id);
   const effectiveStatus = statusFromHPTier(hpResult ? hpResult.tier : 'empty');
   const st = statusRule(effectiveStatus);
-  el.className = `card acc-${p.accent} ${st.cls}`;
+  const critCls = (hpResult && hpResult.tier === 'darkred') ? ' st-critical' : '';
+  el.className = `card acc-${p.accent} ${st.cls}${critCls}`;
   el.innerHTML = `
-    <button class="card-icon" type="button" aria-label="change icon" style="background:${getIconColor(p)}">${iconSVG(p.icon)}</button>
+    <button class="card-icon" type="button" aria-label="change icon" style="background:${getIconColor(p)};--ic:${getIconColor(p)}">${iconSVG(p.icon)}</button>
     <div class="card-body">
       <div class="card-title-row">
         <h3 class="card-title">${p.title}</h3>
@@ -3470,7 +3668,7 @@ function buildProjectCardEl(p){
         </button>
       </div>
       <div class="status-row">
-        <span class="status-pill ${st.cls}">${effectiveStatus}</span>
+        <span class="status-pill ${st.cls}${critCls}">${effectiveStatus}</span>
         ${hpBarHTML(hpResult)}
       </div>
     </div>
@@ -3553,7 +3751,7 @@ function renderCompletedSection(completedList){
     <div class="completed-list">
       ${completedList.map(p=>`
         <div class="completed-row" data-id="${p.id}">
-          <span class="completed-row-icon" style="background:${getIconColor(p)}">${iconSVG(p.icon)}</span>
+          <span class="completed-row-icon" style="background:${getIconColor(p)};--ic:${getIconColor(p)}">${iconSVG(p.icon)}</span>
           <span class="completed-row-title">${escapeHTML(p.title)}</span>
           <svg class="completed-row-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
         </div>
@@ -3570,7 +3768,7 @@ function renderCompletedSection(completedList){
    Quick/Later. Editing/checking still happens per-project;
    clicking an item just opens that project's To-Do tab.
    ========================================================= */
-const QUAD_LABELS = { q1:'Now', q2:'Grow', q3:'Quick', q4:'Later' };
+const QUAD_LABELS = { q1:'NOW', q2:'GROW', q3:'QUICK', q4:'LATER' };
 const QUAD_SUBS = QUAD_DEFS.reduce((m,d)=>{ m[d.id] = d.sub; return m; }, {});
 let currentPage = 'projects';
 
@@ -4054,7 +4252,136 @@ function maybeShowFocusAtlasHint(){
   el.classList.add('show');
   focusAtlasHintTimer = setTimeout(dismissFocusAtlasHint, 4000);
 }
-maybeShowFocusAtlasHint();
+// (Phase 2で追加した無条件呼び出しはここでは行わない — 下のDaily Focus分岐からのみ呼ぶ)
+
+/* ---------- Daily Focus ----------
+   その日最初の起動時だけ、未完了Todoから1〜3件選んでToday's Pickへ設定する
+   軽量な確認体験。設定でOFFにすればClaude版と同じ起動挙動に戻る。
+   Today's Pick自体のデータ構造・保存キーはそのまま利用し、新しい状態
+   （設定値・最終表示日）は独立したキーに保存する。 */
+const DAILY_FOCUS_ENABLED_KEY = 'daily_focus_enabled_v1';
+const DAILY_FOCUS_LAST_SHOWN_KEY = 'daily_focus_last_shown_v1';
+function isDailyFocusEnabled(){
+  try{ return localStorage.getItem(DAILY_FOCUS_ENABLED_KEY) !== '0'; }catch(e){ return true; } // 初期値ON
+}
+function setDailyFocusEnabled(v){
+  try{ localStorage.setItem(DAILY_FOCUS_ENABLED_KEY, v ? '1' : '0'); }catch(e){}
+}
+function getDailyFocusLastShown(){
+  try{ return localStorage.getItem(DAILY_FOCUS_LAST_SHOWN_KEY) || ''; }catch(e){ return ''; }
+}
+function setDailyFocusLastShown(){
+  try{ localStorage.setItem(DAILY_FOCUS_LAST_SHOWN_KEY, todayStr()); }catch(e){}
+}
+function shouldShowDailyFocus(){
+  return isDailyFocusEnabled() && getDailyFocusLastShown() !== todayStr();
+}
+// 未完了Todoを、Projectの配置順→象限順→項目順で候補化する。
+function collectDailyFocusCandidates(){
+  const rows = [];
+  PROJECTS.forEach(p=>{
+    if(isProjectDeleted(p.id) || isProjectCompleted(p.id)) return;
+    const s = quadState[p.id];
+    if(!s) return;
+    ['q1','q2','q3','q4'].forEach(qid=>{
+      (s[qid]||[]).forEach(it=>{
+        if(!it.done) rows.push({ item: it, project: p, qid });
+      });
+    });
+  });
+  return rows;
+}
+let dailyFocusSelected = [];
+function openDailyFocus(onDone){
+  const overlay = document.getElementById('dailyFocusOverlay');
+  const listEl = document.getElementById('dailyFocusList');
+  const setBtn = document.getElementById('dailyFocusSetBtn');
+  const skipBtn = document.getElementById('dailyFocusSkipBtn');
+  const successEl = document.getElementById('dailyFocusSuccess');
+  const actionsEl = overlay.querySelector('.daily-focus-actions');
+  if(!overlay || !listEl) { if(onDone) onDone(); return; }
+
+  dailyFocusSelected = [];
+  successEl.hidden = true;
+  listEl.style.display = '';
+  actionsEl.style.display = '';
+  setBtn.disabled = true;
+
+  const candidates = collectDailyFocusCandidates();
+  listEl.innerHTML = candidates.length ? candidates.map(row => `
+    <button type="button" class="daily-focus-item" data-item="${row.item.id}">
+      <span class="dfi-dot"></span>
+      <span class="dfi-body"><span class="dfi-proj">${escapeHTML(row.project.title)}</span><span class="dfi-text">${escapeHTML(row.item.text)}</span></span>
+    </button>`).join('') : `<div class="daily-focus-empty">未完了のタスクがありません。</div>`;
+
+  listEl.querySelectorAll('.daily-focus-item').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const id = btn.dataset.item;
+      const idx = dailyFocusSelected.indexOf(id);
+      if(idx !== -1){
+        dailyFocusSelected.splice(idx, 1);
+        btn.classList.remove('selected');
+      } else {
+        if(dailyFocusSelected.length >= 3){
+          // 4件目: 無反応にせず、最初に選んだ1件と入れ替える
+          const removedId = dailyFocusSelected.shift();
+          const removedBtn = listEl.querySelector(`.daily-focus-item[data-item="${removedId}"]`);
+          if(removedBtn) removedBtn.classList.remove('selected');
+        }
+        dailyFocusSelected.push(id);
+        btn.classList.add('selected');
+      }
+      setBtn.disabled = dailyFocusSelected.length === 0;
+    });
+  });
+
+  const prevOverflow = document.body.style.overflow;
+  document.body.style.overflow = 'hidden';
+  overlay.classList.add('open');
+
+  function close(){
+    overlay.classList.remove('open');
+    document.body.style.overflow = prevOverflow;
+    if(onDone) onDone();
+  }
+  skipBtn.onclick = () => {
+    // Skipは「今日はもう出さない」だけを記録し、Today's Pickの既存選択には触れない
+    setDailyFocusLastShown();
+    close();
+  };
+  setBtn.onclick = () => {
+    if(!dailyFocusSelected.length) return;
+    refreshTodayDate();
+    todayPick = { date: todayStr(), ids: dailyFocusSelected.slice() };
+    saveTodayPick();
+    if(typeof pushToCloudDebounced === 'function') pushToCloudDebounced();
+    if(typeof renderTodayPickSection === 'function') renderTodayPickSection();
+    setDailyFocusLastShown();
+    listEl.style.display = 'none';
+    actionsEl.style.display = 'none';
+    successEl.hidden = false;
+    setTimeout(close, 900);
+  };
+}
+const dailyFocusToggleRow = document.getElementById('dailyFocusToggleRow');
+const dailyFocusToggleSub = document.getElementById('dailyFocusToggleSub');
+function refreshDailyFocusToggleUI(){
+  if(dailyFocusToggleSub) dailyFocusToggleSub.textContent = `その日最初の起動時にToday's Pickを確認 — ${isDailyFocusEnabled() ? 'ON' : 'OFF'}`;
+}
+if(dailyFocusToggleRow){
+  refreshDailyFocusToggleUI();
+  dailyFocusToggleRow.addEventListener('click', ()=>{
+    setDailyFocusEnabled(!isDailyFocusEnabled());
+    refreshDailyFocusToggleUI();
+  });
+}
+// 起動時の呼び出し: Daily Focusが出る条件なら先にそれを表示し、閉じてからFOCUS⇄ATLASヒントへ。
+// 出ない条件（OFF・本日表示済み）なら、これまで通りヒントを直接表示する。
+if(shouldShowDailyFocus()){
+  openDailyFocus(() => maybeShowFocusAtlasHint());
+} else {
+  maybeShowFocusAtlasHint();
+}
 
 /* ---------- Horizontal swipe to switch FOCUS <-> ATLAS ----------
    Swipe left = next page, swipe right = previous page.
@@ -4251,6 +4578,16 @@ function customConfirm(message, okLabel){
   });
 }
 
+/* "…" menu for secondary project actions (complete / delete) */
+const dialogMore = document.getElementById('dialogMore');
+const dialogMoreBtn = document.getElementById('dialogMoreBtn');
+function closeDialogMore(){ if(dialogMore) dialogMore.classList.remove('open'); }
+if(dialogMoreBtn){
+  dialogMoreBtn.addEventListener('click', (e)=>{ e.stopPropagation(); dialogMore.classList.toggle('open'); });
+  document.getElementById('dialogMoreMenu').addEventListener('click', ()=> closeDialogMore());
+  document.addEventListener('click', (e)=>{ if(dialogMore.classList.contains('open') && !dialogMore.contains(e.target)) closeDialogMore(); });
+  document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeDialogMore(); });
+}
 deleteProjectBtn.addEventListener('click', async ()=>{
   const id = overlay.dataset.projectId;
   if(!id) return;
@@ -4602,7 +4939,7 @@ document.addEventListener('click', (e)=>{
 });
 document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeIconPopover(); });
 
-const TABS = ['Overview','To-Do','Milestones','Timeline','Notes'];
+const TABS = ['Overview','To-Do','Milestones']; // Notes → Overview, Timeline → Milestones (ASK is appended by the Atlas module)
 
 function openDetail(id){
   const p = PROJECTS.find(x=>x.id===id);
@@ -4619,6 +4956,7 @@ function openDetail(id){
   }
   dIcon.innerHTML = iconSVG(p.icon);
   dIcon.style.background = getIconColor(p);
+  dIcon.style.setProperty('--ic', getIconColor(p));
   deleteProjectBtn.style.display = empty ? 'none' : 'flex';
 
   const completed = isProjectCompleted(id);
@@ -4723,9 +5061,17 @@ function renderTab(tab, p, active){
         </div>
         ${hp===null ? `<div class="big-progress-text"><div class="t2">Add milestones to start tracking HP</div></div>` : ''}
       </div>
+      <div class="edit-field-wrap merged-section">
+        <div class="group-title">Notes</div>
+        <textarea class="edit-textarea" data-field="notes" data-project="${p.id}" rows="5" placeholder="Add notes...">${escapeHTML(getMeta(p.id,'notes',p.notes))}</textarea>
+      </div>
     `;
   } else if(tab==='Milestones'){
-    inner = buildMilestonesHTML(p.id);
+    inner = `<div data-sub="milestones">${buildMilestonesHTML(p.id)}</div>
+      <div class="merged-section">
+        <div class="group-title">Timeline</div>
+        <div data-sub="timeline">${buildTimelineHTML(p.id)}</div>
+      </div>`;
   } else if(tab==='Notes'){
     inner = `
       <div class="edit-field-wrap">
@@ -5056,10 +5402,11 @@ function buildMilestoneListHTML(id){
               <button class="ms-check ${it.done?'done':''}" type="button" data-action="toggle">${it.done?'✓':''}</button>
               <div class="edit-row-main">
                 <span class="edit-row-title ${it.done?'done':''}" data-action="edit-inline-text">${it.text ? escapeHTML(it.text) : '(タイトル未設定)'}</span>
-                <span class="edit-row-date" data-action="edit-inline-date">${it.date ? escapeHTML(formatISODate(it.date)) : '+ 日付'}</span> <button class="ms-detail-btn${it.detail ? ' has-detail' : ''}${isOpen ? ' active' : ''}" type="button" data-action="toggle-detail" aria-label="detail">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h6l4 4v12H8z"/><path d="M14 4v4h4"/><path d="M10 13h6M10 17h6"/></svg>
-                </button>
+                <span class="edit-row-date" data-action="edit-inline-date">${it.date ? escapeHTML(formatISODate(it.date)) : '+ 日付'}</span>
               </div>
+              <button class="ms-detail-btn${it.detail ? ' has-detail' : ''}${isOpen ? ' active' : ''}" type="button" data-action="toggle-detail" aria-label="detail">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h6l4 4v12H8z"/><path d="M14 4v4h4"/><path d="M10 13h6M10 17h6"/></svg>
+              </button>
               <button class="ms-del-btn" type="button" data-action="delete-direct" aria-label="delete">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16"/><path d="M8 6V4.5A1.5 1.5 0 0 1 9.5 3h5A1.5 1.5 0 0 1 16 4.5V6"/><path d="M6 6l1 14.5A1.5 1.5 0 0 0 8.5 22h7a1.5 1.5 0 0 0 1.5-1.5L18 6"/><path d="M10 11v6M14 11v6"/></svg>
               </button>
@@ -5257,13 +5604,16 @@ function refreshOverviewStatsOnly(id){
 function refreshMilestoneTab(id){
   closeCalDayPreview(); // the calendar cells are about to be replaced, so any open preview's anchor would go stale
   const panel = dialogBody.querySelector('.tab-panel[data-tab="Milestones"]');
-  if(panel) panel.innerHTML = buildMilestonesHTML(id);
+  const sub = panel && panel.querySelector('[data-sub="milestones"]');
+  if(sub) sub.innerHTML = buildMilestonesHTML(id);
+  else if(panel) panel.innerHTML = buildMilestonesHTML(id);
   autoGrowAllDetailBoxes(panel);
   updateCardProgress(id);
   refreshOverviewStatsOnly(id);
 }
 function refreshTimelineTab(id){
-  const panel = dialogBody.querySelector('.tab-panel[data-tab="Timeline"]');
+  const panel = dialogBody.querySelector('.tab-panel[data-tab="Milestones"] [data-sub="timeline"]')
+             || dialogBody.querySelector('.tab-panel[data-tab="Timeline"]');
   if(panel) panel.innerHTML = buildTimelineHTML(id);
   autoGrowAllDetailBoxes(panel);
 }
@@ -6218,11 +6568,25 @@ function startCardDrag(item, kind, e){
     : Array.from(document.querySelectorAll('.completed-row'));
   const originalIndex = siblingEls.indexOf(item);
 
+  // ONGOING divider = drop target meaning "move to Ongoing". When Ongoing is
+  // empty there is no divider, so add a temporary one for the drag's duration.
+  let ongoingDivider = null;
+  if(kind === 'grid'){
+    ongoingDivider = grid.querySelector('.grid-extra-divider');
+    if(!ongoingDivider){
+      ongoingDivider = document.createElement('div');
+      ongoingDivider.className = 'grid-extra-divider drag-only';
+      ongoingDivider.innerHTML = '<span>ONGOING</span>';
+      const addTile = grid.querySelector('.add-project-tile');
+      grid.insertBefore(ongoingDivider, addTile);
+    }
+  }
+
   try{ item.setPointerCapture(e.pointerId); }catch(err){}
   try{ if(navigator.vibrate) navigator.vibrate(12); }catch(err){}
 
   cardDragCtx = {
-    pointerId: e.pointerId, item, kind, siblingEls, originalIndex,
+    pointerId: e.pointerId, item, kind, siblingEls, originalIndex, ongoingDivider,
     startX: e.clientX, startY: e.clientY,
     targetEl: null, crossZone: false,
   };
@@ -6264,7 +6628,8 @@ function onCardDragMove(e){
 
   let hovered = null;
   if(!overOther){
-    for(const el of siblingEls){
+    const candidates = cardDragCtx.ongoingDivider ? siblingEls.concat([cardDragCtx.ongoingDivider]) : siblingEls;
+    for(const el of candidates){
       if(el === item) continue;
       const r = el.getBoundingClientRect();
       if(e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom){
@@ -6295,12 +6660,45 @@ function endCardDrag(){
     setProjectCompleted(id, kind === 'grid'); // dragged into Completed → true; dragged into grid → false (restore)
     cardJustDragged = true;
     setTimeout(()=>{ cardJustDragged = false; }, 350);
+  } else if(targetEl && kind === 'grid' && targetEl.classList.contains('grid-extra-divider')){
+    // Dropped on the ONGOING divider → move to Ongoing (top of the list)
+    if(id && isProjectFocused(id)){
+      projectMeta[id] = { ...(projectMeta[id]||{}), focus:false };
+      const fromIdx = PROJECTS.findIndex(p=>p.id===id);
+      if(fromIdx > -1){
+        const [moved] = PROJECTS.splice(fromIdx, 1);
+        const at = PROJECTS.findIndex(p=> !isProjectDeleted(p.id) && !isProjectCompleted(p.id) && !isProjectFocused(p.id));
+        PROJECTS.splice(at > -1 ? at : PROJECTS.length, 0, moved);
+      }
+      saveMeta(projectMeta); saveOrder(); saveCustomProjects();
+    }
+    renderGrid();
+    cardJustDragged = true;
+    setTimeout(()=>{ cardJustDragged = false; }, 350);
   } else if(targetEl){
-    const targetIndex = siblingEls.indexOf(targetEl);
     const originalId = id, targetId = targetEl.dataset.id;
     const fromIdx = PROJECTS.findIndex(p=>p.id===originalId);
     const toIdx = PROJECTS.findIndex(p=>p.id===targetId);
     if(fromIdx > -1 && toIdx > -1){
+      // Cross-section drop (Focus ⇄ Ongoing): the dragged project adopts the
+      // section of the card it was dropped on. Deleted/empty Focus slots count
+      // as Focus. If Focus is already full, the target Focus card swaps out to
+      // Ongoing so the cap of FOCUS_LIMIT is never exceeded.
+      if(kind === 'grid' && !isProjectDeleted(originalId)){
+        const targetIsFocus = isProjectDeleted(targetId) || isProjectFocused(targetId);
+        const dragIsFocus = isProjectFocused(originalId);
+        if(targetIsFocus !== dragIsFocus){
+          if(targetIsFocus){
+            if(getFocusCount() >= FOCUS_LIMIT && !isProjectDeleted(targetId)){
+              projectMeta[targetId] = { ...(projectMeta[targetId]||{}), focus:false };
+            }
+            projectMeta[originalId] = { ...(projectMeta[originalId]||{}), focus:true };
+          } else {
+            projectMeta[originalId] = { ...(projectMeta[originalId]||{}), focus:false };
+          }
+          saveMeta(projectMeta);
+        }
+      }
       const [moved] = PROJECTS.splice(fromIdx, 1);
       PROJECTS.splice(toIdx, 0, moved);
       saveOrder();
@@ -6309,6 +6707,10 @@ function endCardDrag(){
     }
     cardJustDragged = true;
     setTimeout(()=>{ cardJustDragged = false; }, 350);
+  }
+  // remove the temporary divider if we added one and nothing re-rendered
+  if(cardDragCtx.ongoingDivider && cardDragCtx.ongoingDivider.classList.contains('drag-only') && cardDragCtx.ongoingDivider.isConnected){
+    cardDragCtx.ongoingDivider.remove();
   }
   reorderHint.classList.remove('show');
   cardDragCtx = null;
@@ -6542,7 +6944,16 @@ const syncDisconnectBtn = document.getElementById('syncDisconnectBtn');
 const syncStatusText = document.getElementById('syncStatusText');
 const syncLoadingOverlay = document.getElementById('syncLoadingOverlay');
 
-function setSyncStatus(text){ if(syncStatusText) syncStatusText.textContent = text; }
+function setSyncStatus(text){
+  if(syncStatusText) syncStatusText.textContent = text;
+  // The header sync chip is hidden by default and only surfaces when something
+  // actually needs attention (a failed sync / offline), per the design pass.
+  if(typeof syncBtn !== 'undefined' && syncBtn){
+    const bad = /失敗|オフライン|エラー|できません/.test(text || '');
+    if(bad) syncBtn.classList.add('sync-error');
+    else if(/同期済み|接続しました|読み込みました|保存しました/.test(text || '')) syncBtn.classList.remove('sync-error');
+  }
+}
 
 function refreshSyncButton(){
   const code = getSyncCode();
@@ -6641,11 +7052,12 @@ function repaintDefaultIcons(){
     if(projectMeta[p.id] && projectMeta[p.id].iconColor) return;
     const col = ACCENT_HEX[p.accent];
     const cardIcon = grid.querySelector(`.card[data-id="${p.id}"] .card-icon`);
-    if(cardIcon) cardIcon.style.background = col;
+    if(cardIcon){ cardIcon.style.background = col; cardIcon.style.setProperty('--ic', col); }
     const rowIcon = document.querySelector(`.completed-row[data-id="${p.id}"] .completed-row-icon`);
-    if(rowIcon) rowIcon.style.background = col;
+    if(rowIcon){ rowIcon.style.background = col; rowIcon.style.setProperty('--ic', col); }
     if(typeof overlay !== 'undefined' && overlay.dataset.projectId === p.id && typeof dIcon !== 'undefined'){
       dIcon.style.background = col;
+      dIcon.style.setProperty('--ic', col);
     }
   });
 }
@@ -6742,6 +7154,39 @@ if(settingsBtn){
     }
   });
   document.addEventListener('keydown', e=>{ if(e.key==='Escape') settingsPopover.classList.remove('open'); });
+  // Theme / Cloud Sync rows: open the existing popovers anchored to the settings button
+  const settingsThemeRow = document.getElementById('settingsThemeRow');
+  const settingsSyncRow = document.getElementById('settingsSyncRow');
+  function refreshSettingsMetaRows(){
+    const t = THEMES.find(x=>x.id===getTheme());
+    const ts = document.getElementById('settingsThemeSub');
+    if(ts) ts.textContent = t ? t.name : '—';
+    const ss = document.getElementById('settingsSyncSub');
+    if(ss) ss.textContent = (typeof getSyncCode === 'function' && getSyncCode()) ? '接続中 — 端末間でデータを共有' : 'オフ — この端末だけに保存';
+  }
+  settingsBtn.addEventListener('click', refreshSettingsMetaRows);
+  function anchorUnderSettings(pop, popW){
+    const r = settingsBtn.getBoundingClientRect();
+    pop.style.left = Math.max(12, Math.min(r.right - popW, window.innerWidth - popW - 12)) + 'px';
+    pop.style.top = (r.bottom + 8) + 'px';
+  }
+  if(settingsThemeRow){
+    settingsThemeRow.addEventListener('click', (e)=>{
+      e.stopPropagation();
+      settingsPopover.classList.remove('open');
+      anchorUnderSettings(themePopover, 280);
+      themePopover.classList.add('open');
+    });
+  }
+  if(settingsSyncRow){
+    settingsSyncRow.addEventListener('click', (e)=>{
+      e.stopPropagation();
+      settingsPopover.classList.remove('open');
+      anchorUnderSettings(syncPopover, 300);
+      syncPopover.classList.add('open');
+      setSyncStatus(window.firebaseSync ? '' : 'Firebase未設定です(コード側で設定が必要)');
+    });
+  }
 }
 
 // Build a full backup: synced data + this device's local-only settings.
@@ -7058,7 +7503,18 @@ const TODO_SHEET_COLORS = {
   q4: { fg:'#333333', bg:'#dfe0e3', bd:'#c9cbd0' }, // LATER gray  (q-gray)
 };
 
+const TODO_SHEET_COLORS_DARK = {
+  q1: { fg:'#ff6b5f', bg:'#131615', bd:'rgba(255,80,70,.22)',  glow:'rgba(255,80,70,.34)' },
+  q2: { fg:'#5fd88a', bg:'#131615', bd:'rgba(60,210,120,.22)', glow:'rgba(60,210,120,.34)' },
+  q3: { fg:'#5fa8ff', bg:'#131615', bd:'rgba(70,150,255,.22)', glow:'rgba(70,150,255,.34)' },
+  q4: { fg:'#c7c9ce', bg:'#131615', bd:'rgba(150,155,165,.18)', glow:'rgba(150,155,165,.26)' },
+};
+
 function buildTodoSheetHTML(id){
+  // Follow the app's current theme: the dark sheet mirrors the Dark To-Do panels
+  // (inner glow fading to the surface, bright category labels).
+  const sheetDark = document.documentElement.getAttribute('data-theme') === 'atlas-dark';
+  const SHEET_PAL = sheetDark ? TODO_SHEET_COLORS_DARK : TODO_SHEET_COLORS;
   const p = PROJECTS.find(x=>x.id===id);
   const title = escapeHTML(getMeta(id,'title', p ? p.title : '') || '(無題)');
   const today = new Date();
@@ -7084,13 +7540,13 @@ function buildTodoSheetHTML(id){
   // small/wraps rather than the panel growing wide — the 2×2 shape takes
   // priority over keeping every line on one row.
   const quadPanel = (def)=>{
-    const c = TODO_SHEET_COLORS[def.id];
+    const c = SHEET_PAL[def.id];
     const items = s[def.id] || [];
     const body = items.length
       ? items.map(it=>taskRow(it, c)).join('')
       : `<div class="empty-note">タスクなし</div>`;
     return `
-      <section class="quad" style="--fg:${c.fg};--cbg:${c.bg};--cbd:${c.bd}">
+      <section class="quad" style="--fg:${c.fg};--cbg:${c.bg};--cbd:${c.bd};--glow:${c.glow||'transparent'}">
         <div class="quad-head">
           <span class="quad-label">${def.label}</span>
           <span class="quad-count">${items.filter(i=>!i.done).length}</span>
@@ -7103,9 +7559,11 @@ function buildTodoSheetHTML(id){
   const byId = Object.fromEntries(QUAD_DEFS.map(d=>[d.id,d]));
   const gridOrder = [byId.q1, byId.q2, byId.q3, byId.q4]; // NOW GROW / QUICK LATER
 
-  const completedGold = { fg:'#9a7400', bg:'#fbf3d9', bd:'#ecd98a' };
+  const completedGold = sheetDark
+    ? { fg:'#e8c468', bg:'#131615', bd:'rgba(240,180,0,.22)', glow:'rgba(240,180,0,.28)' }
+    : { fg:'#9a7400', bg:'#fbf3d9', bd:'#ecd98a' };
   const completedHTML = `
-    <section class="quad completed-strip" style="--fg:${completedGold.fg};--cbg:${completedGold.bg};--cbd:${completedGold.bd}">
+    <section class="quad completed-strip" style="--fg:${completedGold.fg};--cbg:${completedGold.bg};--cbd:${completedGold.bd};--glow:${completedGold.glow||'transparent'}">
       <div class="quad-head">
         <span class="quad-label">COMPLETED</span>
         <span class="quad-count">${completed.length}</span>
@@ -7121,7 +7579,7 @@ function buildTodoSheetHTML(id){
     </section>`;
 
   return `<!DOCTYPE html>
-<html lang="ja"><head><meta charset="utf-8">
+<html lang="ja" class="${sheetDark ? 'dark' : ''}"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${title} — To-Do</title>
 <style>
@@ -7184,6 +7642,26 @@ function buildTodoSheetHTML(id){
     .sheet{ box-shadow:none; border-radius:0; max-width:none; }
     .print-hint{ display:none; }
     @page{ size:A4 portrait; margin:10mm; }
+  }
+
+  /* ---- Dark sheet: mirrors the app's Dark To-Do panels ---- */
+  html.dark body{ background:#0D1110; color:#F7F5F0; }
+  html.dark .sheet{ background:#171B1A; border:1px solid rgba(247,245,240,.08); box-shadow:0 2px 18px rgba(0,0,0,.5); }
+  html.dark .sheet-head h1{ color:#F7F5F0; }
+  html.dark .sheet-head .progress{ color:#A6ADA4; }
+  html.dark .sheet-head .date{ color:#858C83; }
+  html.dark .quad{ background:#131615; box-shadow: inset 0 0 26px -4px var(--glow); }
+  html.dark .quad-count{ background:rgba(247,245,240,.06); }
+  html.dark .quad-sub{ color:#A6ADA4; opacity:1; }
+  html.dark .task-row{ background:rgba(247,245,240,.05); }
+  html.dark .task-row .box{ background:transparent; border-color:#858C83; color:#0D1110; }
+  html.dark .task-row.done .box{ background:#A7C4A1; border-color:#A7C4A1; }
+  html.dark .task-row .task-text{ color:#F7F5F0; }
+  html.dark .empty-note{ color:#6B726A; }
+  html.dark .print-hint button{ background:#A7C4A1; color:#0D1110; }
+  @media print{
+    html.dark, html.dark body{ background:#0D1110 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    html.dark .sheet{ background:#171B1A !important; }
   }
 </style></head>
 <body>
