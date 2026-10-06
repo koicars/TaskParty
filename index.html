@@ -1306,14 +1306,16 @@ html[data-theme="atlas-dark"] .quad-check{ background: transparent; border-color
 }
 .daily-focus-overlay.open{ opacity:1; visibility:visible; pointer-events:auto; transition: opacity var(--dur) var(--ease); }
 .daily-focus-box{
-  width:100%; max-width:360px; max-height:80vh; overflow-y:auto;
-  background: var(--surface,#fff); border-radius:18px; padding:22px 20px;
+  width:100%; max-width:360px; max-height:82vh; overflow:hidden;
+  display:flex; flex-direction:column;
+  background: var(--surface,#fff); border-radius:18px; padding:22px 20px 16px;
   box-shadow: 0 20px 50px rgba(0,0,0,.25);
 }
-.daily-focus-head{ text-align:center; margin-bottom:16px; }
+.daily-focus-head{ text-align:center; margin-bottom:16px; flex:0 0 auto; }
 .daily-focus-title{ font-size:17px; font-weight:700; color: var(--ink); margin-bottom:4px; }
 .daily-focus-sub{ font-size:12.5px; color: var(--ink-faint); }
-.daily-focus-list{ display:flex; flex-direction:column; gap:7px; margin-bottom:16px; }
+.daily-focus-list{ display:flex; flex-direction:column; gap:7px; flex:1 1 auto; min-height:0;
+  overflow-y:auto; -webkit-overflow-scrolling:touch; overscroll-behavior:contain; padding-bottom:4px; }
 .daily-focus-item{
   display:flex; align-items:center; gap:10px; text-align:left;
   border:1px solid var(--hairline,rgba(0,0,0,.08)); border-radius:12px; padding:10px 12px;
@@ -1327,7 +1329,9 @@ html[data-theme="atlas-dark"] .quad-check{ background: transparent; border-color
 .dfi-proj{ font-size:10.5px; color: var(--ink-faint); }
 .dfi-text{ font-size:13px; color: var(--ink); font-weight:600; }
 .daily-focus-empty{ font-size:12.5px; color: var(--ink-faint); text-align:center; padding:16px 0; }
-.daily-focus-actions{ display:flex; justify-content:space-between; align-items:center; gap:10px; }
+.daily-focus-actions{ display:flex; justify-content:space-between; align-items:center; gap:10px;
+  flex:0 0 auto; margin-top:12px; padding-top:12px; border-top:1px solid var(--hairline, rgba(0,0,0,.08)); }
+.daily-focus-count{ font-size:12px; color: var(--ink-faint); margin-left:auto; margin-right:2px; }
 .daily-focus-skip{ border:none; background:transparent; color: var(--ink-faint); font-size:13px; padding:8px; cursor:pointer; font-family:inherit; }
 .daily-focus-set{ border:none; border-radius:10px; background: var(--ink); color:#fff; font-size:13.5px; font-weight:700;
   padding:10px 22px; cursor:pointer; font-family:inherit; }
@@ -2394,6 +2398,7 @@ html[data-theme="atlas-dark"] .quad-check{ background: transparent; border-color
     <div class="daily-focus-list" id="dailyFocusList"></div>
     <div class="daily-focus-actions">
       <button class="daily-focus-skip" id="dailyFocusSkipBtn" type="button">Skip</button>
+      <span class="daily-focus-count" id="dailyFocusCount">0 / 3</span>
       <button class="daily-focus-set" id="dailyFocusSetBtn" type="button" disabled>Set Today</button>
     </div>
     <div class="daily-focus-success" id="dailyFocusSuccess" hidden>Today is set.</div>
@@ -4332,8 +4337,12 @@ function openDailyFocus(onDone){
         btn.classList.add('selected');
       }
       setBtn.disabled = dailyFocusSelected.length === 0;
+      const cnt = document.getElementById('dailyFocusCount');
+      if(cnt) cnt.textContent = `${dailyFocusSelected.length} / 3`;
     });
   });
+  const cnt0 = document.getElementById('dailyFocusCount');
+  if(cnt0) cnt0.textContent = '0 / 3';
 
   const prevOverflow = document.body.style.overflow;
   document.body.style.overflow = 'hidden';
@@ -7503,6 +7512,12 @@ const TODO_SHEET_COLORS = {
   q4: { fg:'#333333', bg:'#dfe0e3', bd:'#c9cbd0' }, // LATER gray  (q-gray)
 };
 
+const TODO_SHEET_COLORS_LIGHTGLOW = {
+  q1: { fg:'#d0233f', bg:'#ffffff', bd:'rgba(255,55,95,.18)',  glow:'rgba(255,55,95,.24)' },
+  q2: { fg:'#1f8a43', bg:'#ffffff', bd:'rgba(48,209,88,.18)',  glow:'rgba(48,209,88,.24)' },
+  q3: { fg:'#0a6fd8', bg:'#ffffff', bd:'rgba(10,132,255,.18)', glow:'rgba(10,132,255,.24)' },
+  q4: { fg:'#5b5b60', bg:'#ffffff', bd:'rgba(142,142,147,.15)', glow:'rgba(142,142,147,.20)' },
+};
 const TODO_SHEET_COLORS_DARK = {
   q1: { fg:'#ff6b5f', bg:'#131615', bd:'rgba(255,80,70,.22)',  glow:'rgba(255,80,70,.34)' },
   q2: { fg:'#5fd88a', bg:'#131615', bd:'rgba(60,210,120,.22)', glow:'rgba(60,210,120,.34)' },
@@ -7513,8 +7528,10 @@ const TODO_SHEET_COLORS_DARK = {
 function buildTodoSheetHTML(id){
   // Follow the app's current theme: the dark sheet mirrors the Dark To-Do panels
   // (inner glow fading to the surface, bright category labels).
-  const sheetDark = document.documentElement.getAttribute('data-theme') === 'atlas-dark';
-  const SHEET_PAL = sheetDark ? TODO_SHEET_COLORS_DARK : TODO_SHEET_COLORS;
+  const sheetTheme = document.documentElement.getAttribute('data-theme') || 'vivid';
+  const sheetDark = sheetTheme === 'atlas-dark';
+  // Vivid / Mono mirror the app's light To-Do panels: white card + soft inner glow.
+  const SHEET_PAL = sheetDark ? TODO_SHEET_COLORS_DARK : TODO_SHEET_COLORS_LIGHTGLOW;
   const p = PROJECTS.find(x=>x.id===id);
   const title = escapeHTML(getMeta(id,'title', p ? p.title : '') || '(無題)');
   const today = new Date();
@@ -7561,7 +7578,7 @@ function buildTodoSheetHTML(id){
 
   const completedGold = sheetDark
     ? { fg:'#e8c468', bg:'#131615', bd:'rgba(240,180,0,.22)', glow:'rgba(240,180,0,.28)' }
-    : { fg:'#9a7400', bg:'#fbf3d9', bd:'#ecd98a' };
+    : { fg:'#9a7400', bg:'#ffffff', bd:'rgba(240,180,0,.18)', glow:'rgba(240,180,0,.22)' };
   const completedHTML = `
     <section class="quad completed-strip" style="--fg:${completedGold.fg};--cbg:${completedGold.bg};--cbd:${completedGold.bd};--glow:${completedGold.glow||'transparent'}">
       <div class="quad-head">
@@ -7579,7 +7596,7 @@ function buildTodoSheetHTML(id){
     </section>`;
 
   return `<!DOCTYPE html>
-<html lang="ja" class="${sheetDark ? 'dark' : ''}"><head><meta charset="utf-8">
+<html lang="ja" class="${sheetDark ? 'dark' : ('light theme-' + sheetTheme)}"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${title} — To-Do</title>
 <style>
@@ -7642,6 +7659,24 @@ function buildTodoSheetHTML(id){
     .sheet{ box-shadow:none; border-radius:0; max-width:none; }
     .print-hint{ display:none; }
     @page{ size:A4 portrait; margin:10mm; }
+  }
+
+  /* ---- Light sheets (Vivid / Mono): mirror the app's light To-Do panels ---- */
+  html.light .quad{ background:#fff; box-shadow: inset 0 0 26px -4px var(--glow); }
+  html.light .quad-count{ background:rgba(0,0,0,.04); }
+  html.light .task-row{ background:rgba(0,0,0,.035); }
+  html.light .task-row .task-text{ color:#1f2d21; }
+  html.light .task-row .box{ border-color:rgba(31,45,33,.28); }
+  html.light body{ min-height:100vh; }
+  html.theme-vivid body{ background:linear-gradient(160deg,#eef3fb,#f7f1f6) fixed; }
+  html.theme-vivid .task-row.done .box{ background:#34c759; border-color:#34c759; }
+  html.theme-vivid .print-hint button{ background:#0a84ff; }
+  html.theme-mono body{ background:#f1f1ef; }
+  html.theme-mono .task-row.done .box{ background:#5f645d; border-color:#5f645d; }
+  html.theme-mono .print-hint button{ background:#33372f; }
+  @media print{
+    html.light, html.light body{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    html.light body{ background:#fff !important; }
   }
 
   /* ---- Dark sheet: mirrors the app's Dark To-Do panels ---- */
