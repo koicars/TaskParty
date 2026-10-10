@@ -454,6 +454,39 @@ html[data-theme="atlas-dark"] .quad-check{ background: transparent; border-color
 [data-theme="vivid"] .blob.b2{ background: radial-gradient(circle, #ffb0c9, transparent 70%); }
 [data-theme="vivid"] .blob.b3{ background: radial-gradient(circle, #d0b3ff, transparent 70%);
   bottom:-160px; left:30%; opacity:.35; }
+
+/* ===== Vivid glass: frosted surfaces over the soft pastel haze ===== */
+html[data-theme="vivid"] .grid .card:not(.add-project-tile),
+html[data-theme="vivid"] .today-pick-section,
+html[data-theme="vivid"] .alltodos-col{
+  background: rgba(255,255,255,.7) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(170%); backdrop-filter: blur(24px) saturate(170%);
+  border: 1px solid rgba(255,255,255,.62) !important;
+}
+html[data-theme="vivid"] .grid .card:not(.add-project-tile){
+  box-shadow: inset 0 1px 0 #fff, 0 1px 2px rgba(30,40,80,.05), 0 8px 24px rgba(30,40,80,.08) !important;
+}
+html[data-theme="vivid"] .grid .card:not(.add-project-tile):hover{ box-shadow: inset 0 1px 0 rgba(255,255,255,.8), 0 10px 30px rgba(40,50,90,.11) !important; }
+html[data-theme="vivid"] .alltodos-col{ box-shadow: inset 0 1px 0 rgba(255,255,255,.7), inset 0 0 34px -4px var(--panel-glow, transparent) !important; }
+html[data-theme="vivid"] .alltodos-item{ background: rgba(255,255,255,.62); border-color: rgba(255,255,255,.7); }
+html[data-theme="vivid"] .history-tag,
+html[data-theme="vivid"] .settings-tag{
+  background: rgba(255,255,255,.42); border: 1px solid rgba(255,255,255,.6);
+  -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+}
+html[data-theme="vivid"] .add-project-tile{
+  background: rgba(255,255,255,.28); border: 1px dashed rgba(255,255,255,.75);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+}
+html[data-theme="vivid"] .capture-fab{
+  background: rgba(29,29,31,.82); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 10px 26px rgba(20,30,60,.22);
+}
+/* Colour is reserved for meaning: neutral progress rings and titles, one check colour */
+html[data-theme="vivid"] .pct-ring-fill{ stroke:#3a3a3e !important; }
+html[data-theme="vivid"] .title-block h1{ color: var(--ink) !important; }
+html[data-theme="vivid"] .page-title-swap-icon{ color: var(--ink-faint) !important; }
+html .alltodos-item.done .ck{ background: var(--green); border-color: var(--green); }
 .blob{
   position:absolute;
   border-radius:50%;
@@ -2372,8 +2405,8 @@ html[data-theme="atlas-dark"] .quad-check{ background: transparent; border-color
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h6"/></svg>
       </span>
       <span class="settings-row-body">
-        <span class="settings-row-title">To-Doを書き出す（印刷/PDF）</span>
-        <span class="settings-row-sub">4象限を2×2レイアウトのシートで保存</span>
+        <span class="settings-row-title">Print</span>
+        <span class="settings-row-sub">To-Doを2×2シートで表示・印刷・PDF保存</span>
       </span>
     </button>
     <button class="settings-row" id="dailyFocusToggleRow" type="button">
@@ -2412,7 +2445,7 @@ html[data-theme="atlas-dark"] .quad-check{ background: transparent; border-color
 </div>
 
 <div class="theme-popover ai-picker-popover" id="todoPdfPickerPopover">
-  <div class="pop-label">どのプロジェクトを書き出しますか？</div>
+  <div class="pop-label">どのプロジェクトを印刷しますか？</div>
   <div class="ai-picker-list" id="todoPdfPickerList"></div>
   <p class="theme-note">4象限（NOW / GROW / QUICK / LATER）を2×2で並べたシートを書き出します。開いたら印刷（⌘/Ctrl+P）で「PDFとして保存」もできます。</p>
 </div>
@@ -7769,6 +7802,7 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape' && pdfPreviewOverl
 applyTheme(getTheme());
 
 
+
 // on load: if already connected, pull the latest cloud copy and
 // only reload if it's actually newer than what we already applied.
 window.addEventListener('load', async ()=>{
@@ -8411,6 +8445,366 @@ window.addEventListener('load', async ()=>{
   } else {
     console.warn("[Atlas] openDetail が見つかりません。Atlasタブは表示されません。");
   }
+
+  /* =========================================================
+     QUICK CAPTURE — 思いつき・決定事項・他AIの結果をそのまま入力すると、
+     AIがTodoに分解し、Project・象限（日付があればMilestone）を提案する。
+     承認するまで何も反映しない。AIが失敗しても手動で振り分けて保存できる。
+     ========================================================= */
+  const CAPTURE_CONSENT_KEY = "atlas_capture_consent_v1";
+  const CAPTURE_DRAFT_KEY = "atlas_capture_draft_v1";
+  function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  function lsSet(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  function lsDel(k) { try { localStorage.removeItem(k); } catch (e) {} }
+
+  function captureProjects() {
+    return PROJECTS.filter((p) => !isProjectDeleted(p.id) && !isProjectCompleted(p.id));
+  }
+  function captureProjectTitle(p) {
+    try { return getMeta(p.id, "title", p.title) || p.title || "(無題)"; } catch (_) { return p.title || "(無題)"; }
+  }
+  function buildCaptureContext() {
+    const L = [];
+    captureProjects().forEach((p) => {
+      const focus = (typeof isProjectFocused === "function" && isProjectFocused(p.id)) ? "FOCUS" : "ONGOING";
+      let dest = ""; try { dest = (getMeta(p.id, "summary", p.overview) || "").replace(/\s+/g, " ").slice(0, 140); } catch (_) {}
+      L.push(`### [projectId:${p.id}] ${captureProjectTitle(p)} (${focus})`);
+      if (dest) L.push(`DESTINATION: ${dest}`);
+      const s = (quadState && quadState[p.id]) || {};
+      const open = [];
+      ["q1", "q2", "q3", "q4"].forEach((q) => (s[q] || []).forEach((it) => { if (!it.done && open.length < 6) open.push(`(${Q_LABEL[q]}) ${String(it.text).slice(0, 40)}`); }));
+      if (open.length) L.push("既存Todo: " + open.join(" / "));
+      const ms = ((milestoneState && milestoneState[p.id]) || []).filter((m) => !m.done).slice(0, 3)
+        .map((m) => `${String(m.text).slice(0, 30)}${m.date ? "(" + m.date + ")" : ""}`);
+      if (ms.length) L.push("Milestones: " + ms.join(" / "));
+      L.push("");
+    });
+    return L.join("\n");
+  }
+
+  const CAPTURE_SYSTEM = [
+    PERSONALITY,
+    INPUT_INTERPRETATION,
+    `役割: これは「Quick Capture」。ユーザーが思いつき・決定事項・他のAIとの検討結果などを、そのまま貼り付けてくる。あなたはそれを実行可能な最小単位のTodoに分解し、最適なProjectと象限に振り分ける。
+- 入力に書かれていないタスクを創作しない。分解と整理だけを行う。
+- projectId は必ず与えられた一覧から選ぶ。どれにも明確に当てはまらなければ null。
+- 期日・日付を伴う節目（「〜日までに決定」「〜日に式」等）は type:"milestone" とし、date に YYYY-MM-DD を入れる。相対表現は今日の日付から計算する。
+- 通常の作業は type:"task"。日付が付く場合は date に入れてよい（期日メモとして扱う）。
+- 象限: NOW=重要かつ期限が近い / GROW=重要だが急がない / QUICK=急ぐが影響は小さい / LATER=どちらでもない。
+- 最大10件。text は簡潔な行動表現（〜する）。reason は10文字前後。`,
+    `出力は前置き・説明・コードフェンスを含まず、次のJSONオブジェクトのみ:
+{
+  "message": "整理の要約を1行（20文字程度）",
+  "items": [
+    { "text": string, "type": "task"|"milestone", "projectId": string|null, "classification": "NOW"|"GROW"|"QUICK"|"LATER", "date": "YYYY-MM-DD"|null, "reason": string }
+  ]
+}`,
+  ].join("\n\n");
+
+  async function callAtlasWorker(system, user) {
+    let res;
+    try {
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), 45000);
+      try {
+        res = await fetch(ATLAS_WORKER_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ system, user, max_tokens: 1500 }),
+          signal: ctrl.signal,
+        });
+      } finally { clearTimeout(timer); }
+    } catch (netErr) {
+      if (netErr && netErr.name === "AbortError") throw new Error("応答がタイムアウトしました（45秒）。");
+      throw new Error("通信に失敗しました。ネットワーク接続を確認してください。");
+    }
+    const raw = await res.text().catch(() => "");
+    if (!res.ok) {
+      let detail = "";
+      try { const j = JSON.parse(raw); if (j && (j.error || j.message)) detail = "：" + (j.error || j.message); } catch (_) {}
+      throw new Error(`サーバーからエラー応答 (HTTP ${res.status})${detail}`);
+    }
+    if (!raw || !raw.trim()) throw new Error("空の応答が返りました（サーバー側のトークン上限の可能性）。");
+    const parsed = extractModelJSON(raw);
+    if (!parsed) throw new Error("応答の解釈に失敗しました。");
+    if (parsed.error) throw new Error(String(parsed.error));
+    return parsed;
+  }
+
+  /* ---------- UI ---------- */
+  const cap = {};
+  function buildCaptureUI() {
+    const fab = document.createElement("button");
+    fab.type = "button";
+    fab.className = "capture-fab";
+    fab.setAttribute("aria-label", "Quick Capture");
+    fab.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>';
+    document.body.appendChild(fab);
+
+    const ov = document.createElement("div");
+    ov.className = "capture-overlay";
+    ov.innerHTML = `
+      <div class="capture-scrim"></div>
+      <div class="capture-sheet" role="dialog" aria-label="Quick Capture">
+        <div class="capture-head">
+          <div class="capture-title">Capture</div>
+          <button class="capture-close" type="button" aria-label="close">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+          </button>
+        </div>
+        <div class="capture-body">
+          <textarea class="capture-ta" rows="4" placeholder="思いついたこと、決まったこと、他のAIの結果…そのまま入力できます"></textarea>
+          <div class="capture-consent" hidden>
+            <div class="capture-consent-t">AI処理について</div>
+            <div class="capture-consent-b">振り分けのため、入力内容と各Projectの名前・目標・未完了Todo・Milestonesの一部がAI処理のため送信されます。</div>
+            <button class="capture-consent-ok" type="button">理解して続ける</button>
+          </div>
+          <div class="capture-error" hidden></div>
+          <div class="capture-result" hidden></div>
+        </div>
+        <div class="capture-foot">
+          <button class="capture-manual" type="button">手動で振り分け</button>
+          <button class="capture-run" type="button">整理する</button>
+        </div>
+      </div>`;
+    document.body.appendChild(ov);
+
+    Object.assign(cap, {
+      fab, ov,
+      ta: ov.querySelector(".capture-ta"),
+      consent: ov.querySelector(".capture-consent"),
+      err: ov.querySelector(".capture-error"),
+      result: ov.querySelector(".capture-result"),
+      run: ov.querySelector(".capture-run"),
+      manual: ov.querySelector(".capture-manual"),
+      rows: null, message: "",
+    });
+
+    fab.addEventListener("click", openCapture);
+    ov.querySelector(".capture-scrim").addEventListener("click", closeCapture);
+    ov.querySelector(".capture-close").addEventListener("click", closeCapture);
+    cap.ta.addEventListener("input", () => lsSet(CAPTURE_DRAFT_KEY, cap.ta.value));
+    cap.run.addEventListener("click", onRun);
+    cap.manual.addEventListener("click", () => {
+      const t = cap.ta.value.trim();
+      if (!t) { cap.ta.focus(); return; }
+      cap.err.hidden = true;
+      showRows([{ text: t, type: "task", projectId: null, classification: "LATER", date: null, reason: "" }], "手動で振り分けてください");
+    });
+    ov.querySelector(".capture-consent-ok").addEventListener("click", () => {
+      lsSet(CAPTURE_CONSENT_KEY, "1");
+      cap.consent.hidden = true;
+      onRun();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && ov.classList.contains("open")) { closeCapture(); return; }
+      const tag = (e.target && e.target.tagName) || "";
+      const typing = /INPUT|TEXTAREA|SELECT/.test(tag) || (e.target && e.target.isContentEditable);
+      if (!typing && !e.metaKey && !e.ctrlKey && !e.altKey && (e.key === "n" || e.key === "N")) {
+        const detailOpen = document.querySelector(".overlay.open, #overlay.open");
+        if (!detailOpen && !ov.classList.contains("open")) { e.preventDefault(); openCapture(); }
+      }
+    });
+  }
+
+  function openCapture() {
+    cap.ta.value = lsGet(CAPTURE_DRAFT_KEY) || "";
+    cap.err.hidden = true;
+    cap.consent.hidden = true;
+    cap.result.hidden = true;
+    cap.result.innerHTML = "";
+    cap.rows = null;
+    setFootMode("input");
+    cap.ov.classList.add("open");
+    cap.prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    setTimeout(() => cap.ta.focus(), 60); // quick capture: keyboard up immediately is the point
+  }
+  function closeCapture() {
+    cap.ov.classList.remove("open");
+    document.body.style.overflow = cap.prevOverflow || "";
+  }
+  function setFootMode(mode) {
+    if (mode === "input") {
+      cap.run.textContent = "整理する"; cap.run.disabled = false; cap.manual.hidden = false;
+      cap.run.onclick = null;
+    } else {
+      cap.run.textContent = "追加する"; cap.manual.hidden = true;
+    }
+  }
+
+  async function onRun() {
+    if (cap.rows) { applyCapture(); return; }
+    const text = cap.ta.value.trim();
+    if (!text) { cap.ta.focus(); return; }
+    if (lsGet(CAPTURE_CONSENT_KEY) !== "1") { cap.consent.hidden = false; return; }
+    if (!captureProjects().length) { cap.err.textContent = "Projectがありません。先にProjectを作成してください。"; cap.err.hidden = false; return; }
+    cap.err.hidden = true;
+    cap.run.disabled = true; cap.run.textContent = "整理しています…";
+    try {
+      const today = (typeof todayStr === "function") ? todayStr() : new Date().toISOString().slice(0, 10);
+      const user = `今日の日付: ${today}\n\n## Project一覧\n${buildCaptureContext()}\n## 入力\n${text}`;
+      const parsed = await callAtlasWorker(CAPTURE_SYSTEM, user);
+      const items = (parsed.items || []).slice(0, 10);
+      if (!items.length) throw new Error("Todoを抽出できませんでした。手動で振り分けてください。");
+      showRows(items, parsed.message || "");
+    } catch (e) {
+      cap.err.textContent = "エラー: " + (e && e.message ? e.message : e);
+      cap.err.hidden = false;
+      cap.run.disabled = false; cap.run.textContent = "整理する";
+    }
+  }
+
+  function showRows(items, message) {
+    const projects = captureProjects();
+    const valid = new Set(projects.map((p) => p.id));
+    cap.rows = items.map((it, i) => ({
+      key: "c" + i, accept: true,
+      text: String(it.text || "").trim(),
+      type: it.type === "milestone" ? "milestone" : "task",
+      pid: valid.has(it.projectId) ? it.projectId : "",
+      quad: LABEL_TO_Q[it.classification] || "q4",
+      date: isValidISODate(it.date) ? it.date : null,
+      reason: it.reason || "",
+    })).filter((r) => r.text);
+    const projOpts = (sel) => `<option value=""${sel ? "" : " selected"}>Projectを選択</option>` +
+      projects.map((p) => `<option value="${p.id}"${p.id === sel ? " selected" : ""}>${esc(captureProjectTitle(p))}</option>`).join("");
+    const quadOpts = (sel) => ["q1", "q2", "q3", "q4"].map((q) => `<option value="${q}"${q === sel ? " selected" : ""}>${Q_LABEL[q]}</option>`).join("");
+    cap.result.innerHTML = `
+      ${message ? `<div class="capture-msg">${esc(message)}</div>` : ""}
+      <div class="capture-note">承認するまで反映されません</div>
+      ${cap.rows.map((r) => `
+        <div class="capture-row${r.type === "milestone" ? " is-ms" : ""}" data-key="${r.key}">
+          <input type="checkbox" class="capture-chk" checked>
+          <div class="capture-row-main">
+            <input class="capture-text" type="text" value="${esc(r.text)}">
+            <div class="capture-row-meta">
+              <select class="capture-proj">${projOpts(r.pid)}</select>
+              ${r.type === "milestone"
+                ? `<span class="capture-ms-tag">MS${r.date ? " · " + esc(r.date) : ""}</span>`
+                : `<select class="capture-quad">${quadOpts(r.quad)}</select>`}
+            </div>
+            ${r.reason || (r.type === "task" && r.date) ? `<div class="capture-reason">${esc(r.reason)}${r.type === "task" && r.date ? (r.reason ? " · " : "") + "期日 " + esc(r.date) : ""}</div>` : ""}
+          </div>
+        </div>`).join("")}`;
+    cap.result.hidden = false;
+    cap.result.querySelectorAll(".capture-row").forEach((row) => {
+      const r = cap.rows.find((x) => x.key === row.dataset.key);
+      const paint = () => { if (r.type === "task") styleAtlasRow(row, r.quad); row.classList.toggle("needs-proj", r.accept && !r.pid); };
+      paint();
+      row.querySelector(".capture-chk").addEventListener("change", (e) => { r.accept = e.target.checked; row.style.opacity = r.accept ? "1" : ".4"; paint(); refreshApplyBtn(); });
+      row.querySelector(".capture-text").addEventListener("input", (e) => { r.text = e.target.value; });
+      row.querySelector(".capture-proj").addEventListener("change", (e) => { r.pid = e.target.value; paint(); refreshApplyBtn(); });
+      const qs = row.querySelector(".capture-quad");
+      if (qs) qs.addEventListener("change", (e) => { r.quad = e.target.value; paint(); });
+    });
+    setFootMode("result");
+    cap.run.disabled = false;
+    refreshApplyBtn();
+  }
+
+  function refreshApplyBtn() {
+    const chosen = cap.rows.filter((r) => r.accept && r.text.trim());
+    const missing = chosen.some((r) => !r.pid);
+    cap.run.disabled = !chosen.length || missing;
+    cap.run.textContent = missing ? "Projectを選択してください" : `${chosen.length}件を追加する`;
+  }
+
+  function applyCapture() {
+    const chosen = cap.rows.filter((r) => r.accept && r.text.trim() && r.pid);
+    if (!chosen.length) return;
+    let addedTasks = false, addedMs = false;
+    chosen.forEach((r) => {
+      if (r.type === "milestone") {
+        if (!Array.isArray(milestoneState[r.pid])) milestoneState[r.pid] = [];
+        milestoneState[r.pid].push({ id: nextUid(), text: r.text.trim(), date: r.date, done: false });
+        addedMs = true;
+      } else {
+        if (!quadState[r.pid]) quadState[r.pid] = { q1: [], q2: [], q3: [], q4: [] };
+        if (!Array.isArray(quadState[r.pid][r.quad])) quadState[r.pid][r.quad] = [];
+        const item = { id: nextUid(), text: r.text.trim(), done: false, detail: r.date ? `期日: ${r.date}` : "" };
+        if (typeof QUAD_WEIGHT !== "undefined") item.weight = QUAD_WEIGHT[r.quad];
+        quadState[r.pid][r.quad].push(item);
+        addedTasks = true;
+      }
+    });
+    if (addedTasks) saveQuadState(quadState);
+    if (addedMs) saveMilestoneState(milestoneState);
+    lsDel(CAPTURE_DRAFT_KEY);
+    try { renderGrid(); } catch (_) {}
+    try { if (currentPage === "alltodos" && typeof renderAtlas === "function") renderAtlas(); } catch (_) {}
+    try { if (typeof renderTodayPickSection === "function") renderTodayPickSection(); } catch (_) {}
+    closeCapture();
+    try { showToast(`${chosen.length}件を追加しました`); } catch (_) {}
+  }
+
+  function injectCaptureCSS() {
+    const st = document.createElement("style");
+    st.id = "capture-css";
+    st.textContent = `
+    .capture-fab{ position:fixed; right:calc(20px + env(safe-area-inset-right,0px)); bottom:calc(22px + env(safe-area-inset-bottom,0px)); z-index:60;
+      width:54px; height:54px; border-radius:50%; border:none; cursor:pointer;
+      background:var(--ink,#1d1d1f); color:#fff; display:flex; align-items:center; justify-content:center;
+      box-shadow:0 10px 26px rgba(0,0,0,.22); transition:transform var(--dur,260ms) var(--ease,ease); }
+    .capture-fab svg{ width:22px; height:22px; }
+    .capture-fab:active{ transform:scale(.94); }
+    body:has(.overlay.open) .capture-fab, body:has(.daily-focus-overlay.open) .capture-fab{ opacity:0; pointer-events:none; }
+    [data-theme="atlas-dark"] .capture-fab{ background:#A7C4A1; color:#0D1110; box-shadow:0 10px 26px rgba(0,0,0,.5); }
+    .capture-overlay{ position:fixed; inset:0; z-index:140; display:flex; align-items:flex-end; justify-content:center;
+      opacity:0; visibility:hidden; pointer-events:none;
+      transition:opacity var(--dur,260ms) var(--ease,ease), visibility 0s linear var(--dur,260ms); }
+    .capture-overlay.open{ opacity:1; visibility:visible; pointer-events:auto; transition:opacity var(--dur,260ms) var(--ease,ease); }
+    .capture-scrim{ position:absolute; inset:0; background:rgba(0,0,0,.4); }
+    .capture-sheet{ position:relative; width:100%; max-width:560px; max-height:88vh; display:flex; flex-direction:column;
+      background:var(--surface,#fff); border-radius:20px 20px 0 0; padding:16px 18px calc(14px + env(safe-area-inset-bottom,0px));
+      box-shadow:0 -10px 40px rgba(0,0,0,.25); transform:translateY(16px); transition:transform var(--dur,260ms) var(--ease,ease); }
+    .capture-overlay.open .capture-sheet{ transform:none; }
+    @media (min-width:700px){ .capture-overlay{ align-items:center; } .capture-sheet{ border-radius:20px; padding-bottom:16px; } }
+    .capture-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; flex:0 0 auto; }
+    .capture-title{ font-size:16px; font-weight:700; color:var(--ink); }
+    .capture-close{ width:30px; height:30px; border-radius:50%; border:none; background:rgba(0,0,0,.06); color:var(--ink-soft); cursor:pointer; display:flex; align-items:center; justify-content:center; }
+    .capture-close svg{ width:15px; height:15px; }
+    [data-theme="atlas-dark"] .capture-close{ background:rgba(247,245,240,.08); }
+    .capture-body{ flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; }
+    .capture-ta{ width:100%; box-sizing:border-box; border:1px solid var(--hairline,rgba(0,0,0,.1)); border-radius:12px; padding:12px 13px;
+      font-family:var(--font); font-size:16px; line-height:1.55; color:var(--ink); background:var(--surface-2,rgba(0,0,0,.02)); resize:vertical; outline:none; }
+    .capture-ta:focus{ border-color:var(--green); }
+    .capture-consent{ margin-top:10px; border:1px solid var(--hairline); border-radius:12px; padding:12px 14px; background:rgba(0,0,0,.02); }
+    [data-theme="atlas-dark"] .capture-consent{ background:rgba(247,245,240,.04); }
+    .capture-consent-t{ font-size:12.5px; font-weight:700; color:var(--ink); margin-bottom:4px; }
+    .capture-consent-b{ font-size:12px; line-height:1.65; color:var(--ink-soft); }
+    .capture-consent-ok{ margin-top:10px; border:none; border-radius:9px; background:var(--ink); color:#fff; font-family:var(--font); font-size:12.5px; font-weight:600; padding:8px 14px; cursor:pointer; }
+    [data-theme="atlas-dark"] .capture-consent-ok{ background:#A7C4A1; color:#0D1110; }
+    .capture-error{ margin-top:10px; font-size:12.5px; color:var(--hp-red,#c4241f); }
+    .capture-result{ margin-top:12px; }
+    .capture-msg{ font-size:13px; font-weight:600; color:var(--ink); margin-bottom:2px; }
+    .capture-note{ font-size:11px; color:var(--ink-faint); margin-bottom:8px; }
+    .capture-row{ display:flex; gap:10px; align-items:flex-start; padding:10px 11px; margin:6px 0; border-radius:12px; border:1px solid var(--hairline); }
+    .capture-row.is-ms{ background:rgba(240,180,0,.06); border-color:rgba(240,180,0,.25); }
+    .capture-row.needs-proj{ border-color:var(--hp-red,#d0453b) !important; }
+    .capture-chk{ margin-top:6px; flex:0 0 auto; accent-color:var(--green); }
+    .capture-row-main{ flex:1; min-width:0; display:flex; flex-direction:column; gap:6px; }
+    .capture-text{ width:100%; box-sizing:border-box; border:none; background:transparent; font-family:var(--font); font-size:14px; font-weight:600; color:var(--ink); padding:2px 0; outline:none; border-bottom:1px solid transparent; }
+    html .capture-sheet .capture-row input.capture-text{ background:transparent !important; box-shadow:none !important; border:none !important; border-bottom:1px solid transparent !important; border-radius:0 !important; -webkit-appearance:none; appearance:none; height:auto; padding:2px 0 !important; }
+    html .capture-sheet .capture-row input.capture-text:focus{ border-bottom-color:var(--hairline) !important; }
+    .capture-text:focus{ border-bottom-color:var(--hairline); }
+    .capture-row-meta{ display:flex; gap:6px; flex-wrap:wrap; }
+    .capture-proj, .capture-quad{ font-family:var(--font); font-size:12px; font-weight:600; border-radius:999px; padding:4px 10px; border:1px solid var(--hairline);
+      background:var(--surface); color:var(--ink); max-width:100%; }
+    .capture-ms-tag{ font-size:11px; font-weight:700; color:#9a7400; background:rgba(240,180,0,.14); border-radius:999px; padding:4px 10px; }
+    [data-theme="atlas-dark"] .capture-ms-tag{ color:#e8c468; }
+    .capture-reason{ font-size:11px; color:var(--ink-faint); }
+    .capture-foot{ flex:0 0 auto; display:flex; justify-content:space-between; align-items:center; gap:10px; margin-top:12px; padding-top:12px; border-top:1px solid var(--hairline); }
+    .capture-manual{ border:none; background:transparent; color:var(--ink-faint); font-family:var(--font); font-size:12.5px; padding:8px 4px; cursor:pointer; }
+    .capture-run{ margin-left:auto; border:none; border-radius:11px; background:var(--ink); color:#fff; font-family:var(--font); font-size:14px; font-weight:700; padding:11px 22px; cursor:pointer; }
+    .capture-run:disabled{ opacity:.45; cursor:default; }
+    [data-theme="atlas-dark"] .capture-run{ background:#A7C4A1; color:#0D1110; }`;
+    document.head.appendChild(st);
+  }
+
+  injectCaptureCSS();
+  buildCaptureUI();
+
 
   injectCSS();
 
