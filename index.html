@@ -447,19 +447,23 @@ html[data-theme="atlas-dark"] .quad-check{ background: transparent; border-color
 [data-theme="vivid"] .blob{ opacity:.35; }
 /* Vibrant: subtle top→bottom paper gradient, ~5% deeper at the foot
    (top = base --bg #f5f5f7, bottom ≈ 5% darker #e9e9eb). */
+/* Vivid = "Soft Electric": a blue / violet / pink haze with a violet accent */
 [data-theme="vivid"] body{
-  background: linear-gradient(180deg, #f5f5f7 0%, #e9e9eb 100%) fixed;
+  background: linear-gradient(160deg, #f4f5ff 0%, #f8f4ff 50%, #fff6fb 100%) fixed;
 }
-[data-theme="vivid"] .blob.b1{ background: radial-gradient(circle, #7dc4ff, transparent 70%); }
-[data-theme="vivid"] .blob.b2{ background: radial-gradient(circle, #ffb0c9, transparent 70%); }
-[data-theme="vivid"] .blob.b3{ background: radial-gradient(circle, #d0b3ff, transparent 70%);
-  bottom:-160px; left:30%; opacity:.35; }
+[data-theme="vivid"] .blob.b1{ background: radial-gradient(circle, #5c7dff, transparent 70%); }
+[data-theme="vivid"] .blob.b2{ background: radial-gradient(circle, #b45cff, transparent 70%); }
+[data-theme="vivid"] .blob.b3{ background: radial-gradient(circle, #ff5fb0, transparent 70%);
+  top:auto; bottom:-180px; left:auto; right:-160px; }
+html[data-theme="vivid"] .blob{ opacity:.42; filter: blur(70px); }
+/* two light sources only: blue (top-left) + pink (bottom-right) */
+html[data-theme="vivid"] .blob.b2{ display:none; }
 
 /* ===== Vivid glass: frosted surfaces over the soft pastel haze ===== */
 html[data-theme="vivid"] .grid .card:not(.add-project-tile),
 html[data-theme="vivid"] .today-pick-section,
 html[data-theme="vivid"] .alltodos-col{
-  background: rgba(255,255,255,.7) !important;
+  background: rgba(255,255,255,.66) !important;
   -webkit-backdrop-filter: blur(24px) saturate(170%); backdrop-filter: blur(24px) saturate(170%);
   border: 1px solid rgba(255,255,255,.62) !important;
 }
@@ -479,13 +483,68 @@ html[data-theme="vivid"] .add-project-tile{
   -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
 }
 html[data-theme="vivid"] .capture-fab{
-  background: rgba(29,29,31,.82); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 10px 26px rgba(20,30,60,.22);
+  background: linear-gradient(135deg, #5b6cff, #a85cff); color:#fff;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.25), 0 10px 26px rgba(120,80,255,.35);
 }
-/* Colour is reserved for meaning: neutral progress rings and titles, one check colour */
-html[data-theme="vivid"] .pct-ring-fill{ stroke:#3a3a3e !important; }
+/* Brand accent (violet) for decoration only — the quadrant/status colours keep their meaning */
+html[data-theme="vivid"] .pct-ring-fill{ stroke:#6f72ff !important; }
 html[data-theme="vivid"] .title-block h1{ color: var(--ink) !important; }
 html[data-theme="vivid"] .page-title-swap-icon{ color: var(--ink-faint) !important; }
+html[data-theme="vivid"] .dialog .tab-bar .tab-btn.active{ border-bottom-color:#6f72ff; }
+/* Vivid keeps saturated iOS-style icon tiles (the tonal tiles stay for Dark / Mono) */
+html[data-theme="vivid"] .card-icon,
+html[data-theme="vivid"] .dialog-icon,
+html[data-theme="vivid"] .completed-row-icon{
+  background: var(--ic) !important; color:#fff !important;
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--ic) 36%, transparent) !important;
+}
+/* Detail dialog: frosted, not see-through. The scrim tints + blurs the home
+   screen so only its colour survives (no ghosted cards behind the text). */
+html[data-theme="vivid"] .overlay-scrim{
+  background: rgba(244,242,255,.34);
+  -webkit-backdrop-filter: blur(16px) saturate(150%); backdrop-filter: blur(16px) saturate(150%);
+}
+html[data-theme="vivid"] .dialog{
+  background: rgba(255,255,255,.62);
+  -webkit-backdrop-filter: blur(40px) saturate(170%); backdrop-filter: blur(40px) saturate(170%);
+  border-color: rgba(255,255,255,.85);
+  box-shadow: inset 0 1px 0 #fff, 0 30px 80px rgba(70,50,160,.18);
+}
+/* Quadrant panels / ATLAS columns as clear glass: the frame is transparent with a
+   white highlight edge, the category colour glows from inside, task rows stay white */
+html[data-theme="vivid"] .quad-panel,
+html[data-theme="vivid"] .alltodos-col{
+  background: rgba(255,255,255,.26) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(170%); backdrop-filter: blur(22px) saturate(170%);
+  border-color: rgba(255,255,255,.78) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.95), inset 0 0 34px -4px var(--panel-glow, transparent), 0 6px 20px rgba(70,50,160,.07) !important;
+}
+html[data-theme="vivid"] .alltodos-item{ background: rgba(255,255,255,.82) !important; border-color: rgba(255,255,255,.9) !important; }
+/* Mono: printed-ink look — flat riso-ink tint + crisp hairline, no glass/blur.
+   Colours: NOW vermilion, GROW deep green, QUICK federal blue, LATER grey. */
+html[data-theme="mono"] .quad-panel,
+html[data-theme="mono"] .alltodos-col{
+  -webkit-backdrop-filter:none !important; backdrop-filter:none !important;
+  background-image:none !important; box-shadow:none !important; border-radius:14px;
+}
+html[data-theme="mono"] .quad-panel.q-pink, html[data-theme="mono"] .alltodos-col.q-pink{ background-color:rgba(217,72,42,0.08) !important; border:1.5px solid rgba(217,72,42,0.55) !important; }
+html[data-theme="mono"] .quad-panel.q-pink .quad-label, html[data-theme="mono"] .alltodos-col.q-pink .alltodos-col-title{ color:rgba(217,72,42,1) !important; }
+html[data-theme="mono"] .quad-panel.q-blue, html[data-theme="mono"] .alltodos-col.q-blue{ background-color:rgba(36,121,75,0.08) !important; border:1.5px solid rgba(36,121,75,0.55) !important; }
+html[data-theme="mono"] .quad-panel.q-blue .quad-label, html[data-theme="mono"] .alltodos-col.q-blue .alltodos-col-title{ color:rgba(36,121,75,1) !important; }
+html[data-theme="mono"] .quad-panel.q-orange, html[data-theme="mono"] .alltodos-col.q-orange{ background-color:rgba(42,86,166,0.08) !important; border:1.5px solid rgba(42,86,166,0.55) !important; }
+html[data-theme="mono"] .quad-panel.q-orange .quad-label, html[data-theme="mono"] .alltodos-col.q-orange .alltodos-col-title{ color:rgba(42,86,166,1) !important; }
+html[data-theme="mono"] .quad-panel.q-gray, html[data-theme="mono"] .alltodos-col.q-gray{ background-color:rgba(119,119,119,0.08) !important; border:1.5px solid rgba(119,119,119,0.55) !important; }
+html[data-theme="mono"] .quad-panel.q-gray .quad-label, html[data-theme="mono"] .alltodos-col.q-gray .alltodos-col-title{ color:rgba(119,119,119,1) !important; }
+html[data-theme="mono"] .quad-panel.quad-completed{ background-color:rgba(201,143,18,0.08) !important; border:1.5px solid rgba(201,143,18,0.55) !important; }
+html[data-theme="mono"] .quad-panel.quad-completed .quad-label{ color:rgba(201,143,18,1) !important; }
+html[data-theme="mono"] .quad-label, html[data-theme="mono"] .alltodos-col-title{ letter-spacing:.08em; }
+html[data-theme="mono"] .quad-item, html[data-theme="mono"] .alltodos-item{ background:#fff !important; border:1px solid rgba(40,36,30,.10) !important; box-shadow:none !important; }
+html[data-theme="mono"] .quad-add-input{ background:#fff !important; border:1px solid rgba(40,36,30,.14) !important; }
+html[data-theme="mono"] .quad-item.done .quad-check, html[data-theme="mono"] .alltodos-item.done .ck{ background:rgba(36,121,75,1) !important; border-color:rgba(36,121,75,1) !important; }
+html[data-theme="mono"] .title-block h1{ color: var(--ink) !important; }
+html[data-theme="mono"] .page-title-swap-icon{ color: var(--ink-faint) !important; }
+html[data-theme="vivid"] .quad-item{ background: rgba(255,255,255,.86); }
+html[data-theme="vivid"] .quad-add-input{ background: rgba(255,255,255,.75); }
 html .alltodos-item.done .ck{ background: var(--green); border-color: var(--green); }
 .blob{
   position:absolute;
@@ -2416,6 +2475,15 @@ html .alltodos-item.done .ck{ background: var(--green); border-color: var(--gree
       <span class="settings-row-body">
         <span class="settings-row-title">Daily Focus</span>
         <span class="settings-row-sub" id="dailyFocusToggleSub">その日最初の起動時にToday's Pickを確認 — ON</span>
+      </span>
+    </button>
+    <button class="settings-row" id="aiAccessToggleRow" type="button">
+      <span class="settings-row-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.6L18.5 9.4l-4.7 1.8L12 16l-1.8-4.8L5.5 9.4l4.7-1.8z"/><path d="M18.5 15.5l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/></svg>
+      </span>
+      <span class="settings-row-body">
+        <span class="settings-row-title">AI連携</span>
+        <span class="settings-row-sub" id="aiAccessToggleSub">Claude・ChatGPTからの読み取りと提案 — ON</span>
       </span>
     </button>
   </div>
@@ -4416,6 +4484,24 @@ if(dailyFocusToggleRow){
     setDailyFocusEnabled(!isDailyFocusEnabled());
     refreshDailyFocusToggleUI();
   });
+}
+const aiAccessToggleRow = document.getElementById('aiAccessToggleRow');
+function refreshAiAccessToggleUI(){
+  const sub = document.getElementById('aiAccessToggleSub');
+  if(sub) sub.textContent = `Claude・ChatGPTからの読み取りと提案 — ${isAiAccessEnabled() ? 'ON' : 'OFF'}`;
+}
+if(aiAccessToggleRow){
+  refreshAiAccessToggleUI();
+  aiAccessToggleRow.addEventListener('click', ()=>{
+    const next = !isAiAccessEnabled();
+    setAiAccessEnabled(next);
+    refreshAiAccessToggleUI();
+    if(typeof pushToCloudDebounced === 'function') pushToCloudDebounced(); // the Worker reads this flag from the cloud copy
+    try{ if(window.__focusAtlasInbox) window.__focusAtlasInbox[next ? 'start' : 'stop'](); }catch(_){}
+    try{ showToast(next ? 'AI連携をオンにしました' : 'AI連携をオフにしました（AIは読み取り・提案ができません）'); }catch(_){}
+  });
+  const sb = document.getElementById('settingsBtn');
+  if(sb) sb.addEventListener('click', refreshAiAccessToggleUI); // reflect changes synced from other devices
 }
 // 起動時の呼び出し: Daily Focusが出る条件なら先にそれを表示し、閉じてからFOCUS⇄ATLASヒントへ。
 // 出ない条件（OFF・本日表示済み）なら、これまで通りヒントを直接表示する。
@@ -6782,6 +6868,13 @@ function getDeviceId(){
 }
 const THIS_DEVICE_ID = getDeviceId();
 
+/* AI connector kill switch. Synced with the rest of the data so every device —
+   and the MCP Worker, which refuses all reads/proposals when it is false —
+   sees the same setting. Missing value = ON (older data). */
+const AI_ACCESS_KEY = 'ai_access_enabled_v1';
+function isAiAccessEnabled(){ try{ return localStorage.getItem(AI_ACCESS_KEY) !== '0'; }catch(e){ return true; } }
+function setAiAccessEnabled(v){ try{ localStorage.setItem(AI_ACCESS_KEY, v ? '1' : '0'); }catch(e){} }
+
 function collectSyncBlob(){
   const read = (key)=>{ try{ return JSON.parse(localStorage.getItem(key) || 'null'); }catch(e){ return null; } };
   return {
@@ -6793,6 +6886,7 @@ function collectSyncBlob(){
     customProjects: read(SYNC_DATA_KEYS.CUSTOM_PROJECTS_KEY),
     autoTimelineLog: read(SYNC_DATA_KEYS.AUTO_TIMELINE_LOG_KEY),
     todayPick: read(SYNC_DATA_KEYS.TODAY_KEY),
+    aiAccess: isAiAccessEnabled(),
     savedAt: Date.now(),
     deviceId: THIS_DEVICE_ID,
   };
@@ -6808,6 +6902,7 @@ function applySyncBlob(blob){
   write(SYNC_DATA_KEYS.CUSTOM_PROJECTS_KEY, blob.customProjects);
   write(SYNC_DATA_KEYS.AUTO_TIMELINE_LOG_KEY, blob.autoTimelineLog);
   write(SYNC_DATA_KEYS.TODAY_KEY, blob.todayPick);
+  if(typeof blob.aiAccess === 'boolean') setAiAccessEnabled(blob.aiAccess);
 }
 function getLastSyncedAt(){
   try{ return (JSON.parse(localStorage.getItem(SYNC_META_KEY) || '{}').lastCloudSavedAt) || 0; }catch(e){ return 0; }
@@ -8806,6 +8901,329 @@ window.addEventListener('load', async ()=>{
   buildCaptureUI();
 
 
+  /* =========================================================
+     AI INBOX — Claude / ChatGPT (via the FocusAtlas MCP connector) never edit
+     data directly. They drop proposals into quest_dashboards/{code}/inbox, and
+     they show up here. Nothing changes until the user approves.
+     Proposal doc: { source, note, createdAt, items:[{ type, project_id, text,
+       quadrant, task_id, date, reason }] }  type: add_task | add_milestone |
+       complete_task | move_task
+     ========================================================= */
+  const inbox = { docs: [], listening: false, seen: new Set(), first: true };
+  const QUAD_KEYS = ["q1", "q2", "q3", "q4"];
+  function normQuad(v) {
+    if (!v) return null;
+    const s = String(v).toUpperCase();
+    if (LABEL_TO_Q[s]) return LABEL_TO_Q[s];
+    return QUAD_KEYS.includes(String(v)) ? String(v) : null;
+  }
+  function findTaskAnywhere(pid, taskId) {
+    const s = quadState && quadState[pid];
+    if (!s || !taskId) return null;
+    for (const q of QUAD_KEYS) {
+      const idx = (s[q] || []).findIndex((it) => it.id === taskId);
+      if (idx !== -1) return { q, idx, item: s[q][idx] };
+    }
+    return null;
+  }
+  function projectExists(pid) { return captureProjects().some((p) => p.id === pid); }
+  function projectTitle(pid) {
+    const p = PROJECTS.find((x) => x.id === pid);
+    return p ? captureProjectTitle(p) : "(不明なProject)";
+  }
+
+  function buildInboxUI() {
+    const settings = document.getElementById("settingsBtn");
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "settings-tag inbox-tag";
+    btn.id = "inboxBtn";
+    btn.setAttribute("aria-label", "AI inbox");
+    btn.title = "AIからの提案";
+    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13l2.2-7.2A2 2 0 0 1 8.1 4.4h7.8a2 2 0 0 1 1.9 1.4L20 13"/><path d="M4 13v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5h-4.5l-1.5 2.5h-4L8.5 13z"/></svg><span class="inbox-badge" id="inboxBadge"></span>';
+    if (settings && settings.parentNode) settings.parentNode.insertBefore(btn, settings);
+    else document.body.appendChild(btn);
+
+    const ov = document.createElement("div");
+    ov.className = "capture-overlay inbox-overlay";
+    ov.innerHTML = `
+      <div class="capture-scrim"></div>
+      <div class="capture-sheet" role="dialog" aria-label="AI inbox">
+        <div class="capture-head">
+          <div class="capture-title">Inbox<span class="inbox-sub">AIからの提案</span></div>
+          <button class="capture-close" type="button" aria-label="close">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+          </button>
+        </div>
+        <div class="capture-body inbox-body"></div>
+      </div>`;
+    document.body.appendChild(ov);
+    inbox.btn = btn; inbox.ov = ov; inbox.body = ov.querySelector(".inbox-body");
+    btn.addEventListener("click", openInbox);
+    ov.querySelector(".capture-scrim").addEventListener("click", closeInbox);
+    ov.querySelector(".capture-close").addEventListener("click", closeInbox);
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape" && ov.classList.contains("open")) closeInbox(); });
+    refreshInboxBadge();
+  }
+
+  function refreshInboxBadge() {
+    const n = inbox.docs.length;
+    if (!inbox.btn) return;
+    inbox.btn.classList.toggle("has-items", n > 0);
+    const b = document.getElementById("inboxBadge");
+    if (b) b.textContent = n > 9 ? "9+" : String(n);
+  }
+  function openInbox() {
+    renderInbox();
+    inbox.ov.classList.add("open");
+    inbox.prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+  }
+  function closeInbox() {
+    inbox.ov.classList.remove("open");
+    document.body.style.overflow = inbox.prevOverflow || "";
+  }
+
+  function fmtTime(ms) {
+    if (!ms) return "";
+    const d = new Date(Number(ms));
+    return `${d.getMonth() + 1}/${d.getDate()} ${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
+  }
+
+  // Turn a raw proposal item into an editable row model (validated against current data)
+  function toRow(it, i) {
+    const type = it.type;
+    const pid = projectExists(it.project_id) ? it.project_id : "";
+    const row = { key: "r" + i, type, accept: true, pid, text: String(it.text || "").trim(),
+      quad: normQuad(it.quadrant) || "q4", date: isValidISODate(it.date) ? it.date : null,
+      reason: it.reason || "", taskId: it.task_id || null, invalid: "" };
+    if (type === "complete_task" || type === "move_task") {
+      const hit = pid ? findTaskAnywhere(pid, row.taskId) : null;
+      if (!hit) { row.invalid = "対象のタスクが見つかりません（削除・移動済みの可能性）"; row.accept = false; }
+      else { row.text = hit.item.text; row.fromQuad = hit.q; if (hit.item.done && type === "complete_task") { row.invalid = "すでに完了しています"; row.accept = false; } }
+    } else if (type !== "add_task" && type !== "add_milestone") {
+      row.invalid = "未対応の提案です"; row.accept = false;
+    }
+    return row;
+  }
+
+  function renderInbox() {
+    const docs = inbox.docs.slice().sort((a, b) => Number(a.createdAt || 0) - Number(b.createdAt || 0));
+    if (!docs.length) {
+      inbox.body.innerHTML = `<div class="inbox-empty">新しい提案はありません。<br><span>Claude や ChatGPT から FocusAtlas コネクタで送られた提案がここに届きます。</span></div>`;
+      return;
+    }
+    const projects = captureProjects();
+    const projOpts = (sel) => `<option value=""${sel ? "" : " selected"}>Projectを選択</option>` +
+      projects.map((p) => `<option value="${p.id}"${p.id === sel ? " selected" : ""}>${esc(captureProjectTitle(p))}</option>`).join("");
+    const quadOpts = (sel) => QUAD_KEYS.map((q) => `<option value="${q}"${q === sel ? " selected" : ""}>${Q_LABEL[q]}</option>`).join("");
+
+    inbox.body.innerHTML = docs.map((d) => {
+      const rows = (d.items || []).map(toRow);
+      d._rows = rows;
+      return `
+      <section class="inbox-group" data-doc="${esc(d.id)}">
+        <div class="inbox-group-head">
+          <span class="inbox-source">${esc(d.source || "AI")}</span>
+          <span class="inbox-time">${esc(fmtTime(d.createdAt))}</span>
+        </div>
+        ${d.note ? `<div class="capture-msg">${esc(d.note)}</div>` : ""}
+        ${rows.map((r) => {
+          const dis = r.invalid ? " disabled" : "";
+          if (r.type === "add_task") return `
+            <div class="capture-row" data-key="${r.key}">
+              <input type="checkbox" class="capture-chk" ${r.accept ? "checked" : ""}${dis}>
+              <div class="capture-row-main">
+                <span class="inbox-kind">追加</span>
+                <input class="capture-text" type="text" value="${esc(r.text)}">
+                <div class="capture-row-meta"><select class="capture-proj">${projOpts(r.pid)}</select><select class="capture-quad">${quadOpts(r.quad)}</select></div>
+                ${r.reason || r.date ? `<div class="capture-reason">${esc(r.reason)}${r.date ? (r.reason ? " · " : "") + "期日 " + esc(r.date) : ""}</div>` : ""}
+              </div>
+            </div>`;
+          if (r.type === "add_milestone") return `
+            <div class="capture-row is-ms" data-key="${r.key}">
+              <input type="checkbox" class="capture-chk" ${r.accept ? "checked" : ""}${dis}>
+              <div class="capture-row-main">
+                <span class="inbox-kind">マイルストーン</span>
+                <input class="capture-text" type="text" value="${esc(r.text)}">
+                <div class="capture-row-meta"><select class="capture-proj">${projOpts(r.pid)}</select><span class="capture-ms-tag">MS${r.date ? " · " + esc(r.date) : ""}</span></div>
+                ${r.reason ? `<div class="capture-reason">${esc(r.reason)}</div>` : ""}
+              </div>
+            </div>`;
+          if (r.type === "complete_task") return `
+            <div class="capture-row${r.invalid ? " is-invalid" : ""}" data-key="${r.key}">
+              <input type="checkbox" class="capture-chk" ${r.accept ? "checked" : ""}${dis}>
+              <div class="capture-row-main">
+                <span class="inbox-kind">完了</span>
+                <div class="inbox-line">${esc(r.text || "(不明なタスク)")}</div>
+                <div class="capture-reason">${esc(projectTitle(r.pid))}${r.reason ? " · " + esc(r.reason) : ""}</div>
+                ${r.invalid ? `<div class="inbox-invalid">${esc(r.invalid)}</div>` : ""}
+              </div>
+            </div>`;
+          if (r.type === "move_task") return `
+            <div class="capture-row${r.invalid ? " is-invalid" : ""}" data-key="${r.key}">
+              <input type="checkbox" class="capture-chk" ${r.accept ? "checked" : ""}${dis}>
+              <div class="capture-row-main">
+                <span class="inbox-kind">移動</span>
+                <div class="inbox-line">${esc(r.text || "(不明なタスク)")}</div>
+                <div class="capture-row-meta">${r.fromQuad ? `<span class="inbox-from">${Q_LABEL[r.fromQuad]} →</span>` : ""}<select class="capture-quad">${quadOpts(r.quad)}</select></div>
+                <div class="capture-reason">${esc(projectTitle(r.pid))}${r.reason ? " · " + esc(r.reason) : ""}</div>
+                ${r.invalid ? `<div class="inbox-invalid">${esc(r.invalid)}</div>` : ""}
+              </div>
+            </div>`;
+          return `<div class="capture-row is-invalid"><div class="capture-row-main"><div class="inbox-invalid">未対応の提案（${esc(r.type)}）</div></div></div>`;
+        }).join("")}
+        <div class="inbox-actions">
+          <button class="inbox-discard" type="button">破棄</button>
+          <button class="inbox-apply capture-run" type="button">承認して反映</button>
+        </div>
+      </section>`;
+    }).join("");
+
+    inbox.body.querySelectorAll(".inbox-group").forEach((g) => {
+      const d = inbox.docs.find((x) => x.id === g.dataset.doc);
+      if (!d) return;
+      const rows = d._rows;
+      const applyBtn = g.querySelector(".inbox-apply");
+      const refresh = () => {
+        const chosen = rows.filter((r) => r.accept && !r.invalid);
+        const missing = chosen.some((r) => (r.type === "add_task" || r.type === "add_milestone") && (!r.pid || !r.text.trim()));
+        applyBtn.disabled = !chosen.length || missing;
+        applyBtn.textContent = missing ? "Projectを選択してください" : (chosen.length ? `${chosen.length}件を承認して反映` : "承認する項目がありません");
+      };
+      g.querySelectorAll(".capture-row[data-key]").forEach((row) => {
+        const r = rows.find((x) => x.key === row.dataset.key);
+        if (!r) return;
+        const paint = () => { if (r.type === "add_task" || r.type === "move_task") styleAtlasRow(row, r.quad); row.style.opacity = r.accept ? "1" : ".45"; };
+        paint();
+        const chk = row.querySelector(".capture-chk");
+        if (chk) chk.addEventListener("change", (e) => { r.accept = e.target.checked; paint(); refresh(); });
+        const t = row.querySelector(".capture-text");
+        if (t) t.addEventListener("input", (e) => { r.text = e.target.value; refresh(); });
+        const ps = row.querySelector(".capture-proj");
+        if (ps) ps.addEventListener("change", (e) => { r.pid = e.target.value; refresh(); });
+        const qs = row.querySelector(".capture-quad");
+        if (qs) qs.addEventListener("change", (e) => { r.quad = e.target.value; paint(); });
+      });
+      g.querySelector(".inbox-discard").addEventListener("click", () => resolveDoc(d, false));
+      applyBtn.addEventListener("click", () => resolveDoc(d, true));
+      refresh();
+    });
+  }
+
+  function applyRows(rows) {
+    let qChanged = false, mChanged = false, n = 0;
+    rows.filter((r) => r.accept && !r.invalid).forEach((r) => {
+      if (r.type === "add_task") {
+        if (!r.pid || !r.text.trim()) return;
+        if (!quadState[r.pid]) quadState[r.pid] = { q1: [], q2: [], q3: [], q4: [] };
+        if (!Array.isArray(quadState[r.pid][r.quad])) quadState[r.pid][r.quad] = [];
+        const item = { id: nextUid(), text: r.text.trim(), done: false, detail: r.date ? `期日: ${r.date}` : "" };
+        if (typeof QUAD_WEIGHT !== "undefined") item.weight = QUAD_WEIGHT[r.quad];
+        quadState[r.pid][r.quad].push(item); qChanged = true; n++;
+      } else if (r.type === "add_milestone") {
+        if (!r.pid || !r.text.trim()) return;
+        if (!Array.isArray(milestoneState[r.pid])) milestoneState[r.pid] = [];
+        milestoneState[r.pid].push({ id: nextUid(), text: r.text.trim(), date: r.date, done: false }); mChanged = true; n++;
+      } else if (r.type === "complete_task") {
+        const hit = findTaskAnywhere(r.pid, r.taskId);
+        if (hit && !hit.item.done) { hit.item.done = true; qChanged = true; n++; try { removeTodayPick(hit.item.id); } catch (_) {} }
+      } else if (r.type === "move_task") {
+        const hit = findTaskAnywhere(r.pid, r.taskId);
+        if (hit && hit.q !== r.quad) {
+          const [it] = quadState[r.pid][hit.q].splice(hit.idx, 1);
+          if (typeof QUAD_WEIGHT !== "undefined") it.weight = QUAD_WEIGHT[r.quad];
+          if (!Array.isArray(quadState[r.pid][r.quad])) quadState[r.pid][r.quad] = [];
+          quadState[r.pid][r.quad].push(it); qChanged = true; n++;
+        }
+      }
+    });
+    if (qChanged) saveQuadState(quadState);
+    if (mChanged) saveMilestoneState(milestoneState);
+    try { renderGrid(); } catch (_) {}
+    try { if (currentPage === "alltodos" && typeof renderAtlas === "function") renderAtlas(); } catch (_) {}
+    try { const open = overlay && overlay.classList.contains("open") && overlay.dataset.projectId; if (open) { refreshQuadrantTab(open); refreshMilestoneTab(open); } } catch (_) {}
+    return n;
+  }
+
+  async function resolveDoc(d, approve) {
+    const n = approve ? applyRows(d._rows || []) : 0;
+    // remove locally first so the UI responds immediately; the snapshot will agree
+    inbox.docs = inbox.docs.filter((x) => x.id !== d.id);
+    refreshInboxBadge(); renderInbox();
+    if (!inbox.docs.length) setTimeout(closeInbox, 250);
+    try { await window.firebaseSync.removeInbox(d.id); }
+    catch (e) { console.warn("inbox remove failed", e); try { showToast("提案の削除に失敗しました。次回もう一度表示される可能性があります"); } catch (_) {} return; }
+    try { showToast(approve ? `${n}件を反映しました` : "提案を破棄しました"); } catch (_) {}
+  }
+
+  function onInboxSnapshot(docs) {
+    inbox.docs = docs;
+    const fresh = docs.filter((d) => !inbox.seen.has(d.id));
+    docs.forEach((d) => inbox.seen.add(d.id));
+    refreshInboxBadge();
+    if (inbox.ov && inbox.ov.classList.contains("open")) renderInbox();
+    if (!inbox.first && fresh.length) {
+      try { showToast(`${fresh[0].source || "AI"}から提案が届きました`); } catch (_) {}
+    }
+    inbox.first = false;
+  }
+
+  // Start listening once the Firebase module is ready and a Sync Code is set
+  function stopInbox() {
+    try { if (window.firebaseSync && window.firebaseSync.stopInbox) window.firebaseSync.stopInbox(); } catch (_) {}
+    inbox.listening = false; inbox.docs = []; inbox.first = true;
+    refreshInboxBadge();
+    if (inbox.ov && inbox.ov.classList.contains("open")) closeInbox();
+  }
+  async function tryStartInbox() {
+    if (typeof isAiAccessEnabled === "function" && !isAiAccessEnabled()) { if (inbox.listening) stopInbox(); return; }
+    if (inbox.listening) return;
+    if (!window.firebaseSync || !window.firebaseSync.listenInbox) return;
+    const code = (typeof getSyncCode === "function") ? getSyncCode() : null;
+    if (!code) return;
+    try {
+      await window.firebaseSync.connect(code);
+      inbox.listening = window.firebaseSync.listenInbox(onInboxSnapshot);
+    } catch (e) { console.warn("inbox start failed", e); }
+  }
+
+  function injectInboxCSS() {
+    const st = document.createElement("style");
+    st.id = "inbox-css";
+    st.textContent = `
+    .inbox-tag{ position:fixed; right: calc(var(--app-right-inset) + 114px); display:none !important; overflow:visible; }
+    .inbox-tag.has-items{ display:inline-flex !important; }
+    .inbox-tag svg{ width:15px; height:15px; }
+    .inbox-badge{ position:absolute; top:-3px; right:-3px; min-width:16px; height:16px; padding:0 4px; border-radius:999px;
+      background:#ff3b30; color:#fff; font-size:10px; font-weight:700; line-height:16px; text-align:center; font-family:var(--font); }
+    [data-theme="atlas-dark"] .inbox-badge{ background:#E07A5F; color:#0D1110; }
+    .inbox-sub{ font-size:11.5px; font-weight:600; color:var(--ink-faint); margin-left:8px; }
+    .inbox-empty{ text-align:center; color:var(--ink-soft); font-size:13px; padding:28px 8px; line-height:1.7; }
+    .inbox-empty span{ font-size:11.5px; color:var(--ink-faint); }
+    .inbox-group{ border:1px solid var(--hairline); border-radius:14px; padding:12px 12px 10px; margin:4px 0 14px; }
+    .inbox-group-head{ display:flex; align-items:center; gap:8px; margin-bottom:4px; }
+    .inbox-source{ font-size:11px; font-weight:700; letter-spacing:.04em; color:var(--ink); background:rgba(0,0,0,.05); border-radius:999px; padding:2px 9px; }
+    [data-theme="atlas-dark"] .inbox-source{ background:rgba(247,245,240,.08); }
+    .inbox-time{ font-size:11px; color:var(--ink-faint); margin-left:auto; }
+    .inbox-kind{ font-size:10px; font-weight:700; letter-spacing:.05em; color:var(--ink-faint); }
+    .inbox-line{ font-size:14px; font-weight:600; color:var(--ink); }
+    .inbox-from{ font-size:12px; font-weight:600; color:var(--ink-soft); align-self:center; }
+    .inbox-invalid{ font-size:11px; color:var(--hp-red,#c4241f); }
+    .capture-row.is-invalid{ opacity:.55; }
+    .inbox-actions{ display:flex; justify-content:flex-end; align-items:center; gap:10px; margin-top:8px; }
+    .inbox-discard{ border:none; background:transparent; color:var(--ink-faint); font-family:var(--font); font-size:12.5px; padding:8px 6px; cursor:pointer; }
+    .inbox-apply{ margin-left:0 !important; padding:9px 16px !important; font-size:13px !important; }`;
+    document.head.appendChild(st);
+  }
+
+  injectInboxCSS();
+  buildInboxUI();
+  window.__focusAtlasInbox = { start: tryStartInbox, stop: stopInbox };
+  tryStartInbox();
+  setInterval(tryStartInbox, 3000); // also stops listening if another device turned AI連携 off
+
+
   injectCSS();
 
   /* ---------- スタイル（本体トーンに合わせた最小限） ---------- */
@@ -8935,7 +9353,7 @@ window.addEventListener('load', async ()=>{
      ========================================================= -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-  import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+  import { getFirestore, doc, getDoc, setDoc, collection, onSnapshot, deleteDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
   import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
   // ▼▼▼ paste your own Firebase project config here ▼▼▼
@@ -8950,7 +9368,7 @@ window.addEventListener('load', async ()=>{
   // ▲▲▲ paste your own Firebase project config here ▲▲▲
 
   if(firebaseConfig.apiKey){
-    let app, db, auth, docRef;
+    let app, db, auth, docRef, currentCode = null, inboxUnsub = null;
 
     async function ensureInit(){
       if(app) return;
@@ -8963,6 +9381,26 @@ window.addEventListener('load', async ()=>{
     async function connect(code){
       await ensureInit();
       docRef = doc(db, 'quest_dashboards', code);
+      currentCode = code;
+    }
+
+    // AI proposal inbox: quest_dashboards/{code}/inbox/{id}. AI connectors only
+    // ever write here — never to the main document — so they can't collide with
+    // this device's own saves. Applying a proposal is done by the app itself.
+    function listenInbox(cb){
+      if(!db || !currentCode) return false;
+      if(inboxUnsub){ try{ inboxUnsub(); }catch(_){} }
+      inboxUnsub = onSnapshot(collection(db, 'quest_dashboards', currentCode, 'inbox'),
+        (snap)=> cb(snap.docs.map(d=>({ id: d.id, ...d.data() }))),
+        (err)=> console.warn('inbox listen failed', err));
+      return true;
+    }
+    function stopInbox(){
+      if(inboxUnsub){ try{ inboxUnsub(); }catch(_){} inboxUnsub = null; }
+    }
+    async function removeInbox(id){
+      if(!db || !currentCode) return;
+      await deleteDoc(doc(db, 'quest_dashboards', currentCode, 'inbox', id));
     }
 
     async function pull(){
@@ -8976,7 +9414,7 @@ window.addEventListener('load', async ()=>{
       await setDoc(docRef, blob); // let errors propagate — see pull() above
     }
 
-    window.firebaseSync = { connect, pull, push, isConnected: ()=> !!docRef };
+    window.firebaseSync = { connect, pull, push, isConnected: ()=> !!docRef, listenInbox, removeInbox, stopInbox };
   }
 </script>
 </body>
