@@ -6959,6 +6959,7 @@ function createSerialSaveQueue({collect, save, onSuccess, onError}) {
     }
   }
   const queue = {
+    isBusy() { return !!running || pending; },
     request() {
       pending = true;
       if (!running) running = Promise.resolve().then(drain).finally(() => {
@@ -6971,10 +6972,41 @@ function createSerialSaveQueue({collect, save, onSuccess, onError}) {
   return queue;
 }
 
+const SYNC_ACK_KEY = 'projects_verified_sync_ack_v1';
+const syncStable = v => Array.isArray(v) ? v.map(syncStable) : v && typeof v === 'object' ? Object.fromEntries(Object.keys(v).sort().map(k=>[k,syncStable(v[k])])) : v;
+const syncFingerprint = v => JSON.stringify(syncStable(v));
+const SYNC_CONTENT_FIELDS = ['order','meta','quad','milestones','timeline','customProjects','autoTimelineLog','todayPick','aiAccess'];
+function syncContent(v) { return Object.fromEntries(SYNC_CONTENT_FIELDS.map(k=>[k,k==='aiAccess' && !Object.hasOwn(v,k) ? {present:true,value:true} : Object.hasOwn(v,k) ? {present:true,value:v[k]} : {present:false}])); }
+function syncAckEnvelope(cloud) { return {version:1,uid:window.firebaseSync.identity()?.uid,code:getSyncCode(),deviceId:THIS_DEVICE_ID,cloud}; }
+function readSyncAcknowledgement() {
+  const raw=localStorage.getItem(SYNC_ACK_KEY);
+  if(!raw) return null;
+  const p=JSON.parse(raw);
+  if(p.version!==1 || p.uid!==window.firebaseSync.identity()?.uid || p.code!==getSyncCode() || p.deviceId!==THIS_DEVICE_ID) return null;
+  if(!p.cloud || typeof p.cloud!=='object') throw Error('Invalid sync acknowledgement');
+  return p.cloud;
+}
+function persistSyncAcknowledgement(cloud) { persistRecoveryLocal(SYNC_ACK_KEY, JSON.stringify(syncAckEnvelope(cloud))); }
+function importAcknowledgedRemote(cloud) {
+  const names={order:SYNC_DATA_KEYS.ORDER_KEY,meta:SYNC_DATA_KEYS.META_KEY,quad:SYNC_DATA_KEYS.QUAD_KEY,milestones:SYNC_DATA_KEYS.MILESTONE_KEY,timeline:SYNC_DATA_KEYS.TIMELINE_KEY,customProjects:SYNC_DATA_KEYS.CUSTOM_PROJECTS_KEY,autoTimelineLog:SYNC_DATA_KEYS.AUTO_TIMELINE_LOG_KEY,todayPick:SYNC_DATA_KEYS.TODAY_KEY};
+  if(Object.keys(names).some(k=>cloud[k]===null || cloud[k]===undefined)) throw Error('Incomplete cloud data; local preserved');
+  const previous=Object.fromEntries([...Object.values(names),AI_ACCESS_KEY,SYNC_ACK_KEY].map(k=>[k,localStorage.getItem(k)]));
+  try {
+    for(const[k,key]of Object.entries(names)) persistRecoveryLocal(key,JSON.stringify(cloud[k]));
+    persistRecoveryLocal(AI_ACCESS_KEY, cloud.aiAccess===false ? '0' : '1');
+    if(syncFingerprint(syncContent(collectSyncBlob()))!==syncFingerprint(syncContent(cloud))) throw Error('Remote import mismatch');
+    persistSyncAcknowledgement(cloud);
+  } catch(e) {
+    for(const[k,v]of Object.entries(previous)) { if(v===null) localStorage.removeItem(k); else localStorage.setItem(k,v); if(localStorage.getItem(k)!==v) throw Error('Local rollback failed; saving stopped'); }
+    throw e;
+  }
+}
+
 const guardedSaveQueue = createSerialSaveQueue({
   collect: collectSyncBlob,
   save: blob=>window.firebaseSync.push(blob),
   onSuccess: blob=>{
+    try { persistSyncAcknowledgement(window.firebaseSync.acknowledged()); } catch(_) { window.firebaseSync.disconnect(); setSyncStatus('同期記録の端末保存に失敗しました。クラウドの保存結果を確認するまで停止します。'); return; }
     setLastSyncedAt(blob.savedAt);
     setSyncStatus('同期済み ' + new Date(blob.savedAt).toLocaleTimeString('ja-JP', {hour:'2-digit', minute:'2-digit'}));
   },
@@ -7055,22 +7087,32 @@ function verifyRecoveryContent(cloudBlob){
   }catch(_){ setSyncStatus('データ差分または接続エラーのため保存できません。端末とクラウドを保持しています。'); return false; }
 }
 
+function syncEditorActive(){
+  const e=document.activeElement;
+  return !!(e && (e.matches('input:not([type=checkbox]):not([type=button]),textarea,[contenteditable=true]') || e.isContentEditable)) || !!document.querySelector('#overlay.open,#confirmOverlay.open,#itemPopover.open');
+}
 async function checkForReconnectConflict(forcePush = true){
-  const code = getSyncCode();
-  if(!code || !window.firebaseSync) return;
-  if(syncCheckInFlight) return;
-  syncCheckInFlight = true;
-  try{
+  const code=getSyncCode();
+  if(!code || !window.firebaseSync || syncCheckInFlight || guardedSaveQueue.isBusy() || window.firebaseSync.recoveryState().busy || syncEditorActive()) return;
+  syncCheckInFlight=true;
+  try {
     await window.firebaseSync.connect(code);
-    const cloudBlob = await window.firebaseSync.pull();
-    const ready = verifyRecoveryContent(cloudBlob);
-    if(ready && forcePush) pushToCloudDebounced();
-  }catch(err){
-    setSyncStatus('接続確認に失敗しました。端末データを保持し、保存を停止しています。');
-    console.warn('reconnect conflict check failed', err);
-  }finally{
-    syncCheckInFlight = false;
-  }
+    const before=collectSyncBlob();
+    const result=await window.firebaseSync.reconcile(before,readSyncAcknowledgement());
+    if(syncEditorActive() || syncFingerprint(syncContent(before))!==syncFingerprint(syncContent(collectSyncBlob()))) { window.firebaseSync.resetRecovery(); throw Error('Local edit during sync; preserved'); }
+    if(result.action==='remote') {
+      importAcknowledgedRemote(result.cloud);
+      setSyncStatus('他の端末の更新を読み込みました。画面を更新します。');
+      location.reload();
+      return;
+    }
+    persistSyncAcknowledgement(result.cloud);
+    setSyncStatus('同期済み。両端末の編集を競合確認して保存します。');
+    if(result.action==='local') pushToCloudDebounced();
+  } catch(err) {
+    setSyncStatus('同期確認に失敗または競合しました。端末の編集を保持して保存を停止しています。');
+    console.warn('guarded cross-device sync stopped',err);
+  } finally { syncCheckInFlight=false; }
 }
 
 window.addEventListener('offline', ()=>{
@@ -7096,7 +7138,7 @@ document.addEventListener('visibilitychange', ()=>{
   }
 });
 
-const SYNC_POLL_INTERVAL_MS = 45000;
+const SYNC_POLL_INTERVAL_MS = 10000;
 setInterval(()=>{
   if(document.visibilityState === 'visible' && getSyncCode()){
     checkForReconnectConflict(false);
@@ -7201,7 +7243,7 @@ syncConnectBtn.addEventListener('click', async ()=>{
   setSyncCode(code);
   refreshSyncButton();
 
-  verifyRecoveryContent(cloudBlob);
+  await checkForReconnectConflict(false);
 
 });
 
@@ -7949,8 +7991,7 @@ window.addEventListener('load', async ()=>{
     await window.firebaseSync.connect(code);
     // Only now is Firebase sync actually transferring data.
     if(_loadStatus) _loadStatus.textContent = 'Syncing your Atlas...';
-    const cloudBlob = await window.firebaseSync.pull();
-    verifyRecoveryContent(cloudBlob);
+    await checkForReconnectConflict(false);
   }catch(err){
     console.warn('cloud sync check failed', err);
   }
@@ -9446,6 +9487,30 @@ function createGuardedWriteAdapter({read, transaction, reference, contentKeys, r
   return {
     reset() { generation++; baseline = null; armed = false; verified = false; remoteMatches = false; },
     status() { return {readOnly, armed, busy, hasBaseline:!!baseline}; },
+    acknowledged() { return baseline ? clone(baseline.data) : null; },
+    async reconcile(localBlob, acknowledged = null) {
+      if (readOnly) throw Error('Read-only restoration');
+      if (busy) throw Error('Sync already in progress');
+      const ref = target(), epoch = generation;
+      validBlob(localBlob);
+      busy = true;
+      try {
+        const snap = await read(ref);
+        if (epoch !== generation || reference() !== ref) throw Error('Session changed during reconciliation');
+        if (!snap.exists()) throw Error('Existing cloud document missing; no creation');
+        const cloud = snap.data(); validBlob(cloud); revision(cloud);
+        const same = (a,b) => fingerprint(content(a)) === fingerprint(content(b));
+        let action;
+        if (same(localBlob, cloud)) action = 'matched';
+        else if (acknowledged && fingerprint(cloud) === fingerprint(acknowledged)) action = 'local';
+        else if (acknowledged && same(localBlob, acknowledged)) action = 'remote';
+        else throw Error('Concurrent or unacknowledged changes; preserve both');
+        armed = action !== 'remote'; verified = armed; remoteMatches = armed;
+        if (armed) baseline = {ref, data:clone(cloud), fingerprint:fingerprint(cloud)};
+        return {action, cloud:clone(cloud)};
+      } catch(e) { armed=false; remoteMatches=false; throw e; }
+      finally { busy=false; }
+    },
     async pull() {
       const ref = target(), epoch = generation;
       let snap;
@@ -9531,7 +9596,7 @@ function createGuardedWriteAdapter({read, transaction, reference, contentKeys, r
     async function aiFetch(url, init = {}) {
       throw new Error('読み取り専用復旧中は外部AIへの接続を停止しています。');
     }
-    window.firebaseSync = { connect, pull, push, snapshot, aiFetch, identity: () => auth?.currentUser ? {uid:auth.currentUser.uid, anonymous:auth.currentUser.isAnonymous} : null, recoveryReadOnly:!RECOVERY_WRITE_ENABLED, guardedRecovery:true, inboxFrozen:true, recoveryState:()=>recovery.status(), confirmInitialMatch:blob=>recovery.armForWrite(blob), disconnect:()=>{recovery.reset(); stopInbox(); docRef=null; currentCode=null;}, isConnected: ()=> !!docRef, listenInbox, removeInbox, stopInbox };
+    window.firebaseSync = { connect, pull, push, snapshot, reconcile:(local,ack)=>recovery.reconcile(local,ack), acknowledged:()=>recovery.acknowledged(), resetRecovery:()=>recovery.reset(), multiDeviceGuarded:true, aiFetch, identity: () => auth?.currentUser ? {uid:auth.currentUser.uid, anonymous:auth.currentUser.isAnonymous} : null, recoveryReadOnly:!RECOVERY_WRITE_ENABLED, guardedRecovery:true, inboxFrozen:true, recoveryState:()=>recovery.status(), confirmInitialMatch:blob=>recovery.armForWrite(blob), disconnect:()=>{recovery.reset(); stopInbox(); docRef=null; currentCode=null;}, isConnected: ()=> !!docRef, listenInbox, removeInbox, stopInbox };
   }
 </script>
 </body>
