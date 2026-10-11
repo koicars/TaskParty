@@ -9433,7 +9433,9 @@ function createGuardedWriteAdapter({read, transaction, reference, contentKeys, r
     if (!Number.isSafeInteger(n) || n < 0 || n === Number.MAX_SAFE_INTEGER || d.__syncRevision === null) throw Error('Invalid revision; saving stopped');
     return n;
   };
-  const content = d => Object.fromEntries(contentKeys.map(k => [k, Object.hasOwn(d, k) ? {present:true, value:d[k]} : {present:false}]));
+  // Legacy documents omit aiAccess; the established app default is ON.
+  // Normalize only that known default for the initial content comparison.
+  const content = d => Object.fromEntries(contentKeys.map(k => [k, k === 'aiAccess' && !Object.hasOwn(d,k) ? {present:true, value:true} : Object.hasOwn(d, k) ? {present:true, value:d[k]} : {present:false}]));
   const validBlob = d => { if (!d || typeof d !== 'object' || Array.isArray(d)) throw Error('Invalid sync object'); };
   const target = () => {
     const ref = reference();
@@ -9521,7 +9523,8 @@ function createGuardedWriteAdapter({read, transaction, reference, contentKeys, r
       if(!before.exists()) throw new Error('既存クラウドデータが見つかりません。');
       const inbox=await getDocsFromServer(collection(db,'quest_dashboards',code,'inbox'));
       const after=await getDocFromServer(target);
-      if(target!==docRef || !after.exists() || JSON.stringify(before.data())!==JSON.stringify(after.data())) throw new Error('取得中の変更を検出しました。保存せず停止します。');
+      const stableSnapshot = v => Array.isArray(v) ? v.map(stableSnapshot) : v && typeof v === 'object' ? Object.fromEntries(Object.keys(v).sort().map(k => [k,stableSnapshot(v[k])])) : v;
+      if(target!==docRef || !after.exists() || JSON.stringify(stableSnapshot(before.data()))!==JSON.stringify(stableSnapshot(after.data()))) throw new Error('取得中の変更を検出しました。保存せず停止します。');
       return {cloud:after.data(),inbox:inbox.docs.map(d=>({id:d.id,data:d.data()}))};
     }
 
