@@ -2867,7 +2867,7 @@ function loadCustomProjects(){
 }
 function saveCustomProjects(){
   const customs = PROJECTS.filter(p=>p.custom).map(p=>({ id:p.id, accent:p.accent }));
-  try{ localStorage.setItem(CUSTOM_PROJECTS_KEY, JSON.stringify(customs)); }catch(e){}
+  try{ persistRecoveryLocal(CUSTOM_PROJECTS_KEY, JSON.stringify(customs)); }catch(e){}
 }
 loadCustomProjects().forEach(c=>{
   PROJECTS.push({
@@ -2900,14 +2900,14 @@ function loadAutoTimelineLog(){
       const parsed = { ...AUTO_TIMELINE_LOG_DEFAULT, ...(JSON.parse(legacy) || {}) };
       const migrated = {};
       PROJECTS.forEach(p=>{ migrated[p.id] = { ...parsed }; });
-      try{ localStorage.setItem(AUTO_TIMELINE_LOG_KEY, JSON.stringify(migrated)); }catch(e){}
+      try{ persistRecoveryLocal(AUTO_TIMELINE_LOG_KEY, JSON.stringify(migrated)); }catch(e){}
       return migrated;
     }
   }catch(e){}
   return {};
 }
 function saveAutoTimelineLog(settings){
-  try{ localStorage.setItem(AUTO_TIMELINE_LOG_KEY, JSON.stringify(settings)); }catch(e){}
+  try{ persistRecoveryLocal(AUTO_TIMELINE_LOG_KEY, JSON.stringify(settings)); }catch(e){}
 }
 let autoTimelineLogSettings = loadAutoTimelineLog();
 // Per-project accessor; falls back to the default set for projects
@@ -3010,7 +3010,7 @@ function loadQuadState(){
   try{ const raw = localStorage.getItem(QUAD_KEY); if(raw) return JSON.parse(raw); }catch(e){}
   return {};
 }
-function saveQuadState(state){ try{ localStorage.setItem(QUAD_KEY, JSON.stringify(state)); }catch(e){} }
+function saveQuadState(state){ try{ persistRecoveryLocal(QUAD_KEY, JSON.stringify(state)); }catch(e){} }
 
 /* =========================================================
    Undo / Redo
@@ -3163,7 +3163,7 @@ function loadTodayPick(){
 }
 let todayPick = loadTodayPick();
 function saveTodayPick(){
-  try{ localStorage.setItem(TODAY_KEY, JSON.stringify(todayPick)); }catch(e){}
+  try{ persistRecoveryLocal(TODAY_KEY, JSON.stringify(todayPick)); }catch(e){}
 }
 // Roll over to a new day if needed (keeps the in-memory copy honest).
 function refreshTodayDate(){
@@ -3350,7 +3350,7 @@ function loadMeta(){
   try{ const raw = localStorage.getItem(META_KEY); if(raw) return JSON.parse(raw); }catch(e){}
   return {};
 }
-function saveMeta(meta){ try{ localStorage.setItem(META_KEY, JSON.stringify(meta)); }catch(e){} }
+function saveMeta(meta){ try{ persistRecoveryLocal(META_KEY, JSON.stringify(meta)); }catch(e){} }
 
 let projectMeta = loadMeta();
 PROJECTS.forEach(p=>{
@@ -3680,7 +3680,7 @@ function loadOrder(){
   return null;
 }
 function saveOrder(){
-  try{ localStorage.setItem(ORDER_KEY, JSON.stringify(PROJECTS.map(p=>p.id))); }catch(e){}
+  try{ persistRecoveryLocal(ORDER_KEY, JSON.stringify(PROJECTS.map(p=>p.id))); }catch(e){}
 }
 (function applyStoredOrder(){
   const order = loadOrder();
@@ -4621,7 +4621,7 @@ function loadMilestoneState(){
   try{ const raw = localStorage.getItem(MILESTONE_KEY); if(raw) return JSON.parse(raw); }catch(e){}
   return {};
 }
-function saveMilestoneState(state){ try{ localStorage.setItem(MILESTONE_KEY, JSON.stringify(state)); }catch(e){} }
+function saveMilestoneState(state){ try{ persistRecoveryLocal(MILESTONE_KEY, JSON.stringify(state)); }catch(e){} }
 function defaultMilestonesFor(p){
   return (p.milestones||[]).map(m=>({ id: nextUid(), text: m.t, date: parseLooseDateToISO(m.d, 2026), done: !!m.done }));
 }
@@ -5628,7 +5628,7 @@ function loadTimelineState(){
   try{ const raw = localStorage.getItem(TIMELINE_KEY); if(raw) return JSON.parse(raw); }catch(e){}
   return {};
 }
-function saveTimelineState(state){ try{ localStorage.setItem(TIMELINE_KEY, JSON.stringify(state)); }catch(e){} }
+function saveTimelineState(state){ try{ persistRecoveryLocal(TIMELINE_KEY, JSON.stringify(state)); }catch(e){} }
 function defaultTimelineFor(p){
   return (p.timeline||[]).map(t=>({ id: nextUid(), date: t.d, text: t.t }));
 }
@@ -6875,8 +6875,15 @@ const AI_ACCESS_KEY = 'ai_access_enabled_v1';
 function isAiAccessEnabled(){ try{ return localStorage.getItem(AI_ACCESS_KEY) !== '0'; }catch(e){ return true; } }
 function setAiAccessEnabled(v){ try{ localStorage.setItem(AI_ACCESS_KEY, v ? '1' : '0'); }catch(e){} }
 
+function persistRecoveryLocal(key, value){
+  try{
+    localStorage.setItem(key, value);
+    if(localStorage.getItem(key) !== value) throw new Error('Local persistence verification failed');
+  }catch(e){ window.__focusatlasLocalWriteFailure = true; throw e; }
+}
 function collectSyncBlob(){
-  const read = (key)=>{ try{ return JSON.parse(localStorage.getItem(key) || 'null'); }catch(e){ return null; } };
+  if(window.__focusatlasLocalWriteFailure) throw new Error('Local save failed; cloud writes stopped');
+  const read = (key)=> JSON.parse(localStorage.getItem(key) || 'null'); // Corrupt/blocked storage must stop saving.
   return {
     order: read(SYNC_DATA_KEYS.ORDER_KEY),
     meta: read(SYNC_DATA_KEYS.META_KEY),
@@ -6934,25 +6941,55 @@ function debounce(fn, wait){
   return wrapped;
 }
 
+// Local candidate. No timers/network/storage. UI debounce supplies requests.
+function createSerialSaveQueue({collect, save, onSuccess, onError}) {
+  let pending = false, running = null;
+  async function drain() {
+    while (pending) {
+      pending = false;
+      try {
+        const blob = collect(); // Latest local state, including edits made during last save.
+        await save(blob);
+        onSuccess(blob);
+      } catch(e) {
+        pending = false; // No blind retries after denied/uncertain/conflicting save.
+        onError(e);
+        return;
+      }
+    }
+  }
+  const queue = {
+    request() {
+      pending = true;
+      if (!running) running = Promise.resolve().then(drain).finally(() => {
+        running=null;
+        if (pending) return queue.request();
+      });
+      return running;
+    }
+  };
+  return queue;
+}
+
+const guardedSaveQueue = createSerialSaveQueue({
+  collect: collectSyncBlob,
+  save: blob=>window.firebaseSync.push(blob),
+  onSuccess: blob=>{
+    setLastSyncedAt(blob.savedAt);
+    setSyncStatus('同期済み ' + new Date(blob.savedAt).toLocaleTimeString('ja-JP', {hour:'2-digit', minute:'2-digit'}));
+  },
+  onError: ()=>setSyncStatus('同期に失敗しました。端末データを保持し、クラウド保存を停止しています。')
+});
 const pushToCloudDebounced = debounce(async ()=>{
   if(!window.firebaseSync || !window.firebaseSync.isConnected()) return;
-  const blob = collectSyncBlob();
-  try{
-    await window.firebaseSync.push(blob);
-  }catch(err){
-    console.warn('cloud push failed', err);
-    setSyncStatus('同期に失敗しました。接続を確認してください。');
-    return; // don't claim success — leave lastSyncedAt as-is so a later
-             // retry still sees this change as unsynced.
-  }
-  setLastSyncedAt(blob.savedAt);
-  setSyncStatus('同期済み ' + new Date(blob.savedAt).toLocaleTimeString('ja-JP', {hour:'2-digit', minute:'2-digit'}));
+  if(window.firebaseSync.recoveryReadOnly){ setSyncStatus('読み取り専用です。変更は端末内に保存されています。'); return; }
+  await guardedSaveQueue.request();
 }, 900);
 
 // A save made right before the user backgrounds the tab or closes it can
 // otherwise be lost: the 900ms debounce timer never gets a chance to fire
 // once the page is hidden/torn down. Flush any pending push immediately in
-// both cases so the last edit always makes it to the cloud.
+// both cases. A closing browser may still interrupt the request; local data remains.
 document.addEventListener('visibilitychange', ()=>{
   if(document.visibilityState === 'hidden'){
     pushToCloudDebounced.flush && pushToCloudDebounced.flush();
@@ -6978,6 +7015,8 @@ window.addEventListener('pagehide', ()=>{
   saveTimelineState = function(...a){ const r = _saveTimelineState(...a); pushToCloudDebounced(); return r; };
   const _saveCustomProjects = saveCustomProjects;
   saveCustomProjects = function(...a){ const r = _saveCustomProjects(...a); pushToCloudDebounced(); return r; };
+  const _saveTodayPick = saveTodayPick;
+  saveTodayPick = function(...a){ const r = _saveTodayPick(...a); pushToCloudDebounced(); return r; };
   const _saveAutoTimelineLog = saveAutoTimelineLog;
   saveAutoTimelineLog = function(...a){ const r = _saveAutoTimelineLog(...a); pushToCloudDebounced(); return r; };
 })();
@@ -7005,6 +7044,17 @@ let syncCheckInFlight = false;
 // every focus + every 45s), where local saves are already being pushed
 // live by the normal save path — so those callers pass forcePush:false and
 // simply do nothing when there's no genuine conflict.
+// No automatic import, merge, reload or cloud creation during restoration.
+function verifyRecoveryContent(cloudBlob){
+  if(!cloudBlob){ setSyncStatus('既存クラウドデータが見つかりません。保存できません。端末データを保持しています。'); return false; }
+  if(window.firebaseSync.recoveryReadOnly){ setSyncStatus('クラウド読み取り確認済み。保存停止中・端末データ保持'); return false; }
+  try{
+    if(!window.firebaseSync.recoveryState().armed) window.firebaseSync.confirmInitialMatch(collectSyncBlob());
+    setSyncStatus('内容一致確認済み。編集内容は競合確認後に保存します。');
+    return true;
+  }catch(_){ setSyncStatus('データ差分または接続エラーのため保存できません。端末とクラウドを保持しています。'); return false; }
+}
+
 async function checkForReconnectConflict(forcePush = true){
   const code = getSyncCode();
   if(!code || !window.firebaseSync) return;
@@ -7013,27 +7063,10 @@ async function checkForReconnectConflict(forcePush = true){
   try{
     await window.firebaseSync.connect(code);
     const cloudBlob = await window.firebaseSync.pull();
-    if(!cloudBlob) return;
-
-    const cloudIsNewer = cloudBlob.savedAt > getLastSyncedAt();
-    const sameDevice = cloudBlob.deviceId === THIS_DEVICE_ID;
-
-    if(!cloudIsNewer || sameDevice){
-      // no real conflict — either nothing changed, or it was us all along
-      if(forcePush) pushToCloudDebounced();
-      return;
-    }
-
-    // A different device wrote newer data while this one was
-    // offline/disconnected — always take the newer copy automatically, no
-    // prompt. Simpler, at the cost of silently discarding any edits made
-    // on *this* device since its last successful sync, if there were any
-    // (this app syncs by replacing the whole record, not by merging).
-    applySyncBlob(cloudBlob);
-    setLastSyncedAt(cloudBlob.savedAt);
-    setSyncStatus('別の端末の更新を読み込みました。再読み込みします…');
-    setTimeout(()=> location.reload(), 500);
+    const ready = verifyRecoveryContent(cloudBlob);
+    if(ready && forcePush) pushToCloudDebounced();
   }catch(err){
+    setSyncStatus('接続確認に失敗しました。端末データを保持し、保存を停止しています。');
     console.warn('reconnect conflict check failed', err);
   }finally{
     syncCheckInFlight = false;
@@ -7092,11 +7125,23 @@ function setSyncStatus(text){
   }
 }
 
+async function exportRecoverySnapshot(){
+  try{
+    if(!window.firebaseSync?.isConnected()) throw new Error('Not connected');
+    const localBackup=buildBackupObject(), localSync=collectSyncBlob();
+    const remote=await window.firebaseSync.snapshot();
+    const payload={app:'FocusAtlas Recovery Snapshot',version:1,exportedAt:new Date().toISOString(),projectId:'taskparty-db284',database:'(default)',localBackup,localSync,cloud:remote.cloud,inbox:remote.inbox};
+    const url=URL.createObjectURL(new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}));
+    const a=document.createElement('a');a.href=url;a.download='FocusAtlas-Recovery-PRIVATE.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+    setSyncStatus('復旧用データを書き出しました。ファイルの保存を確認してください。内容は共有しないでください。');
+  }catch(_){ setSyncStatus('復旧用バックアップに失敗しました。データは変更していません。'); }
+}
+
 function refreshSyncButton(){
   const code = getSyncCode();
   if(code){
     syncBtn.classList.add('connected');
-    syncBtnLabel.textContent = 'Synced';
+    syncBtnLabel.textContent = window.firebaseSync?.recoveryReadOnly === false ? 'Sync guarded' : 'Read only';
     syncCodeInput.value = code;
     syncDisconnectBtn.style.display = '';
   } else {
@@ -7104,6 +7149,13 @@ function refreshSyncButton(){
     syncBtnLabel.textContent = 'Sync off';
     syncDisconnectBtn.style.display = 'none';
   }
+}
+
+if(syncPopover){
+  const recoveryBackupBtn=document.createElement('button');
+  recoveryBackupBtn.type='button'; recoveryBackupBtn.textContent='復旧用バックアップ';
+  recoveryBackupBtn.addEventListener('click',exportRecoverySnapshot);
+  syncPopover.appendChild(recoveryBackupBtn);
 }
 
 syncBtn.addEventListener('click', (e)=>{
@@ -7129,7 +7181,8 @@ syncConnectBtn.addEventListener('click', async ()=>{
   if(!window.firebaseSync){ setSyncStatus('Firebase未設定です(コード側でconfigを設定してください)'); return; }
 
   setSyncStatus('接続しています…');
-  await window.firebaseSync.connect(code);
+  try { await window.firebaseSync.connect(code); }
+  catch (_) { setSyncStatus('既存認証を確認できません。再認証せず停止しました。端末データは保持しています。'); return; }
 
   // IMPORTANT: a failed fetch here must NEVER be treated as "the cloud is
   // empty" — that would push this device's local data over whatever another
@@ -7148,28 +7201,12 @@ syncConnectBtn.addEventListener('click', async ()=>{
   setSyncCode(code);
   refreshSyncButton();
 
-  if(cloudBlob){
-    applySyncBlob(cloudBlob);
-    setLastSyncedAt(cloudBlob.savedAt || Date.now());
-    setSyncStatus('クラウドのデータを読み込みました。再読み込みします…');
-    setTimeout(()=> location.reload(), 500);
-  } else {
-    // pull genuinely succeeded and found nothing — safe to seed the cloud
-    // with this device's current local state.
-    const blob = collectSyncBlob();
-    try{
-      await window.firebaseSync.push(blob);
-    }catch(err){
-      console.warn('initial push failed', err);
-      setSyncStatus('接続しましたが、クラウドへの保存に失敗しました。もう一度お試しください。');
-      return;
-    }
-    setLastSyncedAt(blob.savedAt);
-    setSyncStatus('接続しました。このデータをクラウドに保存しました。');
-  }
+  verifyRecoveryContent(cloudBlob);
+
 });
 
 syncDisconnectBtn.addEventListener('click', ()=>{
+  if(window.firebaseSync?.disconnect) window.firebaseSync.disconnect();
   setSyncCode('');
   refreshSyncButton();
   setSyncStatus('切断しました(ローカル保存のみになります)');
@@ -7429,6 +7466,7 @@ function restoreBackup(obj){
 // Reads the chosen file, validates it, takes a safety copy of the current
 // state, confirms with the user, then restores and reloads.
 function importBackupFromFile(file){
+  if(window.firebaseSync?.guardedRecovery){ showToast('復旧中はバックアップ読込みを停止しています。既存データを保持します。'); return; }
   const reader = new FileReader();
   reader.onload = async ()=>{
     let parsed;
@@ -7912,12 +7950,7 @@ window.addEventListener('load', async ()=>{
     // Only now is Firebase sync actually transferring data.
     if(_loadStatus) _loadStatus.textContent = 'Syncing your Atlas...';
     const cloudBlob = await window.firebaseSync.pull();
-    if(cloudBlob && cloudBlob.savedAt > getLastSyncedAt()){
-      applySyncBlob(cloudBlob);
-      setLastSyncedAt(cloudBlob.savedAt);
-      location.reload();
-      return;
-    }
+    verifyRecoveryContent(cloudBlob);
   }catch(err){
     console.warn('cloud sync check failed', err);
   }
@@ -8083,7 +8116,7 @@ window.addEventListener('load', async ()=>{
       const ctrl = new AbortController();
       const timer = setTimeout(() => ctrl.abort(), 45000); // 45秒で打ち切り
       try {
-        res = await fetch(ATLAS_WORKER_URL, {
+        res = await window.firebaseSync.aiFetch(ATLAS_WORKER_URL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           // max_tokens を明示（Worker側が尊重すれば途中切れを防げる）。provider省略 = Claude既定
@@ -8602,7 +8635,7 @@ window.addEventListener('load', async ()=>{
       const ctrl = new AbortController();
       const timer = setTimeout(() => ctrl.abort(), 45000);
       try {
-        res = await fetch(ATLAS_WORKER_URL, {
+        res = await window.firebaseSync.aiFetch(ATLAS_WORKER_URL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ system, user, max_tokens: 1500 }),
@@ -9147,6 +9180,7 @@ window.addEventListener('load', async ()=>{
   }
 
   async function resolveDoc(d, approve) {
+    if (!window.firebaseSync || window.firebaseSync.recoveryReadOnly || window.firebaseSync.inboxFrozen) { alert('復旧中はInboxの承認・破棄を停止しています。'); return; }
     const n = approve ? applyRows(d._rows || []) : 0;
     // remove locally first so the UI responds immediately; the snapshot will agree
     inbox.docs = inbox.docs.filter((x) => x.id !== d.id);
@@ -9330,31 +9364,11 @@ window.addEventListener('load', async ()=>{
 
 </script>
 
-<!-- =========================================================
-     Firebase cloud sync (optional). Paste your own Firebase
-     project config below to enable cross-device sync via the
-     "Sync" button in the header. Without a real config, the
-     app works exactly as before using localStorage only.
-
-     Setup (free):
-     1) https://console.firebase.google.com → Add project
-     2) Build → Firestore Database → Create database (test mode is fine to start)
-     3) Build → Authentication → Sign-in method → enable "Anonymous"
-     4) Project settings → General → "Your apps" → Web app (</>) → copy the config object below
-     5) Firestore → Rules, paste:
-          rules_version = '2';
-          service cloud.firestore {
-            match /databases/{database}/documents {
-              match /quest_dashboards/{code} {
-                allow read, write: if request.auth != null;
-              }
-            }
-          }
-     ========================================================= -->
+<!-- Security recovery candidate: existing authentication only; cloud writes and AI calls disabled. Never use broad authenticated-user Rules. -->
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-  import { getFirestore, doc, getDoc, setDoc, collection, onSnapshot, deleteDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-  import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+  import { initializeApp, getApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getFirestore, doc, getDoc, getDocFromServer, getDocsFromServer, runTransaction, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+  import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
   // ▼▼▼ paste your own Firebase project config here ▼▼▼
   const firebaseConfig = {
@@ -9371,16 +9385,20 @@ window.addEventListener('load', async ()=>{
     let app, db, auth, docRef, currentCode = null, inboxUnsub = null;
 
     async function ensureInit(){
-      if(app) return;
-      app = initializeApp(firebaseConfig);
+      if(app && auth) return;
+      app = getApps().length ? getApp() : initializeApp(firebaseConfig);
+      if(app.options.projectId !== firebaseConfig.projectId) throw new Error('Firebaseプロジェクトが異なります。接続を停止しました。');
       db = getFirestore(app);
       auth = getAuth(app);
-      await signInAnonymously(auth).catch(err=> console.warn('anon sign-in failed', err));
+      await auth.authStateReady();
+      if (!auth.currentUser) throw new Error('既存の認証状態がありません。新しい匿名認証は作成せず停止します。');
     }
 
     async function connect(code){
       await ensureInit();
-      docRef = doc(db, 'quest_dashboards', code);
+      await auth.authStateReady();
+      if (!auth.currentUser) throw new Error('認証状態を確認できません。');
+      if (currentCode !== code) { recovery.reset(); stopInbox(); docRef = doc(db, 'quest_dashboards', code); }
       currentCode = code;
     }
 
@@ -9399,22 +9417,118 @@ window.addEventListener('load', async ()=>{
       if(inboxUnsub){ try{ inboxUnsub(); }catch(_){} inboxUnsub = null; }
     }
     async function removeInbox(id){
-      if(!db || !currentCode) return;
-      await deleteDoc(doc(db, 'quest_dashboards', currentCode, 'inbox', id));
+      throw new Error('復旧中はInbox操作を停止しています。');
     }
 
-    async function pull(){
-      if(!docRef) return null;
-      const snap = await getDoc(docRef); // let errors propagate — callers must
-      return snap.exists() ? snap.data() : null; // tell "empty" apart from "failed"
+// LOCAL CANDIDATE: embedded into local FocusAtlas candidate. Existing data only.
+// Initial content equality and later concurrent-update checks are separate gates.
+function createGuardedWriteAdapter({read, transaction, reference, contentKeys, readOnly = true}) {
+  if (!Array.isArray(contentKeys) || !contentKeys.length || new Set(contentKeys).size !== contentKeys.length || contentKeys.some(k => typeof k !== 'string' || ['__proto__','constructor','prototype','__syncRevision'].includes(k))) throw Error('Explicit content keys required');
+  let baseline = null, armed = false, busy = false, generation = 0, verified = false, remoteMatches = false;
+  const stable = v => Array.isArray(v) ? v.map(stable) : v && typeof v === 'object' ? Object.fromEntries(Object.keys(v).sort().map(k => [k, stable(v[k])])) : v;
+  const fingerprint = v => JSON.stringify(stable(v));
+  const clone = v => JSON.parse(JSON.stringify(v));
+  const revision = d => {
+    const n = d.__syncRevision ?? 0;
+    if (!Number.isSafeInteger(n) || n < 0 || n === Number.MAX_SAFE_INTEGER || d.__syncRevision === null) throw Error('Invalid revision; saving stopped');
+    return n;
+  };
+  const content = d => Object.fromEntries(contentKeys.map(k => [k, Object.hasOwn(d, k) ? {present:true, value:d[k]} : {present:false}]));
+  const validBlob = d => { if (!d || typeof d !== 'object' || Array.isArray(d)) throw Error('Invalid sync object'); };
+  const target = () => {
+    const ref = reference();
+    if (!ref) throw Error('No sync target');
+    if (baseline && ref !== baseline.ref) { armed = false; throw Error('Target changed; reset and verify again'); }
+    return ref;
+  };
+  return {
+    reset() { generation++; baseline = null; armed = false; verified = false; remoteMatches = false; },
+    status() { return {readOnly, armed, busy, hasBaseline:!!baseline}; },
+    async pull() {
+      const ref = target(), epoch = generation;
+      let snap;
+      try { snap = await read(ref); } catch(e) { armed=false; remoteMatches=false; throw e; }
+      if (epoch !== generation || reference() !== ref) throw Error('Session changed during read');
+      if (!snap.exists()) { armed = false; remoteMatches = false; verified = false; return null; }
+      const data = snap.data(); validBlob(data); revision(data);
+      const fp = fingerprint(data);
+      if (!baseline) baseline = {ref, data:clone(data), fingerprint:fp};
+      remoteMatches = baseline.fingerprint === fp;
+      if (!remoteMatches) { armed = false; verified = false; } // Never rebase silently.
+      return clone(data);
+    },
+    armForWrite(localBlob) {
+      if (readOnly) throw Error('Read-only restoration');
+      target(); validBlob(localBlob);
+      if (!baseline) throw Error('Read existing cloud data first');
+      if (armed) throw Error('Already armed; use normal save');
+      if (!remoteMatches) throw Error('Remote baseline mismatch; saving stopped');
+      // A previously verified session may retain offline edits, but only after
+      // a fresh server read proves the entire acknowledged cloud copy unchanged.
+      if (!verified && fingerprint(content(localBlob)) !== fingerprint(content(baseline.data))) throw Error('Initial local/cloud mismatch; preserve both, saving stopped');
+      armed = true; verified = true;
+    },
+    async push(blob) {
+      if (readOnly) throw Error('Read-only restoration');
+      target(); validBlob(blob);
+      if (!baseline || !armed) throw Error('Initial equality not verified; saving stopped');
+      if (busy) throw Error('Save already in progress');
+      // Full content payload: callers cannot accidentally omit an existing content field.
+      if (contentKeys.some(k => Object.hasOwn(baseline.data,k) && !Object.hasOwn(blob,k))) throw Error('Incomplete content payload; saving stopped');
+      if (contentKeys.some(k => baseline.data[k] != null && (blob[k] == null || typeof blob[k] !== typeof baseline.data[k] || Array.isArray(blob[k]) !== Array.isArray(baseline.data[k])))) throw Error('Content type changed or missing; saving stopped');
+      if (Object.hasOwn(blob,'__syncRevision')) throw Error('Revision belongs to adapter');
+      if (Object.keys(blob).some(k => ['__proto__','constructor','prototype'].includes(k))) throw Error('Unsafe sync key');
+      busy = true;
+      const expected = baseline, epoch = generation;
+      try {
+        const committed = await transaction(async tx => {
+          if (epoch !== generation || reference() !== expected.ref) throw Error('Session changed during save');
+          const snap = await tx.get(expected.ref);
+          if (!snap.exists()) throw Error('Existing cloud document missing; no creation');
+          const current = snap.data(); revision(current);
+          if (fingerprint(current) !== expected.fingerprint) throw Error('Remote update; preserve local, saving stopped');
+          if (epoch !== generation || reference() !== expected.ref) throw Error('Session changed during save');
+          const patch = {...clone(blob), __syncRevision:revision(current)+1};
+          tx.update(expected.ref, patch);
+          return {...current, ...patch};
+        });
+        if (epoch !== generation || reference() !== expected.ref) { armed=false; throw Error('Session changed after commit; reconciliation required'); }
+        baseline = {ref:expected.ref, data:clone(committed), fingerprint:fingerprint(committed)};
+        remoteMatches = true;
+        return true;
+      } catch(e) { armed=false; remoteMatches=false; throw e; } finally { busy=false; }
+    }
+  };
+}
+
+    // LOCAL CANDIDATE. False until separate production approval.
+    const RECOVERY_WRITE_ENABLED = true;
+    const recovery = createGuardedWriteAdapter({
+      read: getDocFromServer,
+      transaction: fn => runTransaction(db, fn),
+      reference: () => docRef,
+      contentKeys: ['order','meta','quad','milestones','timeline','customProjects','autoTimelineLog','todayPick','aiAccess'],
+      readOnly: !RECOVERY_WRITE_ENABLED
+    });
+    async function pull(){ return recovery.pull(); }
+    async function push(blob){ return recovery.push(blob); }
+
+    async function snapshot(){
+      await ensureInit();
+      const target=docRef, code=currentCode;
+      if(!target) throw new Error('既存同期先の確認が必要です。');
+      const before=await getDocFromServer(target);
+      if(!before.exists()) throw new Error('既存クラウドデータが見つかりません。');
+      const inbox=await getDocsFromServer(collection(db,'quest_dashboards',code,'inbox'));
+      const after=await getDocFromServer(target);
+      if(target!==docRef || !after.exists() || JSON.stringify(before.data())!==JSON.stringify(after.data())) throw new Error('取得中の変更を検出しました。保存せず停止します。');
+      return {cloud:after.data(),inbox:inbox.docs.map(d=>({id:d.id,data:d.data()}))};
     }
 
-    async function push(blob){
-      if(!docRef) return;
-      await setDoc(docRef, blob); // let errors propagate — see pull() above
+    async function aiFetch(url, init = {}) {
+      throw new Error('読み取り専用復旧中は外部AIへの接続を停止しています。');
     }
-
-    window.firebaseSync = { connect, pull, push, isConnected: ()=> !!docRef, listenInbox, removeInbox, stopInbox };
+    window.firebaseSync = { connect, pull, push, snapshot, aiFetch, identity: () => auth?.currentUser ? {uid:auth.currentUser.uid, anonymous:auth.currentUser.isAnonymous} : null, recoveryReadOnly:!RECOVERY_WRITE_ENABLED, guardedRecovery:true, inboxFrozen:true, recoveryState:()=>recovery.status(), confirmInitialMatch:blob=>recovery.armForWrite(blob), disconnect:()=>{recovery.reset(); stopInbox(); docRef=null; currentCode=null;}, isConnected: ()=> !!docRef, listenInbox, removeInbox, stopInbox };
   }
 </script>
 </body>
