@@ -2536,6 +2536,10 @@ html .alltodos-item.done .ck{ background: var(--green); border-color: var(--gree
     <button class="sync-action-btn sync-connect" id="syncConnectBtn" type="button">接続</button>
   </div>
   <div class="sync-status" id="syncStatusText"></div>
+  <div class="sync-actions" id="syncConflictBox" style="display:none; flex-direction:column; align-items:stretch; margin-top:10px;">
+    <button class="sync-action-btn sync-connect" id="syncUseLocalBtn" type="button">この端末の内容を使う</button>
+    <button class="sync-action-btn sync-disconnect" id="syncUseCloudBtn" type="button">クラウドの内容を使う</button>
+  </div>
 </div>
 
 <div class="sync-loading-overlay" id="syncLoadingOverlay">
@@ -6987,19 +6991,134 @@ function readSyncAcknowledgement() {
   return p.cloud;
 }
 function persistSyncAcknowledgement(cloud) { persistRecoveryLocal(SYNC_ACK_KEY, JSON.stringify(syncAckEnvelope(cloud))); }
-function importAcknowledgedRemote(cloud) {
+function importAcknowledgedRemote(cloud) { writeLocalSyncContent(cloud, true); }
+// Writes the synced fields of `data` into this device's storage, verifies the
+// result, and rolls everything back if any step fails. With acknowledge=true
+// the data is also recorded as the last state this device agreed with.
+function writeLocalSyncContent(data, acknowledge) {
   const names={order:SYNC_DATA_KEYS.ORDER_KEY,meta:SYNC_DATA_KEYS.META_KEY,quad:SYNC_DATA_KEYS.QUAD_KEY,milestones:SYNC_DATA_KEYS.MILESTONE_KEY,timeline:SYNC_DATA_KEYS.TIMELINE_KEY,customProjects:SYNC_DATA_KEYS.CUSTOM_PROJECTS_KEY,autoTimelineLog:SYNC_DATA_KEYS.AUTO_TIMELINE_LOG_KEY,todayPick:SYNC_DATA_KEYS.TODAY_KEY};
-  if(Object.keys(names).some(k=>cloud[k]===null || cloud[k]===undefined)) throw Error('Incomplete cloud data; local preserved');
+  if(Object.keys(names).some(k=>data[k]===null || data[k]===undefined)) throw Error('Incomplete cloud data; local preserved');
   const previous=Object.fromEntries([...Object.values(names),AI_ACCESS_KEY,SYNC_ACK_KEY].map(k=>[k,localStorage.getItem(k)]));
   try {
-    for(const[k,key]of Object.entries(names)) persistRecoveryLocal(key,JSON.stringify(cloud[k]));
-    persistRecoveryLocal(AI_ACCESS_KEY, cloud.aiAccess===false ? '0' : '1');
-    if(syncFingerprint(syncContent(collectSyncBlob()))!==syncFingerprint(syncContent(cloud))) throw Error('Remote import mismatch');
-    persistSyncAcknowledgement(cloud);
+    for(const[k,key]of Object.entries(names)) persistRecoveryLocal(key,JSON.stringify(data[k]));
+    persistRecoveryLocal(AI_ACCESS_KEY, data.aiAccess===false ? '0' : '1');
+    if(syncFingerprint(syncContent(collectSyncBlob()))!==syncFingerprint(syncContent(data))) throw Error('Remote import mismatch');
+    if(acknowledge) persistSyncAcknowledgement(data);
   } catch(e) {
     for(const[k,v]of Object.entries(previous)) { if(v===null) localStorage.removeItem(k); else localStorage.setItem(k,v); if(localStorage.getItem(k)!==v) throw Error('Local rollback failed; saving stopped'); }
     throw e;
   }
+}
+
+// Three-way merge of the synced fields. `base` is the last state both sides
+// agreed on (the acknowledgement). Objects merge key by key, arrays of items
+// with an `id` merge item by item, anything else must have changed on one
+// side only. A real clash (same thing edited differently on both devices)
+// throws, and the user picks a side instead.
+const SYNC_MISSING = Symbol('missing');
+function syncMergeValue(b, l, r) {
+  const eq = (x,y) => x===SYNC_MISSING || y===SYNC_MISSING ? x===y : syncFingerprint(x)===syncFingerprint(y);
+  if(eq(l,r)) return l;
+  if(eq(b,l)) return r;
+  if(eq(b,r)) return l;
+  const plain = v => v && typeof v==='object' && !Array.isArray(v);
+  if(plain(l) && plain(r) && (b===SYNC_MISSING || plain(b))) {
+    const bo = plain(b) ? b : {}, out = {};
+    for(const k of new Set([...Object.keys(bo),...Object.keys(l),...Object.keys(r)])) {
+      const get = (o,own) => own && Object.hasOwn(o,k) ? o[k] : SYNC_MISSING;
+      const v = syncMergeValue(get(bo,plain(b)), get(l,true), get(r,true));
+      if(v!==SYNC_MISSING) out[k]=v;
+    }
+    return out;
+  }
+  const idList = v => Array.isArray(v) && v.every(x=>plain(x) && typeof x.id==='string') && new Set(v.map(x=>x.id)).size===v.length;
+  if(idList(l) && idList(r) && (b===SYNC_MISSING || idList(b))) {
+    const map = a => new Map(a.map(x=>[x.id,x]));
+    const bm = idList(b) ? map(b) : new Map(), lm = map(l), rm = map(r), merged = new Map();
+    for(const id of new Set([...bm.keys(),...lm.keys(),...rm.keys()])) {
+      const g = m => m.has(id) ? m.get(id) : SYNC_MISSING;
+      const v = syncMergeValue(g(bm), g(lm), g(rm));
+      if(v!==SYNC_MISSING) merged.set(id,v);
+    }
+    // Keep the ordering from whichever side reordered; new items go last.
+    const ids = a => a.map(x=>x.id).join('\n');
+    const lead = idList(b) && ids(r)===ids(b) ? l : r, other = lead===l ? r : l;
+    const order = [...lead.map(x=>x.id), ...other.map(x=>x.id)].filter((id,i,a)=>merged.has(id) && a.indexOf(id)===i);
+    return order.map(id=>merged.get(id));
+  }
+  throw Error('Sync merge conflict');
+}
+function mergeSyncContent(base, local, cloud) {
+  const pick = d => Object.fromEntries(SYNC_CONTENT_FIELDS.map(k=>[k, k==='aiAccess' && !Object.hasOwn(d,k) ? true : Object.hasOwn(d,k) ? d[k] : SYNC_MISSING]));
+  const b = pick(base), l = pick(local), r = pick(cloud), out = {};
+  for(const k of SYNC_CONTENT_FIELDS) {
+    const v = syncMergeValue(b[k], l[k], r[k]);
+    if(v===SYNC_MISSING) throw Error('Sync merge removed a field');
+    out[k] = v;
+  }
+  return out;
+}
+
+// Copy of both sides kept on this device before any conflict resolution.
+const SYNC_CONFLICT_BACKUP_KEY = 'projects_sync_conflict_backup_v1';
+function saveConflictBackup(local, cloud) {
+  try { localStorage.setItem(SYNC_CONFLICT_BACKUP_KEY, JSON.stringify({savedAt:new Date().toISOString(), local, cloud})); return true; }
+  catch(_) { return false; }
+}
+// Auto-merge only for divergences that start after this device has synced
+// cleanly at least once with this version; older stuck conflicts are left to
+// the user so a stale device's edits are never folded in silently.
+const SYNC_AUTOMERGE_KEY = 'projects_sync_automerge_ready_v1';
+const syncAutoMergeReady = () => { try { return localStorage.getItem(SYNC_AUTOMERGE_KEY)==='1'; } catch(_) { return false; } };
+const markSyncAutoMergeReady = () => { try { localStorage.setItem(SYNC_AUTOMERGE_KEY,'1'); } catch(_) {} };
+
+async function autoMergeConflict(local, cloud) {
+  const ack = readSyncAcknowledgement();
+  if(!ack || !syncAutoMergeReady()) return false;
+  let merged;
+  try { merged = mergeSyncContent(ack, local, cloud); } catch(_) { return false; }
+  saveConflictBackup(local, cloud);
+  writeLocalSyncContent(merged, false);
+  const fresh = await window.firebaseSync.rebase();
+  if(syncFingerprint(fresh)!==syncFingerprint(cloud)) throw Error('Cloud changed during merge; retry next check');
+  await window.firebaseSync.push(collectSyncBlob());
+  persistSyncAcknowledgement(window.firebaseSync.acknowledged());
+  return true;
+}
+
+function showSyncConflict(show) {
+  const box = document.getElementById('syncConflictBox');
+  if(box) box.style.display = show ? '' : 'none';
+}
+async function resolveSyncConflict(useThisDevice) {
+  if(!window.firebaseSync?.isConnected()) { setSyncStatus('接続されていません。'); return; }
+  const msg = useThisDevice
+    ? 'この端末の内容でクラウドを上書きします。他の端末は次回の同期でこの内容に置き換わります。よろしいですか?'
+    : 'クラウドの内容をこの端末に読み込みます。この端末の未同期の変更は置き換わります。よろしいですか?';
+  if(!confirm(msg)) return;
+  if(syncCheckInFlight || guardedSaveQueue.isBusy()) { setSyncStatus('同期処理中です。数秒後にもう一度お試しください。'); return; }
+  syncCheckInFlight = true;
+  try {
+    const local = collectSyncBlob();
+    const cloud = await window.firebaseSync.rebase();
+    if(!saveConflictBackup(local, cloud) && !confirm('端末内に控えを保存できませんでした。このまま続けますか?')) { window.firebaseSync.resetRecovery(); return; }
+    if(useThisDevice) {
+      await window.firebaseSync.push(local);
+      persistSyncAcknowledgement(window.firebaseSync.acknowledged());
+      markSyncAutoMergeReady();
+      showSyncConflict(false);
+      setSyncStatus('同期済み。この端末の内容をクラウドに保存しました。');
+    } else {
+      importAcknowledgedRemote(cloud);
+      markSyncAutoMergeReady();
+      setSyncStatus('クラウドの内容を読み込みました。画面を更新します。');
+      location.reload();
+    }
+  } catch(e) {
+    window.firebaseSync.resetRecovery();
+    console.warn('sync conflict resolution failed', e);
+    setSyncStatus('解決に失敗しました。端末のデータは保持しています。もう一度お試しください。');
+  } finally { syncCheckInFlight = false; }
 }
 
 const guardedSaveQueue = createSerialSaveQueue({
@@ -7100,6 +7219,19 @@ async function checkForReconnectConflict(forcePush = true){
     const before=collectSyncBlob();
     const result=await window.firebaseSync.reconcile(before,readSyncAcknowledgement());
     if(syncEditorActive() || syncFingerprint(syncContent(before))!==syncFingerprint(syncContent(collectSyncBlob()))) { window.firebaseSync.resetRecovery(); throw Error('Local edit during sync; preserved'); }
+    if(result.action==='conflict') {
+      if(await autoMergeConflict(before, result.cloud)) {
+        showSyncConflict(false);
+        setSyncStatus('両端末の変更を統合しました。画面を更新します。');
+        location.reload();
+        return;
+      }
+      showSyncConflict(true);
+      setSyncStatus('この端末とクラウドの両方に別々の変更があり、自動で統合できません。下のボタンでどちらの内容を使うか選んでください。');
+      return;
+    }
+    showSyncConflict(false);
+    markSyncAutoMergeReady();
     if(result.action==='remote') {
       importAcknowledgedRemote(result.cloud);
       setSyncStatus('他の端末の更新を読み込みました。画面を更新します。');
@@ -7198,6 +7330,8 @@ if(syncPopover){
   recoveryBackupBtn.type='button'; recoveryBackupBtn.textContent='復旧用バックアップ';
   recoveryBackupBtn.addEventListener('click',exportRecoverySnapshot);
   syncPopover.appendChild(recoveryBackupBtn);
+  document.getElementById('syncUseLocalBtn')?.addEventListener('click', ()=>resolveSyncConflict(true));
+  document.getElementById('syncUseCloudBtn')?.addEventListener('click', ()=>resolveSyncConflict(false));
 }
 
 syncBtn.addEventListener('click', (e)=>{
@@ -9504,10 +9638,30 @@ function createGuardedWriteAdapter({read, transaction, reference, contentKeys, r
         if (same(localBlob, cloud)) action = 'matched';
         else if (acknowledged && fingerprint(cloud) === fingerprint(acknowledged)) action = 'local';
         else if (acknowledged && same(localBlob, acknowledged)) action = 'remote';
-        else throw Error('Concurrent or unacknowledged changes; preserve both');
-        armed = action !== 'remote'; verified = armed; remoteMatches = armed;
+        else action = 'conflict'; // Both sides changed: caller merges or asks the user.
+        armed = action === 'matched' || action === 'local'; verified = armed; remoteMatches = armed;
         if (armed) baseline = {ref, data:clone(cloud), fingerprint:fingerprint(cloud)};
         return {action, cloud:clone(cloud)};
+      } catch(e) { armed=false; remoteMatches=false; throw e; }
+      finally { busy=false; }
+    },
+    // Explicit resolution: adopt the current server copy as the baseline and
+    // allow the next push to replace it. The push transaction still refuses
+    // if the server changes again after this read.
+    async rebase() {
+      if (readOnly) throw Error('Read-only restoration');
+      if (busy) throw Error('Sync already in progress');
+      const ref = reference(), epoch = generation;
+      if (!ref) throw Error('No sync target');
+      busy = true;
+      try {
+        const snap = await read(ref);
+        if (epoch !== generation || reference() !== ref) throw Error('Session changed during read');
+        if (!snap.exists()) throw Error('Existing cloud document missing; no creation');
+        const cloud = snap.data(); validBlob(cloud); revision(cloud);
+        baseline = {ref, data:clone(cloud), fingerprint:fingerprint(cloud)};
+        armed = true; verified = true; remoteMatches = true;
+        return clone(cloud);
       } catch(e) { armed=false; remoteMatches=false; throw e; }
       finally { busy=false; }
     },
@@ -9596,7 +9750,7 @@ function createGuardedWriteAdapter({read, transaction, reference, contentKeys, r
     async function aiFetch(url, init = {}) {
       throw new Error('読み取り専用復旧中は外部AIへの接続を停止しています。');
     }
-    window.firebaseSync = { connect, pull, push, snapshot, reconcile:(local,ack)=>recovery.reconcile(local,ack), acknowledged:()=>recovery.acknowledged(), resetRecovery:()=>recovery.reset(), multiDeviceGuarded:true, aiFetch, identity: () => auth?.currentUser ? {uid:auth.currentUser.uid, anonymous:auth.currentUser.isAnonymous} : null, recoveryReadOnly:!RECOVERY_WRITE_ENABLED, guardedRecovery:true, inboxFrozen:true, recoveryState:()=>recovery.status(), confirmInitialMatch:blob=>recovery.armForWrite(blob), disconnect:()=>{recovery.reset(); stopInbox(); docRef=null; currentCode=null;}, isConnected: ()=> !!docRef, listenInbox, removeInbox, stopInbox };
+    window.firebaseSync = { connect, pull, push, snapshot, reconcile:(local,ack)=>recovery.reconcile(local,ack), rebase:()=>recovery.rebase(), acknowledged:()=>recovery.acknowledged(), resetRecovery:()=>recovery.reset(), multiDeviceGuarded:true, aiFetch, identity: () => auth?.currentUser ? {uid:auth.currentUser.uid, anonymous:auth.currentUser.isAnonymous} : null, recoveryReadOnly:!RECOVERY_WRITE_ENABLED, guardedRecovery:true, inboxFrozen:true, recoveryState:()=>recovery.status(), confirmInitialMatch:blob=>recovery.armForWrite(blob), disconnect:()=>{recovery.reset(); stopInbox(); docRef=null; currentCode=null;}, isConnected: ()=> !!docRef, listenInbox, removeInbox, stopInbox };
   }
 </script>
 </body>
